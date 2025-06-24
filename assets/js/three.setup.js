@@ -25,7 +25,7 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize( window.innerWidth, window.innerHeight );
 // document.body.appendChild( renderer.domElement );
-
+s
 // Load model
 const loader = new GLTFLoader();
 let earthModel = null;
