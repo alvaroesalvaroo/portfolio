@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"
+          />
+    <!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+    <title>Material Design for Bootstrap</title>
+
+    <!-- MDB -->
+    <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.1/mdb.min.css"
+          rel="stylesheet"
+          />
+
+    <style>
+      .webgl {
+        position: absolute;
+        top: 0;
+        left: 0;
+        outline: none;
+        z-index: -1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container text-center text-white">
+      <h1 class="my-5">Bootstrap 5 & Three.js starter templatee</h1>
+      <h2>
+        With the use of
+        <a target="_blank" href="https://mdbootstrap.com/" class="text-reset"
+           ><u>MDB UI KIT</u></a>
+      </h2>
+    </div>
+
+    <canvas class="webgl"></canvas>
+
+    <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.1/mdb.min.js"
+            ></script>
+
+    <!-- Three.js core -->
+    <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
+            ></script>
+    <!-- Three.js setup -->
+    <script type="text/javascript">
+
+      // Texture
+      const textureLoader = new THREE.TextureLoader();
+      const normalTexture = textureLoader.load("./assets/img/normaltexture.jpeg");
+
+      // Canvas
+      const canvas = document.querySelector("canvas.webgl");
+
+      // Scene
+      const scene = new THREE.Scene();
+
+      // Objects
+      const geometry = new THREE.BoxGeometry(1, 1, 1);
+
+      // Materials
+      const material = new THREE.MeshStandardMaterial();
+      material.map = normalTexture;
+
+      // Mesh
+      const shape = new THREE.Mesh(geometry, material);
+      scene.add(shape);
+
+      // Lights
+      const pointLight = new THREE.PointLight(0xffffff, 1);
+      pointLight.position.x = 2;
+      pointLight.position.y = 3;
+      pointLight.position.z = 4;
+      scene.add(pointLight);
+
+      /**
+       * Sizes
+       */
+      const sizes = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
+
+      window.addEventListener("resize", () => {
+        // Update sizes
+        sizes.width = window.innerWidth;
+        sizes.height = window.innerHeight;
+
+        // Update camera
+        camera.aspect = sizes.width / sizes.height;
+        camera.updateProjectionMatrix();
+
+        // Update renderer
+        renderer.setSize(sizes.width, sizes.height);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      });
+
+      /**
+       * Camera
+       */
+      // Base camera
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        sizes.width / sizes.height,
+        0.1,
+        100
+      );
+      camera.position.x = 0;
+      camera.position.y = 0;
+      camera.position.z = 5;
+      scene.add(camera);
+
+      /**
+       * Renderer
+       */
+      const renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+      });
+      renderer.setSize(sizes.width, sizes.height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      /**
+       * Animate
+       */
+
+      const clock = new THREE.Clock();
+
+      const tick = () => {
+        const elapsedTime = clock.getElapsedTime();
+
+        // Update objects
+        shape.rotation.y = 0.2 * elapsedTime;
+        shape.rotation.x = 0.2 * elapsedTime;
+
+        // Update Orbital Controls
+        // controls.update()
+
+        // Render
+        renderer.render(scene, camera);
+
+        // Call tick again on the next frame
+        window.requestAnimationFrame(tick);
+      };
+
+      tick();
+    </script>
+  </body>
+</html>
