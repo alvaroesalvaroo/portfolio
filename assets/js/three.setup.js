@@ -2,20 +2,23 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+const sizes = {
+width: window.innerWidth,
+height: window.innerHeight,
+};
 
-const greenMaterial = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const redMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const cube = null;
-// cube = new THREE.Mesh( geometry, greenMaterial );
-if (cube)
-{
-  scene.add( cube );  
-  cube.position.x = -2; // In (-2,0,0)
-}
+const camera = new THREE.PerspectiveCamera(
+75,                         // fov
+sizes.width / sizes.height, // aspect ratio
+0.1,                        // near point
+1000                        // far away point
+);
+
+
 
 camera.position.z = 5;
+camera.position.x = 3;
+camera.position.y = 1;
 
 // Create renderer in html canvas webgl element
 const canvas = document.querySelector("canvas.webgl");
@@ -28,24 +31,17 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 
 // Load model
 const loader = new GLTFLoader();
-let earthModel = null;
+let loadedScene = null;
 
 loader.load( './assets/3Dmodels/EscenaEstatica.glb', function ( gltf ) {
-  earthModel = gltf.scene;
+  loadedScene = gltf.scene;
   onModelLoaded(gltf.scene);
-  
-  // Debug functions
-  /*
-  const cube2 = new THREE.Mesh( geometry, redMaterial );
-  scene.add(cube2);
-  debugModelInfo(cube2);
-  */
+
   createLights();
 
 }, undefined, function ( error ) {
 
   console.error( error );
-
 } );
 function debugModelInfo(model)
 {
@@ -66,10 +62,10 @@ function onModelLoaded(model)
 
 function createLights()
 {
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.1); // Luz general, suave
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.3); // Luz general, suave
   scene.add(ambientLight);
 
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
   directionalLight.position.set(-2, 0, -5); 
   
   // if (earthModel)
@@ -91,6 +87,8 @@ let moveForward = false;
 let moveBackward = false;
 let moveLeft = false;
 let moveRight = false;
+let moveUp = false;
+let moveDown = false;
 
 const velocity = 0.4;
 let direction = new THREE.Vector3();
@@ -110,6 +108,12 @@ document.addEventListener('keydown', (event) => {
         case 'KeyD':
             moveRight = true;
             break;
+        case 'KeyE':
+            moveUp = true;
+            break;
+        case 'KeyQ':
+            moveDown = true;
+            break;
     }
 });
 
@@ -127,44 +131,60 @@ document.addEventListener('keyup', (event) => {
         case 'KeyD':
             moveRight = false;
             break;
+        case 'KeyE':
+            moveUp = false;
+            break;
+        case 'KeyQ':
+            moveDown = false;
+            break;
     }
 });
 
 function updateCamera()
 {
-    direction.z = Number( moveForward ) - Number( moveBackward );
-    // direction z is reverted for some reason
-    direction.z*=-1;
-
+    direction.z = Number( moveBackward ) - Number( moveForward );
     direction.x = Number( moveRight ) - Number( moveLeft );
+    direction.y = Number( moveUp ) - Number ( moveDown);
     direction.normalize(); // Ensure diagonal movement is not fastest
 
 
     // Aplica el movimiento a los controles de la cámara
 
-    if (moveForward || moveBackward || moveLeft || moveRight)
+    if (moveForward || moveBackward || moveLeft || moveRight || moveUp || moveDown)
     {
       camera.position.addScaledVector(direction , velocity);
     }
-    
 }
 
+// ---------
+// SCREEN RESIZE
+// --------
+window.addEventListener("resize", () => {
+// Update sizes
+sizes.width = window.innerWidth;
+sizes.height = window.innerHeight;
+
+// Update camera
+camera.aspect = sizes.width / sizes.height;
+camera.updateProjectionMatrix();
+
+// Update renderer
+renderer.setSize(sizes.width, sizes.height);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
+
+// -------------
 // MAIN LOOP
+// ---------------
 
 renderer.setAnimationLoop( animate );
 
 
 function animate() {
-  // Rotar un cubo
-  if (cube)
-  {
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
-  }
 
-  if (earthModel)
+  if (loadedScene)
   {
-    earthModel.rotation.set(earthModel.rotation.x, earthModel.rotation.y -=0.005, earthModel.rotation.z);
+    loadedScene.rotation.set(loadedScene.rotation.x, loadedScene.rotation.y -=0.005, loadedScene.rotation.z);
   }
   
   

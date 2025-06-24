@@ -64,9 +64,10 @@
 {
   /* background-color: red; */
   opacity: 1;
-  margin:0;
+  margin:1;
   outline: none;
-  position: absolute;
+  position: fixed;
+  
   z-index: -10;
   width: 100vw;
   height: 100vh;
@@ -759,7 +760,8 @@ section,
   display: flex;
   align-items: center;
   position: relative;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--accent-color), transparent 95%), color-mix(in srgb, var(--background-color), transparent 60%)); */
+  background: none;
+  /* background: linear-gradient(135deg, color-mix(in srgb, var(--accent-color), transparent 95%), color-mix(in srgb, var(--background-color), transparent 60%)); */
   /* background: none; */
   /* background: linear-gradient(135deg, color-mix(in srgb, var(--accent-color), transparent 96%) 0%, var(--background-color) 40%, color-mix(in srgb, var(--accent-color), transparent 98%) 100%); */
   

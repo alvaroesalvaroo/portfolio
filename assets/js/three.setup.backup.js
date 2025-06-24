@@ -15,6 +15,16 @@ const scene = new THREE.Scene();
 // Objects
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 
+const greenMaterial = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+
+const cube = null;
+cube = new THREE.Mesh( geometry, greenMaterial );
+if (cube)
+{
+  scene.add( cube );  
+  cube.position.x = -2; // In (-2,0,0)
+}
+
 // Loader from file
 // const loader = new THREE.GLTFLoader();
 
