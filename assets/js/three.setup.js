@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import CustomCamera from './CustomCamera.js';
 
 const scene = new THREE.Scene();
 const sizes = {
@@ -7,18 +8,8 @@ width: window.innerWidth,
 height: window.innerHeight,
 };
 
-const camera = new THREE.PerspectiveCamera(
-75,                         // fov
-sizes.width / sizes.height, // aspect ratio
-0.1,                        // near point
-1000                        // far away point
-);
+const myCamera = new CustomCamera(sizes, 75);
 
-
-
-camera.position.z = 5;
-camera.position.x = 3;
-camera.position.y = 1;
 
 // Create renderer in html canvas webgl element
 const canvas = document.querySelector("canvas.webgl");
@@ -26,7 +17,7 @@ const canvas = document.querySelector("canvas.webgl");
 const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
 });
-renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setSize( sizes.width, sizes.height );
 // document.body.appendChild( renderer.domElement );
 
 // Load model
@@ -80,82 +71,6 @@ function createLights()
 
 
 
-// --- CAMERA MOVEMENT WITH WASD ---
-// For better results might be needed:
-// import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
-let moveForward = false;
-let moveBackward = false;
-let moveLeft = false;
-let moveRight = false;
-let moveUp = false;
-let moveDown = false;
-
-const velocity = 0.4;
-let direction = new THREE.Vector3();
-
-
-document.addEventListener('keydown', (event) => {
-    switch (event.code) {
-        case 'KeyW':
-            moveForward = true;
-            break;
-        case 'KeyA':
-            moveLeft = true;
-            break;
-        case 'KeyS':
-            moveBackward = true;
-            break;
-        case 'KeyD':
-            moveRight = true;
-            break;
-        case 'KeyE':
-            moveUp = true;
-            break;
-        case 'KeyQ':
-            moveDown = true;
-            break;
-    }
-});
-
-document.addEventListener('keyup', (event) => {
-    switch (event.code) {
-        case 'KeyW':
-            moveForward = false;
-            break;
-        case 'KeyA':
-            moveLeft = false;
-            break;
-        case 'KeyS':
-            moveBackward = false;
-            break;
-        case 'KeyD':
-            moveRight = false;
-            break;
-        case 'KeyE':
-            moveUp = false;
-            break;
-        case 'KeyQ':
-            moveDown = false;
-            break;
-    }
-});
-
-function updateCamera()
-{
-    direction.z = Number( moveBackward ) - Number( moveForward );
-    direction.x = Number( moveRight ) - Number( moveLeft );
-    direction.y = Number( moveUp ) - Number ( moveDown);
-    direction.normalize(); // Ensure diagonal movement is not fastest
-
-
-    // Aplica el movimiento a los controles de la cámara
-
-    if (moveForward || moveBackward || moveLeft || moveRight || moveUp || moveDown)
-    {
-      camera.position.addScaledVector(direction , velocity);
-    }
-}
-
 // ---------
 // SCREEN RESIZE
 // --------
@@ -163,10 +78,7 @@ window.addEventListener("resize", () => {
 // Update sizes
 sizes.width = window.innerWidth;
 sizes.height = window.innerHeight;
-
-// Update camera
-camera.aspect = sizes.width / sizes.height;
-camera.updateProjectionMatrix();
+myCamera.resize(sizes);
 
 // Update renderer
 renderer.setSize(sizes.width, sizes.height);
@@ -189,7 +101,7 @@ function animate() {
   
   
   // Camera and render
-  updateCamera();
-  renderer.render( scene, camera );
+  myCamera.update();
+  renderer.render( scene, myCamera.camera );
   
 }

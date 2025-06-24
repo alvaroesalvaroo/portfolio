@@ -1,6 +1,12 @@
 /**
-* The font and base color system is based on the bootstrapmade.com style
-* This is an updated version from the Instant template
+* Template Name: Instant
+* Template URL: https://bootstrapmade.com/newtemplate-bootstrap-website-template/
+* Updated: Jun 11 2025 with Bootstrap v5.3.6
+* Author: BootstrapMade.com
+* License: https://bootstrapmade.com/license/
+*/
+
+/*--------------------------------------------------------------
 # Font & Color Variables
 # Help: https://bootstrapmade.com/color-system/
 --------------------------------------------------------------*/
@@ -693,30 +699,15 @@ section,
   color: var(--default-color);
   background-color: var(--background-color);
   padding: 60px 0;
-  scroll-margin-top: 90px;  /* size of navbar in desktop */
-  overflow: clip; /* dont create sliders if section is too big */
-}
-/* Hero and about need specifications since they have a 3D rendering canvas behind */
-section.hero
-{
-  height: 100vh;
-}
-section.about
-{
-  padding-top: 30%;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    var(--background-color) 10%,
-    var(--background-color) 100%
-  );
+  scroll-margin-top: 90px;
+  overflow: clip;
 }
 
 @media (max-width: 1199px) {
 
   section,
   .section {
-    scroll-margin-top: 66px; /* size of navbar in mobile */
+    scroll-margin-top: 66px;
   }
 }
 
@@ -775,6 +766,38 @@ section.about
   /* background: linear-gradient(135deg, color-mix(in srgb, var(--accent-color), transparent 96%) 0%, var(--background-color) 40%, color-mix(in srgb, var(--accent-color), transparent 98%) 100%); */
   
   padding-bottom: 0px;/*60px;*/
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 100vh;
+  /* background: linear-gradient(135deg, color-mix(in srgb, var(--accent-color), transparent 95%), color-mix(in srgb, var(--background-color), transparent 60%)); */
+  background: none;
+  /* background: radial-gradient(circle, color-mix(in srgb, var(--accent-color), transparent 85%) 0%, transparent 70%); */
+  border-radius: 50%;
+  top: -20%;
+  right: -10%;
+  animation: float 6s ease-in-out infinite;
+  z-index: 1;
+}
+
+.hero::after {
+  content: "";
+  
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  /* background: linear-gradient(135deg, color-mix(in srgb, var(--accent-color), transparent 95%), color-mix(in srgb, var(--background-color), transparent 60%)); */
+  background: none;
+  /* background: color-mix(in srgb, var(--accent-color), transparent 88%); */
+  border-radius: 50%;
+  bottom: 10%;
+  left: 5%;
+  filter: blur(40px);
+  animation: float 4s ease-in-out infinite reverse;
+  z-index: 1;
 }
 
 .hero .hero-wrapper {

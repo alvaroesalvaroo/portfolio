@@ -1,11 +1,6 @@
-/**
-* Template Name: Instant
-* Template URL: https://bootstrapmade.com/newtemplate-bootstrap-website-template/
-* Updated: Jun 11 2025 with Bootstrap v5.3.6
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
+// Mobile navitacion management
+// Init type.js and AOS
+// "Faq" element toggle
 (function() {
   "use strict";
 
