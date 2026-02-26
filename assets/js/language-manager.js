@@ -1,9 +1,23 @@
-// La aniamcion typed necesita otro procedimiento
-
-
 // Variable global para almacenar las traducciones cargadas
 let translations = {};
 let currentLanguage = 'en'; // Idioma por defecto
+
+function insertProjectTranslation(project)
+{
+    // Add subtitle and description translation
+    let subtitleKey = project.key + "-subtitle";
+    let descriptionKey = project.key + "-description";
+
+    translations[descriptionKey] = {};
+    if (project.descriptionES)  translations[descriptionKey]["es"] = project.descriptionES;
+    if (project.descriptionCAT) translations[descriptionKey]["cat"] = project.descriptionCAT;
+    if (project.descriptionEN)  translations[descriptionKey]["en"] = project.descriptionEN;
+
+    translations[subtitleKey] = {};
+    if (project.subtitleES)     translations[subtitleKey]["es"] = project.subtitleES;
+    if (project.subtitleCAT)    translations[subtitleKey]["cat"] = project.subtitleCAT;
+    if (project.subtitleEN)     translations[subtitleKey]["en"] = project.subtitleEN;
+}
 
 /**
  * Carga las traducciones desde el archivo CSV.
@@ -13,14 +27,14 @@ async function loadTranslations() {
     const response = await fetch('./assets/language.csv'); // Asegúrate de que la ruta sea correcta
     const csvText = await response.text();
 
-    // Parsear CSV por linea y ';' como divisor
+    // Parsear CSV por linea usando ';' como divisor
     const lines = csvText.split('\n').map(line => line.trim()).filter(line => line.length > 0);
     if (lines.length === 0) return;
 
-    const headers = lines[0].split(';');
+    const headers = lines[0].split(';'); // The languages
     const dataRows = lines.slice(1);
 
-    translations = {}; // Limpiar traducciones anteriores
+    // translations = {}; // Limpiar traducciones anteriores
 
     dataRows.forEach(row => {
         const values = row.split(';');
@@ -88,7 +102,7 @@ function initializeAllTypedAnimations() {
     }
 }
 
-
+// UNUSED
 function showCorrectTypedAnimation() {
     return;
     console.log("Show correct typed with instances "+ typedInstances);

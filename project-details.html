@@ -9,8 +9,8 @@
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="assets/img/icons/favicon.png" rel="icon">
+  <link href="assets/img/icons/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -86,7 +86,21 @@
     <!-- Page Title -->
     <div class="page-title light-background">
       <div class="container">
-        <h1>Service Details</h1>
+        <h1>Project Details</h1>
+        <h2>for project:
+          <script src="assets/js/projects.js"></script>
+
+          <script>
+            const params = new URLSearchParams(window.location.search);
+            const projectKey = params.get('projectKey');
+            if (projectKey) {
+              const project = projects.find(p => p.key === projectKey);
+              if (project) {
+                document.writeln(project.title);
+              }
+            }
+          </script>
+        </h2>
         <nav class="breadcrumbs">
           <ol>
             <li><a href="index.html">Home</a></li>
@@ -248,7 +262,7 @@
               </div>
 
               <div class="service-info">
-                <h4>Service Details</h4>
+                <h4>Project Details</h4>
                 <div class="info-list">
                   <div class="info-item">
                     <span class="info-label">Duration:</span>
@@ -368,11 +382,9 @@
 
         <div class="d-flex flex-column align-items-center align-items-lg-start">
           <div>
-            © Copyright <strong><span>MyWebsite</span></strong>. All Rights Reserved
+            <strong><span>Álvaro Ruiz Portfolio</span></strong>
           </div>
           <div class="credits">
-            <!-- All the links in the footer should remain intact. -->
-            <!-- You can delete the links only if you purchased the pro version. -->
             <!-- Licensing information: https://bootstrapmade.com/license/ -->
             <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/herobiz-bootstrap-business-template/ -->
             Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>

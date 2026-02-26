@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import CustomCamera from './CustomCamera.js';
 
+const DEBUG_MODE = false;
 const scene = new THREE.Scene();
 const sizes = {
 width: window.innerWidth,
@@ -39,7 +40,7 @@ function debugModelInfo(model)
   console.log("Success loading " + model.name+ " with mesh children");
   model.traverse( ( child ) => {
         if ( child.isMesh ) {
-            console.log(child.name);
+           // console.log(child.name);
         }
       });
 }
@@ -47,7 +48,8 @@ function debugModelInfo(model)
 function onModelLoaded(model)
 {
   scene.add( model );
-  debugModelInfo(model);
+
+  // if (DEBUG_MODE === true) debugModelInfo(model);
 }
 
 

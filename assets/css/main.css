@@ -1965,6 +1965,8 @@ section.about
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
   position: relative;
   overflow: hidden;
+  /*Adding button*/
+  cursor: pointer;
 }
 
 .services .services-grid .service-card::before {
@@ -2033,7 +2035,7 @@ section.about
   font-size: 0.95rem;
   line-height: 1.6;
   color: color-mix(in srgb, var(--default-color), transparent 30%);
-  margin-bottom: 0;
+  /*margin-bottom: 0;*/
 }
 
 @media (max-width: 768px) {
@@ -3134,24 +3136,6 @@ section.about
   transition: all 0.4s ease;
 }
 
-.team .team-member .member-image .member-social a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  background: var(--contrast-color);
-  border-radius: 50%;
-  color: var(--accent-color);
-  font-size: 15px;
-  transition: all 0.3s ease;
-}
-
-.team .team-member .member-image .member-social a:hover {
-  background: var(--accent-color);
-  color: var(--contrast-color);
-  transform: translateY(-3px);
-}
 
 .team .team-member .member-content {
   padding: 25px;

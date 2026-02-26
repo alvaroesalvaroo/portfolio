@@ -1,0 +1,9 @@
+# Node modules are also in assets/vendor
+node_modules/
+
+# I like extra backups outside the repo
+backups/
+backup.html
+.git.backup/
+
+.idea/

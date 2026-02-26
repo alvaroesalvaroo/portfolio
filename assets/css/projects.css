@@ -1,0 +1,24 @@
+
+.links-container {
+    display: flex;
+    justify-content: center;
+}
+
+.links-container a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    color: var(--surface-color);
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.links-container a:hover {
+    background: var(--contrast-color);
+    color: var(--surface-color);
+    transform: translateY(-3px);
+}
