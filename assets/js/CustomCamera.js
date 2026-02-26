@@ -65,7 +65,7 @@ export default class CustomCamera {
             direction.y = Number( this.move.up ) - Number ( this.move.down);
             direction.normalize(); // Ensure diagonal movement is not fastest
 
-            camera.position.addScaledVector(this.direction , velocity);
+            this.camera.position.addScaledVector(direction , this.velocity);
         }
     }
 

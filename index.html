@@ -502,77 +502,26 @@
         <h2 data-lang-key="projects">Mis proyectos</h2>
         <div class="services-grid mt-5">
           <div class="row g-4">
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="service-card">
-                <div class="card-number">
-                  <span>01</span>
-                </div>
-                <div class="card-content">
-                  <h5 class="service-title">
-                    <a href="#">Custom Application Development</a>
-                  </h5>
-                  <p class="service-description">Building robust applications tailored to your specific needs using modern frameworks and cutting-edge technologies.</p>
-                </div>
-              </div>
-            </div><!-- End Service Card -->
-
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-              <div class="service-card">
-                <div class="card-number">
-                  <span>02</span>
-                </div>
-                <div class="card-content">
-                  <h5 class="service-title">
-                    <a href="#">Strategic Planning</a>
-                  </h5>
-                  <p class="service-description">Comprehensive roadmaps that align technology solutions with your business objectives and market opportunities.</p>
+            <template id="project-template">
+              <div class="col-lg-4 col-md-6 project-item" data-aos="fade-up">
+                <div class="service-card">
+                  <div class="card-content">
+                    <h5 class="service-title">
+                      <a  class="project-link" href="#" data-lang-key="">Título Proyecto</a>
+                    </h5>
+                    <p class="service-description p-description">Descripción corta del proyecto.</p>
+                    
+                    <div class="project-tags mt-3" style="font-size: 0.8rem; opacity: 0.7;">
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div><!-- End Service Card -->
+            </template>
 
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-              <div class="service-card">
-                <div class="card-number">
-                  <span>03</span>
-                </div>
-                <div class="card-content">
-                  <h5 class="service-title">
-                    <a href="#">Identity Design</a>
-                  </h5>
-                  <p class="service-description">Creating compelling visual narratives that resonate with your audience and strengthen brand recognition across all touchpoints.</p>
-                </div>
-              </div>
-            </div><!-- End Service Card -->
+            <div id="projects-container" class="row g-4"></div>
 
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="service-card">
-                <div class="card-number">
-                  <span>04</span>
-                </div>
-                <div class="card-content">
-                  <h5 class="service-title">
-                    <a href="#">Digital Marketing</a>
-                  </h5>
-                  <p class="service-description">Maximizing your online presence through targeted campaigns that drive engagement and convert visitors into loyal customers.</p>
-                </div>
-              </div>
-            </div><!-- End Service Card -->
 
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-              <div class="service-card">
-                <div class="card-number">
-                  <span>05</span>
-                </div>
-                <div class="card-content">
-                  <h5 class="service-title">
-                    <a href="#">User Experience Design</a>
-                  </h5>
-                  <p class="service-description">Crafting intuitive interfaces that prioritize user needs while delivering seamless interactions across desktop and mobile platforms.</p>
-                </div>
-              </div>
-            </div><!-- End Service Card -->
-
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+<!--             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
               <div class="service-card">
                 <div class="card-number">
                   <span>06</span>
@@ -584,7 +533,8 @@
                   <p class="service-description">Transforming raw data into actionable insights that inform strategic decisions and optimize business performance effectively.</p>
                 </div>
               </div>
-            </div><!-- End Service Card -->
+            </div>-->
+           <!-- End Service Card -->
 
           </div>
         </div>
@@ -1012,6 +962,7 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/projects.js"></script>
 
 </body>
 
