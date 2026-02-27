@@ -41,7 +41,7 @@ const projects = [
         A basic shooter with 2 weapons, shield and ammo system, state-machine enemies AI,
         in a very good looking (but hardware-demanding) environment`,
 
-        tags: ["C#", "Unity 3D", "Windows build"],
+        tags: ["C#", "Unity 3D"],
         repoLink: "https://gitlab.com/aruizgarcia14/pec2-un-juego-de-disparos",
         windowsLink: "",
         numberOfImages:6,
@@ -66,7 +66,7 @@ const projects = [
         A basic shooter with 2 weapons, shield and ammo system, state-machine enemies AI,
         in a very good looking (but hardware-demanding) environment`,
 
-        tags: ["C#", "Unity2D", "Web"],
+        tags: ["C#", "Unity2D", "WebGL"],
         numberOfImages: 2,
         repoLink: "https://gitlab.com/aruizgarcia14/pec2_platformergame_alvaroruiz",
         relevance: 50
@@ -90,6 +90,34 @@ const projects = [
         tags:  ["C#", "Unity 3D", "Windows build"],
         repoLink: "",
         relevance: 10
+    },
+    {
+        key: "stickman",
+        title: "Stickman Brawl",
+        subtitleES: "Un juego de luchas estilo stickman, con diferentes armas y enemigos. Hecho en Unity 2D",
+        subtitleEN: "A stickman fighting game with different weapons and enemies. Made in Unity 2D",
+        subtitleCAT: "Un joc de lluites estilo stickman, amb diferents armes i enemics. Fet a Unity 2D",
+        descriptionES: `
+            Usa funcionalidades como animation layers, es completamente compatible con mando y tiene un selector de dificultad entre tres posibles niveles. 
+            Es un juego sencillo inspirado en otros títulos como  One Finger Death Punch o Stick Fight: The Game. Pero estoy satisfecho con el acabado y (moderadamente) con la jugabilidad.
+        `,
+        descriptionCAT: `            Usa funcionalitats com animation layers, és completament compatible amb mando i té un selector de dificultat entre tres possibles nivells.
+            És un joc senzill inspirat en altres títols com One Finger Death Punch o Stick Fight: The Game. Però estic satisfet amb l'acabat i (moderadament) amb la jugabilitat.
+        `,
+        descriptionEN: `            It uses features like animation layers, is fully compatible with controllers, and has a difficulty selector with three possible levels.
+            It's a simple game inspired by other titles like One Finger Death Punch or Stick Fight: The Game. But I'm satisfied with the finish and (moderately) with the gameplay.
+        `,
+        tags: ["C#", "Unity 2D", "WebGL"],
+        repoLink: "https://gitlab.com/aruizgarcia14/stickman-brawl",
+        relevance: 30
+    },
+    {
+        key:"rapbattle",
+        title: "Rap Battle Game",
+        subtitleES: "Un test de mecánicas sobre eleccion de diálogos durante una batalla de rap, incluyendo sincronización con música.",
+        descriptionES: `Una idea en la que el reto consiste en elegir la mejor frase posible durante un patrón breve de espera. El beat musical marca el ritmo del gameloop en 4 fases: frase del rival, elegir respuesta, rapear la respuesta, escuchar la reacción del público. Cada respuesta posible tiene una puntuación asociada (+1, -1 o 0).
+        El mayor reto técnico es triggear eventos cuando la muestra de sonido alcanza un sample concreto. La implementación de Unity para WebGL no permite un funcionamiento correcto.` 
+        // TODO: traducir
     }
 
 ];
@@ -234,7 +262,7 @@ function createTags(project) {
     }
 }
 
-function createProjectInDetail()
+function createProjectInDetail(projects)
 {
     const params = new URLSearchParams(window.location.search);
     const projectKey = params.get('projectKey');
@@ -301,8 +329,8 @@ function createProjectInDetail()
 window.addEventListener("load", () => {
     const path = window.location.pathname;
 
-    if (path.includes("project-details.html") || path === "/") {
-        createProjectInDetail();
+    if (path.includes("project-details.html")) {
+        createProjectInDetail(projects); // The function will detect which project to show based on the URL parameters
     } else {
         createProjectsInIndex(projects);
     }
