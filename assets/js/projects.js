@@ -44,6 +44,7 @@ const projects = [
         tags: ["C#", "Unity 3D", "Windows build"],
         repoLink: "https://gitlab.com/aruizgarcia14/pec2-un-juego-de-disparos",
         windowsLink: "",
+        numberOfImages:6,
         relevance: 60
     },
     {
@@ -66,6 +67,7 @@ const projects = [
         in a very good looking (but hardware-demanding) environment`,
 
         tags: ["C#", "Unity2D", "Web"],
+        numberOfImages: 2,
         repoLink: "https://gitlab.com/aruizgarcia14/pec2_platformergame_alvaroruiz",
         relevance: 50
     },
@@ -74,8 +76,16 @@ const projects = [
         key: "racing",
         title: "Barxetita Racing",
         subtitleES: "Un juego de carreras, en el que competimos contra nuestra mejor marca.",
+        subtitleEN: "A racing game where we compete against our own personal best.",
+        subtitleCAT: "Un joc de curses on competim contra la nostra millor marca.",
         descriptionES: `Un ejercicio interesante para aprender herramientas claves de Unity como los Scriptable Objects, los Wheel Colliders, telas, shaders...
              En él, implementamos un sistema de guardado de nuestras mejores vueltas. Competimos contra un ghost car que replica nuestra mejor marca. También experimentamos con los Terrain Assets de Unity.`,
+
+        descriptionEN: `An interesting exercise to learn key Unity tools such as Scriptable Objects, Wheel Colliders, cloths, and shaders.
+            In this project, we implemented a save system for our fastest laps, allowing us to compete against a ghost car that replicates our best time. We also experimented with Unity's Terrain Assets.`,
+
+        descriptionCAT: `Un exercici interessant per aprendre eines clau d'Unity com els Scriptable Objects, els Wheel Colliders, teles, shaders...
+            En ell, implementem un sistema de desat de les nostres millors voltes. Competim contra un ghost car que replica la nostra millor marca. També experimentem amb els Terrain Assets d'Unity.`,
 
         tags:  ["C#", "Unity 3D", "Windows build"],
         repoLink: "",
@@ -85,75 +95,135 @@ const projects = [
 ];
 
 // Projects logic
+function createProjectCard(project, template, container) {
+    // Clonar template
+    const clone = template.content.cloneNode(true);
+
+    let card = clone.querySelector('.project-index-item');
+    card.onclick = () => {
+        window.location.href = "project-details.html?projectKey="+project.key;
+    };
+    // Rellenar los datos dentro del clon
+    clone.querySelector('.project-title').textContent = project.title;
+    let subtitle = clone.querySelector('.service-description');
+
+    // Asinar la key correspondiente para el servicio de traudcción
+    subtitle.setAttribute('data-lang-key', project.key + "-subtitle");
+    subtitle.textContent = project.subtitleES; // Just in case
+
+    let linkDiv = clone.querySelector('a');
+
+    // Si existe un link, poner un boton
+    if (project.repoLink)
+    {
+        linkDiv.href = project.repoLink;
+        if (project.repoLink.toLowerCase().includes("gitlab.com"))
+        {
+            // linkDiv.textContent = "<i class=\"bi bi-gitlab\"></i>";
+            // linkDiv.setAttribute('data-lang-key', "gitlab-link");
+        }
+        else if (project.repoLink.toLowerCase().includes("github"))
+        {
+            // linkDiv.textContent = "Link to GitHub";
+            //linkDiv.setAttribute('data-lang-key', "github-link");
+        }
+    }
+    else
+    {
+        linkDiv.remove(); // Borrar link del DOM si no existe
+    }
+
+    // Añadir traducciones
+    insertProjectTranslation(project);
+
+    // Añadir imagenes
+    let image = clone.querySelector('img');
+    // En la pagina inicial, solo cargamos la primera imagen
+    image.src = "assets/img/projects/" + project.key + "/01.png";
+
+    // Inyectamos en el DOM
+    container.appendChild(clone);
+}
 
 function createProjectsInIndex(projectsArray) {
-    const container = document.getElementById("projects-container");
-    const template = document.getElementById("project-template");
+    const container = document.querySelector("#projects-container");
+    const template = document.querySelector("#project-index-template");
     console.log("creating cards with projects");
     if (!container || !template) {
-            console.error("Error: No se encontró el contenedor o el template en el DOM.");
+            console.error("Error: No se encontró el contenedor o el template de la sección projects en el index.");
             return;
     }
 
-    projectsArray.forEach(project => {
-        // Clonar template
-        const clone = template.content.cloneNode(true);
-
-        let card = clone.querySelector('.project-item');
-        card.onclick = () => {
-            window.location.href = "project-details.html?projectKey="+project.key;
-        };
-        // Rellenar los datos dentro del clon
-        clone.querySelector('.project-title').textContent = project.title;
-        let subtitle = clone.querySelector('.service-description');
-
-        // Asinar la key correspondiente para el servicio de traudcción
-        subtitle.setAttribute('data-lang-key', project.key + "-subtitle");
-        subtitle.textContent = project.subtitleES; // Just in case
-
-        let linkDiv = clone.querySelector('a');
-
-        // Si existe un link, poner un boton
-        if (project.repoLink)
-        {
-            linkDiv.href = project.repoLink;
-            if (project.repoLink.toLowerCase().includes("gitlab.com"))
-            {
-                // linkDiv.textContent = "<i class=\"bi bi-gitlab\"></i>";
-                // linkDiv.setAttribute('data-lang-key', "gitlab-link");
-            }
-            else if (project.repoLink.toLowerCase().includes("github"))
-            {
-                // linkDiv.textContent = "Link to GitHub";
-                //linkDiv.setAttribute('data-lang-key', "github-link");
-            }
-        }
-        else
-        {
-            linkDiv.remove(); // Borrar link del DOM si no existe
-        }
-
-        // Añadir traducciones
-        insertProjectTranslation(project);
-
-        // Añadir imagenes
-        let image = clone.querySelector('img');
-        // En la pagina inicial, solo cargamos la primera imagen
-        image.src = "assets/img/projects/" + project.key + "/01.png";
-
-        // Inyectamos en el DOM
-        container.appendChild(clone);
+    projectsArray.forEach((project) => {
+        createProjectCard(project, template, container);
     });
 }
-function createSimilarProjects()
+
+function createSimilarProjects(project)
 {
+    // Decide three most relevant and relatec projects
+
+    const scoredProjects = [];
+    // tag in common: + 1000 pts
+    for (const candidateProject of projects) {
+        if (candidateProject.key === project.key)   continue;
+
+        let currentScore = 0;
+        currentScore += candidateProject.relevance || 0;
+
+        if (candidateProject.tags && project.tags) {
+            for (const tag of candidateProject.tags) {
+                // Compute tags in common
+                if (project.tags.includes(tag)) {
+                    currentScore += 1000;
+                }
+            }
+        }
+
+        scoredProjects.push({
+            project: candidateProject,
+            score: currentScore
+        });
+    }
+
+    // Sort descendent, take 3 first
+    const topThree = scoredProjects
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 3);
+
+    // Add elements to DOM
+    const container = document.querySelector("#similar-projects-container");
+    const template = document.querySelector("#related-project-template");
+
+    for (const topScoredProject of topThree) {
+        createProjectCard(topScoredProject.project, template, container);
+    }
+
 
 }
 
 function createImageCarrousel(project) {
-    let image = document.querySelector('img');
-    // De momento, solo una imagen
-    image.src = "assets/img/projects/" + project.key + "/01.png";
+    let numberOfImages = project.numberOfImages || 1;
+
+    let container = document.querySelector("#projects-images-container");
+    let template = document.querySelector("#project-details-template");
+
+    // solo una imagen
+    // let image = document.querySelector('img');
+    // image.src = "assets/img/projects/" + project.key + "/01.png";
+
+    for (let i = 1; i <= numberOfImages; i++)
+    {
+        const clone = template.content.cloneNode(true);
+        let image = clone.querySelector('img');
+
+        image.src = "assets/img/projects/" + project.key + "/" +
+            i.toString().padStart(2, '0') + ".png";
+        container.appendChild(clone);
+    }
+
+
+
 }
 function createTags(project) {
     let tagContainer = document.querySelector(".tags-container");
@@ -182,8 +252,11 @@ function createProjectInDetail()
     // Añadir imagenes
     createImageCarrousel(project)
 
-    // Aádir tags
+    // Añadir tags
     createTags(project);
+
+    // Añadir proyectos similares
+    createSimilarProjects(project);
 
     let title = document.querySelector('#project-title');
     title.textContent = project.title;

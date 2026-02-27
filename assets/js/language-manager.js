@@ -37,6 +37,7 @@ async function loadTranslations() {
     translations = {}; // Limpiar traducciones anteriores
 
     dataRows.forEach(row => {
+        if (row.startsWith("//")) return;
         const values = row.split(';');
         const key = values[0];
         translations[key] = {};

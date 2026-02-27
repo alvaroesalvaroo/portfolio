@@ -52,8 +52,8 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="index.html" id="homemobilebutton" data-lang-key="home">Home</a></li>
-          <li><a href="#aboutme" data-lang-key="aboutme">About</a></li>
-          <li><a href="#projects" data-lang-key="projects">Proyectos</a></li>
+          <li><a href="index.html" data-lang-key="aboutme">About</a></li>
+          <li><a href="index.html" data-lang-key="projects">Proyectos</a></li>
 
           <li class="dropdown"><a href="#"><span data-lang-key="language"></span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
@@ -73,10 +73,8 @@
   </header>
 
   <main class="main">
-    <!--Project data logic needed before rest of dom!-->
-
-    <!-- Page Title -->
-    <div class="page-title light-background">
+    <!-- Project title -->
+    <div class="project-page-title light-background">
       <div class="container">
         <h1 id = "project-title">Project Title</h1>
 
@@ -86,83 +84,96 @@
       </div>
     </div><!-- End Page Title -->
 
-    <!-- Service Details Section -->
-    <section id="service-details" class="service-details section">
+    <!-- Project Details Section -->
+    <section id="project-details-section" > <!--class="service-details section"-->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <div class="row gy-5">
-            <div class = "tags-container">
+          <div class = "tags-container">
 
-              <a href="#" class="btn tag-button">Tag 1</a>
-              <a href="#" class="btn tag-button">Tag 2</a>
-              <a href="#" class="btn tag-button">Tag 3sssssssssssasd</a>
+            <a href="#" class="btn tag-button">Tag 1</a>
+            <a href="#" class="btn tag-button">Tag 2</a>
+            <a href="#" class="btn tag-button">Tag 3sssssssssssasd</a>
 
-            </div>
-          <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-hero">
-              <img class = "project-image img-fluid" src="assets/img/services/services-7.webp" alt=""  >
-<!--              <div class="service-badge">-->
-<!--                <span>Premium Service</span>-->
-<!--              </div>-->
-            </div>
+          </div>
+<!--            <div class="service-hero">-->
+
+              <div class="project-slider swiper init-swiper">
+                <script type="application/json" class="swiper-config">
+                  {
+                    "loop": true,
+                    "speed": 600,
+                    "autoplay": {
+                      "delay": 4000
+                    },
+                    "slidesPerView": 1,
+                    "spaceBetween": 30,
+                    "navigation": {
+                      "nextEl": ".swiper-button-next",
+                      "prevEl": ".swiper-button-prev"
+                    },
+                    "breakpoints": {
+                      "768": {
+                        "slidesPerView": 1
+                      },
+                      "1200": {
+                        "slidesPerView": 1
+                      }
+                    }
+                  }
+                </script>
+                <div class="swiper-wrapper" id ="projects-images-container">
+                  <template id="project-details-template">
+                    <div class="swiper-slide">
+                      <div class="project-details-item">
+                        <img class ="img-fluid" src="#" alt="">
+
+                      </div>
+                    </div>
+                  </template>
+                </div><!--Close swipper wrapper-->
+
+                <div class="swiper-navigation">
+                  <div class="swiper-button-prev"></div>
+                  <div class="swiper-button-next"></div>
+                </div>
+
+              </div>
+<!--            </div>-->
 
 
-            <div class="service-content">
-              <div class="service-header">
+            <div class="project-content row gy-4 align-items-center" >
+
+              <div class="project-description-container col-md-4 border-end-md pe-md-5">
                 <p id = "project-description" class="service-intro">Descripcion proyecto bla bla blah</p>
               </div>
-
-              <a id = "repo-link" href="#"><b>No repo link :(</b></a>
-
-              <hr>
-
-
-              <div class="service-gallery" data-aos="fade-up" data-aos-delay="300">
-                <h4 data-lang-key="similar-projects">Proyectos similares</h4>
-                <div class="row gy-3">
-                  <div class="col-md-4">
-                    <img src="assets/img/services/services-2.webp" alt="" class="img-fluid rounded">
-                  </div>
-                  <div class="col-md-4">
-                    <img src="assets/img/services/services-8.webp" alt="" class="img-fluid rounded">
-                  </div>
-                  <div class="col-md-4">
-                    <img src="assets/img/services/services-11.webp" alt="" class="img-fluid rounded">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!--Sidebar-->
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-sidebar">
-
-              <div class="service-menu">
-                <h4>Woww q xulo</h4>
-                <div class="menu-list">
-                  <a href="#" class="menu-item active">
-                    <i class="bi bi-arrow-right"></i>
-                    <span>Acabado impresionante</span>
-                  </a>
-                  <a href="#" class="menu-item">
-                    <i class="bi bi-arrow-right"></i>
-                    <span>Gran calidad de código</span>
-                  </a>
-                  <a href="#" class="menu-item">
-                    <i class="bi bi-arrow-right"></i>
-                    <span>Sale la casa de Barxeta</span>
-                  </a>
-
-                </div>
-              </div>
+            <div class = "links-container-detail col-md-3 text-md-end">
+              <a id = "repo-link"  href="#"><b>No repo link :(</b></a>
 
             </div>
-          </div>
 
-        </div>
+            </div>
+        <hr>
+        <div id = "similar-projects-container" class="service-gallery row gy-3"" data-aos="fade-up" data-aos-delay="300">
+          <h4 data-lang-key="similar-projects">Proyectos similares</h4>
 
+          <template id="related-project-template">
+            <div class="col-md-3">
+              <div class="project-index-item">
+                <h5 class="project-title"> </h5>
+                <img class ="img-fluid" src="#" alt="">
+                <p class="service-description p-description">Descripción corta/subtitulo del proyecto.</p>
+                <div class="project-tags mt-3" style="font-size: 0.8rem; opacity: 0.7;">
+                </div>
+                <div class="links-container">
+                  <a class="project-link" href="#" >
+                    <i class="bi bi-gitlab"></i>
+                  </a>
+                </div>
+
+              </div>
+            </div>
+          </template>
       </div>
 
     </section><!-- /Service Details Section -->
@@ -210,7 +221,7 @@
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
   <!-- Main JS File -->
-z
+
   <script src="assets/js/main.js"></script>
   <script src="assets/js/language-manager.js"></script>
   <script src="assets/js/projects.js"></script>

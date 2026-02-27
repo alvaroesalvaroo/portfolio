@@ -1,11 +1,26 @@
 
+.project-page-title {
+    color: var(--default-color);
+    background-color: var(--background-color);
+    padding: 50px 0 25px 0;
+    text-align: center;
+    position: relative;
+}
+
+.project-page-title h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+#project-details-section {
+    padding-top:0;
+}
 .tags-container {
     display: flex;         /* Alinea los hijos en fila */
     flex-wrap: wrap;       /* Si no caben en una línea, saltan a la siguiente */
     gap: 10px;             /* Crea espacio entre los botones sin usar margin manual */
-    padding: 10px 0;
+    padding: 30px 0;
 }
-
 
 .tag-button {
     display: inline-block; /* Permite que el padding y el ancho funcionen correctamente */
@@ -26,6 +41,21 @@
 }
 
 
+#projects-images-container {
+    /* Ancho adaptable:
+         - Mínimo: 95% (casi todo el ancho en móvil)
+         - Flexible: 70% del ancho de pantalla
+         - Máximo: 1000px (para que no se estire infinito en monitores 4K)
+      */
+    /*width: 60%;*/
+    /*padding: 0 40px;*/
+    width: clamp(95%, 70%, 1000px);
+}
+
+
+
+
+
 .project-slider {
     position: relative;
     padding-bottom: 50px;
@@ -41,7 +71,7 @@
 }
 
 
-.project-item img {
+.project-index-item img {
     max-height: 200px;
     /*width: auto; !* Permite que el ancho varíe según la proporción *!*/
     object-fit: contain; /* Mantiene proporción mostrando la imagen ENTERA */
@@ -49,7 +79,7 @@
     display: block;
 }
 
-.project-item {
+.project-index-item {
     background: linear-gradient(135deg, var(--surface-color) 0%, color-mix(in srgb, var(--surface-color), var(--accent-color) 2%) 100%);
     border-radius: 20px;
     padding: 20px;
@@ -65,7 +95,7 @@
     position: relative;
 }
 
-.testimonials .project-item::before {
+.testimonials .project-index-item::before {
     content: "";
     position: absolute;
     top: 0;
@@ -78,25 +108,44 @@
     transition: transform 0.4s ease;
 }
 
-.testimonials .project-item:hover {
+.project-content {
+    font-size: 1.2rem;
+}
+#similar-projects-container {
+
+}
+/* Linea entre descripcion y repo-link*/
+@media (min-width: 768px) {
+    .border-end-md {
+        border-right: 1px solid #dee2e6; /* Color gris suave de Bootstrap */
+    }
+}
+
+.repo-style {
+    text-decoration: none;
+    color: #333;
+    display: inline-block;
+}
+
+.testimonials .project-index-item:hover {
     border-color: var(--accent-color);
 }
 
-.testimonials .project-item:hover::before {
+.testimonials .project-index-item:hover::before {
     transform: scaleX(1);
 }
 
-.testimonials .project-item:hover .testimonial-header img {
+.testimonials .project-index-item:hover .testimonial-header img {
     transform: scale(1.05);
 }
 
-.testimonials .project-item:hover .quote-icon {
+.testimonials .project-index-item:hover .quote-icon {
     color: var(--accent-color);
     transform: scale(1.1);
 }
 
 @media (max-width: 991px) {
-    .testimonials .project-item {
+    .testimonials .project-index-item {
         margin-bottom: 30px;
     }
 }
