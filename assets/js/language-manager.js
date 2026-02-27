@@ -34,7 +34,7 @@ async function loadTranslations() {
     const headers = lines[0].split(';'); // The languages
     const dataRows = lines.slice(1);
 
-    // translations = {}; // Limpiar traducciones anteriores
+    translations = {}; // Limpiar traducciones anteriores
 
     dataRows.forEach(row => {
         const values = row.split(';');

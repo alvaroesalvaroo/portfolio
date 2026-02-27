@@ -1,4 +1,107 @@
 
+.tags-container {
+    display: flex;         /* Alinea los hijos en fila */
+    flex-wrap: wrap;       /* Si no caben en una línea, saltan a la siguiente */
+    gap: 10px;             /* Crea espacio entre los botones sin usar margin manual */
+    padding: 10px 0;
+}
+
+
+.tag-button {
+    display: inline-block; /* Permite que el padding y el ancho funcionen correctamente */
+    width: auto;           /* El ancho se adapta al contenido (el texto) */
+    padding: 8px 20px;
+    font-size: 16px;
+    /*font-weight: 500;*/
+    border-radius: 50px;
+    background-color: var(--surface-color);
+    border: 2px solid var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--contrast-color);
+}
+
+.tag-button:hover {
+    background-color: color-mix(in srgb, var(--accent-color), transparent 80%);
+    border-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+}
+
+
+.project-slider {
+    position: relative;
+    padding-bottom: 50px;
+}
+
+.project-slider .swiper-wrapper {
+    height: auto !important;
+}
+
+.project-slider .swiper-slide {
+    height: auto; /* Permite que el slide se adapte al contenedor */
+    display: flex; /* Convierte el slide en un contenedor flex */
+}
+
+
+.project-item img {
+    max-height: 200px;
+    /*width: auto; !* Permite que el ancho varíe según la proporción *!*/
+    object-fit: contain; /* Mantiene proporción mostrando la imagen ENTERA */
+    max-width: 100%; /* Pero que nunca se salga de la tarjeta */
+    display: block;
+}
+
+.project-item {
+    background: linear-gradient(135deg, var(--surface-color) 0%, color-mix(in srgb, var(--surface-color), var(--accent-color) 2%) 100%);
+    border-radius: 20px;
+    padding: 20px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Empuja el footer o links al final si quieres */
+
+    border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    transition: all 0.4s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.testimonials .project-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color), var(--heading-color) 30%));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.testimonials .project-item:hover {
+    border-color: var(--accent-color);
+}
+
+.testimonials .project-item:hover::before {
+    transform: scaleX(1);
+}
+
+.testimonials .project-item:hover .testimonial-header img {
+    transform: scale(1.05);
+}
+
+.testimonials .project-item:hover .quote-icon {
+    color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+@media (max-width: 991px) {
+    .testimonials .project-item {
+        margin-bottom: 30px;
+    }
+}
+
+
 .links-container {
     display: flex;
     justify-content: center;

@@ -6,7 +6,7 @@ const projects = [
         title: "Bar Xet Auto VI",
 
         subtitleES: "Un survival en Unity 3D con mecánicas muy diversas de conducción y combate",
-        subtitleEN: "A survival game with driving and combat diverse mechanics in Unity3D",
+        subtitleEN: "A survival game with driving and combat diverse mechanics in Unity 3D",
         subtitleCAT: "Un survival en Unity 3D amb mecàniques molt diverses de conducció i combat",
 
         descriptionES: `
@@ -19,7 +19,7 @@ const projects = [
         The game combines melee attacks, throws, grenades, and driving in an environment plagued with enemies (characters from Mortadelo and Filemón) that appear progressively faster.
         The (non-)aim system with a weapon is a notable feature, an interesting solution for simple shooting systems.`,
 
-        tags: ["C#", "Unity3D", "Windows-build"],
+        tags: ["C#", "Unity 3D", "Windows build"],
         repoLink: "https://gitlab.com/aruizgarcia14/pec3-un-juego-de-accion",
         donwloadlink: "",
         relevance:70
@@ -41,7 +41,7 @@ const projects = [
         A basic shooter with 2 weapons, shield and ammo system, state-machine enemies AI,
         in a very good looking (but hardware-demanding) environment`,
 
-        tags: ["C#", "Unity3D", "Windows-build"],
+        tags: ["C#", "Unity 3D", "Windows build"],
         repoLink: "https://gitlab.com/aruizgarcia14/pec2-un-juego-de-disparos",
         windowsLink: "",
         relevance: 60
@@ -77,7 +77,7 @@ const projects = [
         descriptionES: `Un ejercicio interesante para aprender herramientas claves de Unity como los Scriptable Objects, los Wheel Colliders, telas, shaders...
              En él, implementamos un sistema de guardado de nuestras mejores vueltas. Competimos contra un ghost car que replica nuestra mejor marca. También experimentamos con los Terrain Assets de Unity.`,
 
-        tags:  ["C#", "Unity3D", "Windows-build"],
+        tags:  ["C#", "Unity 3D", "Windows build"],
         repoLink: "",
         relevance: 10
     }
@@ -86,7 +86,7 @@ const projects = [
 
 // Projects logic
 
-function createProjectsInDOM(projectsArray) {
+function createProjectsInIndex(projectsArray) {
     const container = document.getElementById("projects-container");
     const template = document.getElementById("project-template");
     console.log("creating cards with projects");
@@ -99,12 +99,12 @@ function createProjectsInDOM(projectsArray) {
         // Clonar template
         const clone = template.content.cloneNode(true);
 
-        let card = clone.querySelector('.service-card');
+        let card = clone.querySelector('.project-item');
         card.onclick = () => {
             window.location.href = "project-details.html?projectKey="+project.key;
         };
         // Rellenar los datos dentro del clon
-        clone.querySelector('.service-title').textContent = project.title;
+        clone.querySelector('.project-title').textContent = project.title;
         let subtitle = clone.querySelector('.service-description');
 
         // Asinar la key correspondiente para el servicio de traudcción
@@ -120,7 +120,7 @@ function createProjectsInDOM(projectsArray) {
             if (project.repoLink.toLowerCase().includes("gitlab.com"))
             {
                 // linkDiv.textContent = "<i class=\"bi bi-gitlab\"></i>";
-                //linkDiv.setAttribute('data-lang-key', "gitlab-link");
+                // linkDiv.setAttribute('data-lang-key', "gitlab-link");
             }
             else if (project.repoLink.toLowerCase().includes("github"))
             {
@@ -145,5 +145,93 @@ function createProjectsInDOM(projectsArray) {
         container.appendChild(clone);
     });
 }
+function createSimilarProjects()
+{
 
-createProjectsInDOM(projects);
+}
+
+function createImageCarrousel(project) {
+    let image = document.querySelector('img');
+    // De momento, solo una imagen
+    image.src = "assets/img/projects/" + project.key + "/01.png";
+}
+function createTags(project) {
+    let tagContainer = document.querySelector(".tags-container");
+    tagContainer.innerHTML = "";
+    for (let i = 0, len = project.tags.length; i < len; i++) {
+        let tagHtml = `<a href="#" class="btn tag-button">${project.tags[i]}</a>`;
+        tagContainer.innerHTML += tagHtml;
+    }
+}
+
+function createProjectInDetail()
+{
+    const params = new URLSearchParams(window.location.search);
+    const projectKey = params.get('projectKey');
+    let project = null;
+    if (projectKey) {
+        project = projects.find(p => p.key === projectKey);
+    }
+
+    if (!project) {
+        console.error("No project key given to projects page");
+        document.querySelector('#project-subtitle').textContent = "You hacked this website and there is not project to show";
+        return;
+    }
+
+    // Añadir imagenes
+    createImageCarrousel(project)
+
+    // Aádir tags
+    createTags(project);
+
+    let title = document.querySelector('#project-title');
+    title.textContent = project.title;
+
+    let subtitle = document.querySelector('#project-subtitle');
+    // Asinar la key correspondiente para el servicio de traudcción
+    subtitle.setAttribute('data-lang-key', project.key + "-subtitle");
+    subtitle.textContent = project.subtitleES; // Just in case
+
+    let description = document.querySelector('#project-description');
+    description.textContent = project.descriptionES;
+    description.setAttribute('data-lang-key', project.key + "-description");
+
+    let linkDiv = document.querySelector('#repo-link');
+
+    // Si existe un link, poner un boton
+    if (project.repoLink)
+    {
+        linkDiv.href = project.repoLink;
+        if (project.repoLink.toLowerCase().includes("gitlab.com"))
+        {
+            linkDiv.textContent = "Link to Gitlab";
+            linkDiv.setAttribute('data-lang-key', "gitlab-link");
+        }
+        else if (project.repoLink.toLowerCase().includes("github"))
+        {
+            linkDiv.textContent = "Link to GitHub";
+            linkDiv.setAttribute('data-lang-key', "github-link");
+        }
+    }
+    else
+    {
+        linkDiv.remove(); // Borrar link del DOM si no existe
+    }
+
+    // Añadir traducciones
+    insertProjectTranslation(project);
+
+
+}
+
+window.addEventListener("load", () => {
+    const path = window.location.pathname;
+
+    if (path.includes("project-details.html") || path === "/") {
+        createProjectInDetail();
+    } else {
+        createProjectsInIndex(projects);
+    }
+});
+

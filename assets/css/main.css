@@ -2264,7 +2264,7 @@ section.about
 /*--------------------------------------------------------------
 # Testimonials Section
 --------------------------------------------------------------*/
-.testimonials {
+.projects {
   position: relative;
   overflow: hidden;
   /* Swiper Navigation */
@@ -2272,20 +2272,31 @@ section.about
   /* Responsive Styles */
 }
 
-.testimonials .testimonial-slider {
+.testimonial-slider {
   position: relative;
   padding-bottom: 50px;
 }
 
-.testimonials .testimonial-slider .swiper-wrapper {
+.testimonial-slider .swiper-wrapper {
   height: auto !important;
 }
 
-.testimonials .testimonial-item {
+.testimonial-slider .swiper-slide {
+  height: auto; /* Permite que el slide se adapte al contenedor */
+  display: flex; /* Convierte el slide en un contenedor flex */
+}
+
+
+.testimonial-item {
   background: linear-gradient(135deg, var(--surface-color) 0%, color-mix(in srgb, var(--surface-color), var(--accent-color) 2%) 100%);
   border-radius: 20px;
-  padding: 0;
+  padding: 20px;
   height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Empuja el footer o links al final si quieres */
+
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
   transition: all 0.4s ease;
   overflow: hidden;

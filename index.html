@@ -127,6 +127,78 @@
 
     </section><!-- /About Section -->
 
+
+    <!-- Mis proyectos section -->
+    <section id="projects" class="testimonials section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="container section-title" data-aos="fade-up">
+          <h2 data-lang-key="projects">Mis proyectos</h2>
+        </div>
+        <div class="project-slider swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 4000
+              },
+              "slidesPerView": 1,
+              "spaceBetween": 30,
+              "navigation": {
+                "nextEl": ".swiper-button-next",
+                "prevEl": ".swiper-button-prev"
+              },
+              "breakpoints": {
+                "768": {
+                  "slidesPerView": 2
+                },
+                "1200": {
+                  "slidesPerView": 3
+                }
+              }
+            }
+          </script>
+
+          <div class="swiper-wrapper" id ="projects-container">
+            <!--            <div id="projects-container" class="row g-4"></div>-->
+            <template id="project-template">
+              <div class="swiper-slide">
+                <div class="project-item">
+                  <h5 class="project-title"> </h5>
+                  <img class ="img-fluid" src="#">
+
+                  <p class="service-description p-description">Descripción corta/subtitulo del proyecto.</p>
+
+                  <div class="project-tags mt-3" style="font-size: 0.8rem; opacity: 0.7;">
+                  </div>
+                  <div class="links-container">
+                    <!--                      <i class="bi bi-gitlab"><a href="example.com"></a></i>-->
+                    <a class="project-link" href="#" >
+                      <i class="bi bi-gitlab"></i>
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+              <!--                  <div class="col-lg-4 col-md-6 project-item" data-aos="fade-up">-->
+
+              <!--                  </div>-->
+            </template>
+            <!--</div>--><!--Close projects container-->
+          </div><!--Close swipper wrapper-->
+
+          <div class="swiper-navigation">
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+
+        </div>
+      </div><!--Close slider element-->
+
+    </section><!-- /Services Section -->
+
+
     <!-- Otros roles section-->
     <section id="features-tabs" class="features-tabs section">
 
@@ -196,18 +268,19 @@
                 <div class="col-lg-7">
                   <div class="visual-content">
                     <div class="main-image">
-                      <img src="./a.png" alt="" class="img-fluid">
-                      <div class="floating-card">
-                        <i class="bi bi-graph-up-arrow"></i>
-                        <div class="card-content">
-                          <span>Performance</span>
-                          <strong>+85% Improvement</strong>
-                        </div>
-                      </div>
+<!--                      <img src="./a.png" alt="" class="img-fluid">-->
+<!--                      <div class="floating-card">-->
+<!--                        <i class="bi bi-graph-up-arrow"></i>-->
+<!--                        <div class="card-content">-->
+<!--                          <span>Performance</span>-->
+<!--                          <strong>+85% Improvement</strong>-->
+<!--                        </div>-->
+                      <h4 style="margin-left: 10px"> Some cool 3D animation is loading</h4>
+                      <h6> (Kidding, i havent done that)</h6>
+
                     </div>
                   </div>
                 </div>
-
               </div>
             </div><!-- End tab content item -->
 
@@ -218,7 +291,7 @@
                     <div class="icon-badge">
                       <i class="bi bi-globe-europe-africa-fill"></i>
                     </div>
-                    <h3 data-lang-key="fullstack"></h3>
+                    <h3 data-lang-key="fullstack">asd</h3>
                     <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit sed quia non numquam eius modi tempora incidunt ut labore.</p>
                   </div>
                 </div>
@@ -226,14 +299,10 @@
                 <div class="col-lg-7">
                   <div class="visual-content">
                     <div class="main-image">
-                      <img src="assets/img/features/features-2.webp" alt="" class="img-fluid">
-                      <div class="floating-card">
-                        <i class="bi bi-shield-check"></i>
-                        <div class="card-content">
-                          <span>Security</span>
-                          <strong>Military Grade</strong>
-                        </div>
-                      </div>
+
+                      <h4 style="margin-left: 10px"> Some cool 3D animation is loading</h4>
+                      <h6> (Kidding, i havent done that)</h6>
+<!--                      </div>-->
                     </div>
                   </div>
                 </div>
@@ -258,13 +327,9 @@
                 <div class="col-lg-7">
                   <div class="visual-content">
                     <div class="main-image">
-                      <img src="assets/img/features/features-6.webp" alt="" class="img-fluid">
-                      <div class="floating-card">
-                        <i class="bi bi-speedometer2"></i>
-                        <div class="card-content">
-                          <span>Speed</span>
-                          <strong>Ultra Fast</strong>
-                        </div>
+                      <h4 style="margin-left: 10px"> Some cool 3D animation is loading</h4>
+                      <h6> (Kidding, i havent done that)</h6>
+
                       </div>
                     </div>
                   </div>
@@ -289,14 +354,9 @@
                 <div class="col-lg-7">
                   <div class="visual-content">
                     <div class="main-image">
-                      <img src="assets/img/features/features-1.webp" alt="" class="img-fluid">
-                      <div class="floating-card">
-                        <i class="bi bi-headset"></i>
-                        <div class="card-content">
-                          <span>Support</span>
-                          <strong>Always Here</strong>
-                        </div>
-                      </div>
+                      <h4 style="margin-left: 10px">Some cool 3D animation is loading</h4>
+                      <h6> (Kidding, i havent done that)</h6>
+
                     </div>
                   </div>
                 </div>
@@ -304,74 +364,12 @@
               </div>
             </div><!-- End tab content item -->
 
-          </div>
+
         <!-- </div> -->
 
       </div>
 
     </section><!-- /Features Tabs Section -->
-
-    <!-- Mis proyectos section -->
-    <section id="projects" class="services section">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="container section-title" data-aos="fade-up">
-          <h2 data-lang-key="projects">Mis proyectos</h2>
-        </div>
-        <div class="testimonial-slider swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 4000
-              },
-              "slidesPerView": 1,
-              "spaceBetween": 30,
-              "navigation": {
-                "nextEl": ".swiper-button-next",
-                "prevEl": ".swiper-button-prev"
-              },
-              "breakpoints": {
-                "768": {
-                  "slidesPerView": 2
-                },
-                "1200": {
-                  "slidesPerView": 3
-                }
-              }
-            }
-          </script>
-
-          <div class="swiper-wrapper">
-            <div id="projects-container" class="row g-4"></div>
-                <template id="project-template">
-                  <div class="col-lg-4 col-md-6 project-item" data-aos="fade-up">
-                    <div class="service-card">
-                      <div class="card-content">
-                        <h5 class="service-title"> </h5>
-                        <img class ="img-fluid" href="#">
-
-                        <p class="service-description p-description">Descripción corta/subtitulo del proyecto.</p>
-
-                        <div class="project-tags mt-3" style="font-size: 0.8rem; opacity: 0.7;">
-                        </div>
-                        <div class="links-container">
-    <!--                      <i class="bi bi-gitlab"><a href="example.com"></a></i>-->
-                          <a class="project-link" href="#" >
-                            <i class="bi bi-gitlab"></i>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </template>
-            </div><!--Close projects container-->
-          </div><!--Close swipper wrapper-->
-      </div><!--Close slider element-->
-
-    </section><!-- /Services Section -->
-
 
 
     <!-- Contact Section -->

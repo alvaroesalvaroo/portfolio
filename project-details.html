@@ -26,6 +26,8 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+  <!-- Projects CSS File -->
+  <link href="assets/css/projects.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: Instant
@@ -44,69 +46,43 @@
       <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.webp" alt=""> -->
-        <h1 class="sitename">Instant</h1>
+        <h1 class="sitename">Logo? Nah</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="#hero">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li><a href="index.html" id="homemobilebutton" data-lang-key="home">Home</a></li>
+          <li><a href="#aboutme" data-lang-key="aboutme">About</a></li>
+          <li><a href="#projects" data-lang-key="projects">Proyectos</a></li>
+
+          <li class="dropdown"><a href="#"><span data-lang-key="language"></span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="#">Dropdown 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                <ul>
-                  <li><a href="#">Deep Dropdown 1</a></li>
-                  <li><a href="#">Deep Dropdown 2</a></li>
-                  <li><a href="#">Deep Dropdown 3</a></li>
-                  <li><a href="#">Deep Dropdown 4</a></li>
-                  <li><a href="#">Deep Dropdown 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Dropdown 2</a></li>
-              <li><a href="#">Dropdown 3</a></li>
-              <li><a href="#">Dropdown 4</a></li>
+              <li><a id = "lang-es">Español</a></li>
+
+              <li><a id = "lang-en">English</a></li>
+              <li><a id = "lang-cat">Català</a></li>
+
             </ul>
           </li>
-          <li><a href="#contact">Contact</a></li>
+
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
-
-      <a class="btn-getstarted" href="index.html#about">Get Started</a>
 
     </div>
   </header>
 
   <main class="main">
+    <!--Project data logic needed before rest of dom!-->
 
     <!-- Page Title -->
     <div class="page-title light-background">
       <div class="container">
-        <h1>Project Details</h1>
-        <h2>for project:
-          <script src="assets/js/projects.js"></script>
+        <h1 id = "project-title">Project Title</h1>
 
-          <script>
-            const params = new URLSearchParams(window.location.search);
-            const projectKey = params.get('projectKey');
-            if (projectKey) {
-              const project = projects.find(p => p.key === projectKey);
-              if (project) {
-                document.writeln(project.title);
-              }
-            }
-          </script>
-        </h2>
-        <nav class="breadcrumbs">
-          <ol>
-            <li><a href="index.html">Home</a></li>
-            <li class="current">Service Details</li>
-          </ol>
-        </nav>
+        <p id = "project-subtitle">
+
+        </p>
       </div>
     </div><!-- End Page Title -->
 
@@ -116,107 +92,34 @@
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div class="row gy-5">
+            <div class = "tags-container">
 
+              <a href="#" class="btn tag-button">Tag 1</a>
+              <a href="#" class="btn tag-button">Tag 2</a>
+              <a href="#" class="btn tag-button">Tag 3sssssssssssasd</a>
+
+            </div>
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
             <div class="service-hero">
-              <img src="assets/img/services/services-7.webp" alt="" class="img-fluid">
-              <div class="service-badge">
-                <span>Premium Service</span>
-              </div>
+              <img class = "project-image img-fluid" src="assets/img/services/services-7.webp" alt=""  >
+<!--              <div class="service-badge">-->
+<!--                <span>Premium Service</span>-->
+<!--              </div>-->
             </div>
+
 
             <div class="service-content">
               <div class="service-header">
-                <h2>Digital Marketing Strategy &amp; Implementation</h2>
-                <p class="service-intro">Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
+                <p id = "project-description" class="service-intro">Descripcion proyecto bla bla blah</p>
               </div>
 
-              <div class="service-features">
-                <h4>What You'll Get</h4>
-                <div class="row gy-3">
-                  <div class="col-md-6">
-                    <div class="feature-item">
-                      <div class="feature-icon">
-                        <i class="bi bi-graph-up-arrow"></i>
-                      </div>
-                      <div class="feature-content">
-                        <h5>Analytics &amp; Reporting</h5>
-                        <p>Comprehensive tracking and performance analysis</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="feature-item">
-                      <div class="feature-icon">
-                        <i class="bi bi-people"></i>
-                      </div>
-                      <div class="feature-content">
-                        <h5>Audience Targeting</h5>
-                        <p>Precise demographic and behavioral targeting</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="feature-item">
-                      <div class="feature-icon">
-                        <i class="bi bi-megaphone"></i>
-                      </div>
-                      <div class="feature-content">
-                        <h5>Multi-Channel Campaigns</h5>
-                        <p>Integrated social media and search marketing</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="feature-item">
-                      <div class="feature-icon">
-                        <i class="bi bi-gear"></i>
-                      </div>
-                      <div class="feature-content">
-                        <h5>Strategy Optimization</h5>
-                        <p>Continuous refinement for maximum ROI</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <a id = "repo-link" href="#"><b>No repo link :(</b></a>
 
-              <div class="service-process">
-                <h4>Our Process</h4>
-                <div class="process-steps">
-                  <div class="process-step">
-                    <div class="step-number">01</div>
-                    <div class="step-content">
-                      <h5>Discovery &amp; Analysis</h5>
-                      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae.</p>
-                    </div>
-                  </div>
-                  <div class="process-step">
-                    <div class="step-number">02</div>
-                    <div class="step-content">
-                      <h5>Strategy Development</h5>
-                      <p>Donec rutrum congue leo eget malesuada. Cras ultricies ligula sed magna dictum porta. Vestibulum ante ipsum primis in faucibus.</p>
-                    </div>
-                  </div>
-                  <div class="process-step">
-                    <div class="step-number">03</div>
-                    <div class="step-content">
-                      <h5>Implementation</h5>
-                      <p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Mauris blandit aliquet elit eget tincidunt nibh pulvinar.</p>
-                    </div>
-                  </div>
-                  <div class="process-step">
-                    <div class="step-number">04</div>
-                    <div class="step-content">
-                      <h5>Monitoring &amp; Optimization</h5>
-                      <p>Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Proin eget tortor risus donec sollicitudin molestie.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <hr>
+
 
               <div class="service-gallery" data-aos="fade-up" data-aos-delay="300">
-                <h4>Project Showcase</h4>
+                <h4 data-lang-key="similar-projects">Proyectos similares</h4>
                 <div class="row gy-3">
                   <div class="col-md-4">
                     <img src="assets/img/services/services-2.webp" alt="" class="img-fluid rounded">
@@ -232,72 +135,26 @@
             </div>
           </div>
 
+          <!--Sidebar-->
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="400">
             <div class="service-sidebar">
 
               <div class="service-menu">
-                <h4>Our Services</h4>
+                <h4>Woww q xulo</h4>
                 <div class="menu-list">
                   <a href="#" class="menu-item active">
                     <i class="bi bi-arrow-right"></i>
-                    <span>Digital Marketing</span>
+                    <span>Acabado impresionante</span>
                   </a>
                   <a href="#" class="menu-item">
                     <i class="bi bi-arrow-right"></i>
-                    <span>Web Development</span>
+                    <span>Gran calidad de código</span>
                   </a>
                   <a href="#" class="menu-item">
                     <i class="bi bi-arrow-right"></i>
-                    <span>Brand Strategy</span>
+                    <span>Sale la casa de Barxeta</span>
                   </a>
-                  <a href="#" class="menu-item">
-                    <i class="bi bi-arrow-right"></i>
-                    <span>Content Creation</span>
-                  </a>
-                  <a href="#" class="menu-item">
-                    <i class="bi bi-arrow-right"></i>
-                    <span>SEO Optimization</span>
-                  </a>
-                </div>
-              </div>
 
-              <div class="service-info">
-                <h4>Project Details</h4>
-                <div class="info-list">
-                  <div class="info-item">
-                    <span class="info-label">Duration:</span>
-                    <span class="info-value">3-6 months</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-label">Team Size:</span>
-                    <span class="info-value">4-6 specialists</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-label">Delivery:</span>
-                    <span class="info-value">Bi-weekly reports</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-label">Support:</span>
-                    <span class="info-value">24/7 monitoring</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="contact-card">
-                <div class="contact-content">
-                  <h4>Need Help?</h4>
-                  <p>Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.</p>
-                  <div class="contact-info">
-                    <div class="contact-item">
-                      <i class="bi bi-telephone"></i>
-                      <span>+1 (555) 123-4567</span>
-                    </div>
-                    <div class="contact-item">
-                      <i class="bi bi-envelope"></i>
-                      <span>info@example.com</span>
-                    </div>
-                  </div>
-                  <a href="#" class="btn btn-primary">Get Quote</a>
                 </div>
               </div>
 
@@ -313,69 +170,6 @@
   </main>
 
   <footer id="footer" class="footer light-background">
-
-    <div class="footer-top">
-      <div class="container">
-        <div class="row gy-4">
-          <div class="col-lg-4 col-md-6 footer-about">
-            <a href="index.html" class="logo d-flex align-items-center">
-              <span class="sitename">MyWebsite</span>
-            </a>
-            <div class="footer-contact pt-3">
-              <p>A108 Adam Street</p>
-              <p>New York, NY 535022</p>
-              <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-              <p><strong>Email:</strong> <span>info@example.com</span></p>
-            </div>
-          </div>
-
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">About us</a></li>
-              <li><a href="#">Services</a></li>
-              <li><a href="#">Terms of service</a></li>
-              <li><a href="#">Privacy policy</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><a href="#">Web Design</a></li>
-              <li><a href="#">Web Development</a></li>
-              <li><a href="#">Product Management</a></li>
-              <li><a href="#">Marketing</a></li>
-              <li><a href="#">Graphic Design</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Hic solutasetp</h4>
-            <ul>
-              <li><a href="#">Molestiae accusamus iure</a></li>
-              <li><a href="#">Excepturi dignissimos</a></li>
-              <li><a href="#">Suscipit distinctio</a></li>
-              <li><a href="#">Dilecta</a></li>
-              <li><a href="#">Sit quas consectetur</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Nobis illum</h4>
-            <ul>
-              <li><a href="#">Ipsam</a></li>
-              <li><a href="#">Laudantium dolorum</a></li>
-              <li><a href="#">Dinera</a></li>
-              <li><a href="#">Trodelas</a></li>
-              <li><a href="#">Flexo</a></li>
-            </ul>
-          </div>
-
-        </div>
-      </div>
-    </div>
 
     <div class="copyright text-center">
       <div class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
@@ -416,7 +210,10 @@
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
   <!-- Main JS File -->
+z
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/language-manager.js"></script>
+  <script src="assets/js/projects.js"></script>
 
 </body>
 
