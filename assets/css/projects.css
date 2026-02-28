@@ -39,6 +39,37 @@
     background-color: color-mix(in srgb, var(--accent-color), transparent 80%);
     border-color: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
+/* An active filter means the button is greyed */
+.tag-filter.active {
+    background-color: #e0e0e0; /* Gris pálido */
+    border-color: #bdbdbd;     /* Borde gris un poco más oscuro */
+    color: #757575;            /* Texto grisáceo */
+    opacity: 0.8;
+}
+.tag-filter.active:hover {
+    background-color: #d5d5d5;
+    border-color: #aaaaaa;
+}
+
+
+.tag-filter {
+    cursor: pointer;
+    display: inline-block; /* Permite que el padding y el ancho funcionen correctamente */
+    width: auto;           /* El ancho se adapta al contenido (el texto) */
+    padding: 8px 20px;
+    font-size: 16px;
+    /*font-weight: 500;*/
+    border-radius: 50px;
+    background-color: var(--surface-color);
+    border: 2px solid var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--contrast-color);
+}
+
+.tag-filter:hover {
+    background-color: color-mix(in srgb, var(--accent-color), transparent 80%);
+    border-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+}
 
 
 #projects-images-container {
@@ -95,6 +126,82 @@
     position: relative;
 }
 
+
+
+.testimonials  .btn-primary {
+    background: linear-gradient(135deg, var(--accent-color), color-mix(in srgb, var(--accent-color), var(--heading-color) 20%));
+    color: var(--surface-color);
+    padding: 15px 35px;
+    margin-left: 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    border: none;
+    transition: all 0.3s;
+    /*box-shadow: 0 0 5px color-mix(in srgb, var(--accent-color), transparent 70%);*/
+}
+
+.testimonials  .btn-primary:hover {
+    /*transform: translateY(-2px);*/
+    transform: scale(1.05);
+
+    /*box-shadow: 0 0 20px color-mix(in srgb, var(--accent-color), transparent 60%);*/
+
+}
+
+.testimonials  .btn-primary:hover i {
+    transform: translateX(5px);
+}
+
+.testimonials  .btn-primary i {
+    transition: transform 0.3s ease;
+}
+
+.btn-dropdown,
+.testimonials .swiper-button-prev,
+.testimonials .swiper-button-next {
+    position: static;
+    width: 45px;
+    height: 45px;
+    margin: 0 10px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    color: var(--surface-color);
+    font-size: 16px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.btn-dropdown {
+    line-height: 1; /* Evita que el texto empuje el icono hacia abajo */
+}
+.btn-dropdown:hover,
+.testimonials .swiper-button-prev:hover,
+.testimonials .swiper-button-next:hover {
+    background: color-mix(in srgb, var(--accent-color), var(--heading-color) 20%);
+    transform: scale(1.05);
+}
+.btn-dropdown::after,
+.testimonials .swiper-button-prev::after,
+.testimonials .swiper-button-next::after {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+.testimonials .actions {
+    display: flex;
+    justify-content: space-between; /* Empuja los elementos a los extremos */
+    align-items: center;           /* Los alinea verticalmente al centro */
+    gap: 20px;                     /* Espacio de seguridad por si la pantalla es pequeña */
+    margin: 20px;           /* Separación con el contenido de abajo */
+}
+
 .testimonials .project-index-item::before {
     content: "";
     position: absolute;
@@ -108,6 +215,28 @@
     transition: transform 0.4s ease;
 }
 
+.tags-container {
+    max-height: 0;       /* Empieza colapsado */
+    overflow: hidden;    /* Oculta lo que sobresale */
+    opacity: 0;          /* Invisible */
+    transition: all 0.4s ease-in-out; /* Animación suave */
+    pointer-events: none; /* Evita que se pueda clicar mientras está oculto */
+}
+
+/* Esta clase la pondremos con JavaScript */
+.tags-container.show {
+    max-height: 100px;   /* Un valor mayor a lo que ocupen tus tags */
+    opacity: 1;
+    pointer-events: auto;
+    margin-top: 15px;    /* Espacio opcional al abrirse */
+}
+
+/* Girar la flecha cuando se abre */
+.btn-dropdown.active i {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
 .project-content {
     font-size: 1.2rem;
 }
@@ -117,7 +246,7 @@
 /* Linea entre descripcion y repo-link*/
 @media (min-width: 768px) {
     .border-end-md {
-        border-right: 1px solid #dee2e6; /* Color gris suave de Bootstrap */
+        border-right: 1px solid var(--accent-color); /* Color gris suave de Bootstrap */
     }
 }
 
@@ -127,17 +256,24 @@
     display: inline-block;
 }
 
+
+.testimonials .project-index-item {
+    cursor: pointer;
+}
+/* Highlight border on hover*/
+
 .testimonials .project-index-item:hover {
     border-color: var(--accent-color);
 }
 
-.testimonials .project-index-item:hover::before {
-    transform: scaleX(1);
-}
+/* For some amazing reason, this is loading bar in the top of the item*/
+/*.testimonials .project-index-item:hover::before {*/
+/*    transform: scaleX(1);*/
+/*}*/
 
-.testimonials .project-index-item:hover .testimonial-header img {
-    transform: scale(1.05);
-}
+/*.testimonials .project-index-item:hover .testimonial-header img {*/
+/*    transform: scale(1.05);*/
+/*}*/
 
 .testimonials .project-index-item:hover .quote-icon {
     color: var(--accent-color);

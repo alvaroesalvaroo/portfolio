@@ -622,7 +622,7 @@ h6 {
 
 .scroll-top i {
   font-size: 24px;
-  color: var(--contrast-color);
+  color: var(--surface-color);
   line-height: 0;
 }
 

@@ -1,6 +1,6 @@
 // All projects
 
-const projects = [
+const allProjects = [
     {
         key: "bxa",
         title: "Bar Xet Auto VI",
@@ -66,7 +66,8 @@ const projects = [
         A basic shooter with 2 weapons, shield and ammo system, state-machine enemies AI,
         in a very good looking (but hardware-demanding) environment`,
 
-        tags: ["C#", "Unity2D", "WebGL"],
+
+        tags: ["C#", "Unity 2D", "WebGL"],
         numberOfImages: 2,
         repoLink: "https://gitlab.com/aruizgarcia14/pec2_platformergame_alvaroruiz",
         relevance: 50
@@ -116,8 +117,12 @@ const projects = [
         title: "Rap Battle Game",
         subtitleES: "Un test de mecánicas sobre eleccion de diálogos durante una batalla de rap, incluyendo sincronización con música.",
         descriptionES: `Una idea en la que el reto consiste en elegir la mejor frase posible durante un patrón breve de espera. El beat musical marca el ritmo del gameloop en 4 fases: frase del rival, elegir respuesta, rapear la respuesta, escuchar la reacción del público. Cada respuesta posible tiene una puntuación asociada (+1, -1 o 0).
-        El mayor reto técnico es triggear eventos cuando la muestra de sonido alcanza un sample concreto. La implementación de Unity para WebGL no permite un funcionamiento correcto.` 
+        El mayor reto técnico es triggear eventos cuando la muestra de sonido alcanza un sample concreto. La implementación de Unity para WebGL no permite un funcionamiento correcto.
+        `,
         // TODO: traducir
+
+        tags: ["C#", "Unity 2D", "WebGL"]
+
     }
 
 ];
@@ -187,13 +192,168 @@ function createProjectsInIndex(projectsArray) {
     });
 }
 
+function getActiveFilters() {
+    const params = new URLSearchParams(window.location.search);
+    const filtersString = params.get("filters");
+
+    if (!filtersString) return [];
+
+    // Filters are passed like
+    // ?filters=C#,Unity 3D,Mobile
+    return filtersString.split(",").map(tag => tag.trim());
+}
+
+function filterProjects(exclude = true) {
+    const excludedTags = getActiveFilters();
+    if (excludedTags.length === 0) return allProjects;
+
+    // Filtramos la lista original
+    // Is the only point where we use the global variable :p
+
+    let filteredProjects = allProjects.filter(project => {
+        // This is so difficult
+        if (!project.tags)
+        {a
+            // If no tags, always be filtered
+            console.log("No tags in " + project.key);
+            return true;
+        }
+        const hasExcludedTag = project.tags.some(tag => excludedTags.includes(tag));
+
+        // Passing the test means the project is not excluded
+        return (hasExcludedTag !== exclude);
+    });
+
+    updateProjects(filteredProjects)
+}
+
+function setActiveTag(tagToActivate, tagButton)
+{
+
+    let tagContainer = document.querySelector(".tags-container");
+    let tagAllButtons = tagContainer.querySelectorAll(".btn.tag-filter");
+    // Deactivate all buttons
+    for (const tag of tagAllButtons) {
+        tag.classList.add("active");
+    }
+    // Activate this button
+    tagButton.classList.remove("active");
+
+    // Url has only one filter
+    const newFiltersParam = tagToActivate;
+    const newURL = `project-all.html?filters=${encodeURIComponent(newFiltersParam)}`;
+    window.history.pushState({ filters: newFiltersParam }, '', newURL);
+    // window.location.href = `project-all.html?filters=${newFiltersParam}`;
+
+    filterProjects(false);
+}
+
+function toggleFilter(tagToToggle, button) {
+    let currentFilters = getActiveFilters();
+
+    // TODO: grey out button using active attribute
+
+    button.classList.toggle("active");
+
+
+    if (currentFilters.includes(tagToToggle)) {
+        // Si ya estaba, lo quitamos (lo "des-excluimos")
+        currentFilters = currentFilters.filter(t => t !== tagToToggle);
+    } else {
+        // Si no estaba, lo añadimos a la lista negra
+        currentFilters.push(tagToToggle);
+    }
+
+    // Put filters in url
+    const newFiltersParam = currentFilters.join(",");
+    const newURL = `project-all.html?filters=${encodeURIComponent(newFiltersParam)}`;
+    window.history.pushState({ filters: newFiltersParam }, '', newURL);
+    // window.location.href = `project-all.html?filters=${newFiltersParam}`;
+
+    filterProjects(true);
+
+
+}
+
+function getAllTags() {
+    let allTags = [];
+
+    for (let i = 0; i < allProjects.length; i++) {
+
+        let currentProjectTags = allProjects[i].tags;
+        if (currentProjectTags === undefined) continue;
+        for (let j = 0; j < currentProjectTags.length; j++) {
+            let tag = currentProjectTags[j];
+
+            if (!allTags.includes(tag)) {
+                allTags.push(tag);
+            }
+        }
+    }
+    return allTags;
+}
+
+
+function createAllTags() {
+    let tagContainer = document.querySelector(".tags-container");
+    tagContainer.innerHTML = "";
+
+    // Load all
+    let tags = getAllTags();
+    for (let i = 0; i < tags.length; i++) {
+        let tagName = tags[i];
+        let tagButton = document.createElement("a");
+        tagButton.href="#";
+        tagButton.className = "btn tag-filter";
+        tagButton.id = `tag-${tagName}`;
+        tagButton.textContent = tagName;
+
+        tagButton.addEventListener("click", function(event) {
+            event.preventDefault();
+            // toggleFilter(tagName, this); // 'this' será el botón pulsado
+            setActiveTag(tagName, this);
+        });
+
+        tagContainer.appendChild(tagButton);
+    }
+
+}
+
+function updateProjects(projects) {
+    console.log("Updating projects to " + projects.length + " results");
+    const container = document.querySelector("#projects-all-container");
+    const template = document.querySelector("#project-all-template");
+
+    // Clear container
+    container.innerHTML = "";
+    for (const project of projects) {
+        createProjectCard(project, template, container);
+    }
+}
+
+function createAllProjects() {
+    console.log("creating all projects");
+    const container = document.querySelector("#projects-all-container");
+    container.innerHTML = "";
+    const template = document.querySelector("#project-all-template");
+    if (!container || !template) {
+        console.error("Error: No se encontró el contenedor o el template de la sección projects en projects-all");
+        return;
+    }
+    for (const project of allProjects) {
+        createProjectCard(project, template, container);
+    }
+
+    createAllTags();
+}
+
 function createSimilarProjects(project)
 {
     // Decide three most relevant and relatec projects
 
     const scoredProjects = [];
     // tag in common: + 1000 pts
-    for (const candidateProject of projects) {
+    for (const candidateProject of allProjects) {
         if (candidateProject.key === project.key)   continue;
 
         let currentScore = 0;
@@ -249,8 +409,6 @@ function createImageCarrousel(project) {
             i.toString().padStart(2, '0') + ".png";
         container.appendChild(clone);
     }
-
-
 
 }
 function createTags(project) {
@@ -323,16 +481,51 @@ function createProjectInDetail(projects)
     // Añadir traducciones
     insertProjectTranslation(project);
 
-
 }
 
-window.addEventListener("load", () => {
-    const path = window.location.pathname;
+const btnDropdown = document.querySelector(".btn-dropdown");
+const tagContainer = document.querySelector(".tags-container");
 
-    if (path.includes("project-details.html")) {
-        createProjectInDetail(projects); // The function will detect which project to show based on the URL parameters
-    } else {
-        createProjectsInIndex(projects);
+btnDropdown.addEventListener("click", function() {
+
+    // Mover elementos
+    this.classList.toggle("active");
+    const isNowActive = tagContainer.classList.toggle("show");
+
+    // Despues del transition time, recargamos proyectos
+    setTimeout(() => {
+
+        // 3. Si se acaba de cerrar (no está activo), resetear proyectos
+        if (isNowActive) {
+            // setActiveTag("C#", document.getElementById(`tag-C#`));
+        }
+        else
+        {
+            createAllProjects();
+        }
+    }, 400);
+});
+
+
+
+window.addEventListener("load", () => {
+    const fullURL = window.location.href; // La URL entera
+    const path = window.location.pathname;
+    const isHome = path === "/" || path.endsWith("/portfolio/") || path.endsWith("index.html");
+
+    if (isHome)
+    {
+        createProjectsInIndex(allProjects);
+    }
+    else if (path.includes("project-details.html")) {
+        createProjectInDetail(allProjects); // The function will detect which project to show based on the URL parameters
+    }
+    else if (path.includes("project-all.html")) {
+        createAllProjects();
+    }
+    else
+    {
+        console.error("I dont know which scene am I");
     }
 });
 

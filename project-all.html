@@ -9,8 +9,8 @@
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="assets/img/icons/favicon.png" rel="icon">
-  <link href="assets/img/icons/apple-touch-icon.png" rel="apple-touch-icon">
+<!--  <link href="assets/img/icons/favicon.png" rel="icon">-->
+<!--  <link href="assets/img/icons/apple-touch-icon.png" rel="apple-touch-icon">-->
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -29,13 +29,6 @@
   <!-- Projects CSS File -->
   <link href="assets/css/projects.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Instant
-  * Template URL: https://bootstrapmade.com/newtemplate-bootstrap-website-template/
-  * Updated: Jun 11 2025 with Bootstrap v5.3.6
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body class="service-details-page">
@@ -76,106 +69,50 @@
     <!-- Project title -->
     <div class="project-page-title light-background">
       <div class="container">
-        <h1 id = "project-title">Project Title</h1>
+        <h1 id = "project-title-all" data-lang-key="all-title">All Projects</h1>
 
-        <p id = "project-subtitle">
-
+        <p id = "project-subtitle-all" data-lang-key="all-subtitle">
+          They're usually made fast but with love tasks of some nerdy Master's. Some of them are even fun.
         </p>
       </div>
     </div><!-- End Page Title -->
 
     <!-- Project Details Section -->
-    <section id="project-details-section" > <!--class="service-details section"-->
+    <section class ="testimonials section" > <!--class="service-details section"-->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="btn-dropdown"><i class="bi bi-chevron-down"></i>
 
-          <div class = "tags-container">
+        </div>
+        <div class="tags-container"><a href="#"><span ></span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
 
-            <a href="#" class="btn tag-button">Tag 1</a>
-            <a href="#" class="btn tag-button">Tag 2</a>
-            <a href="#" class="btn tag-button">Tag 3sssssssssssasd</a>
+        </div>
+        <!--Template is outside beacuse container is cleared each filter-->
+        <template id="project-all-template">
+          <div class="col-md-3">
+            <div class="project-index-item">
+              <h5 class="project-title"> </h5>
+              <img class ="img-fluid" src="#" alt="">
 
+              <p class="service-description p-description">Descripción corta/subtitulo del proyecto.</p>
+
+              <div class="project-tags mt-3" style="font-size: 0.8rem; opacity: 0.7;">
+              </div>
+              <div class="links-container">
+                <a class="project-link" href="#" >
+                  <i class="bi bi-gitlab"></i>
+                </a>
+              </div>
+
+            </div>
           </div>
-<!--            <div class="service-hero">-->
+        </template>
 
-              <div class="project-slider swiper init-swiper">
-                <script type="application/json" class="swiper-config">
-                  {
-                    "loop": true,
-                    "speed": 600,
-                    "autoplay": {
-                      "delay": 4000
-                    },
-                    "slidesPerView": 1,
-                    "spaceBetween": 30,
-                    "navigation": {
-                      "nextEl": ".swiper-button-next",
-                      "prevEl": ".swiper-button-prev"
-                    },
-                    "breakpoints": {
-                      "768": {
-                        "slidesPerView": 1
-                      },
-                      "1200": {
-                        "slidesPerView": 1
-                      }
-                    }
-                  }
-                </script>
-                <div class="swiper-wrapper" id ="projects-images-container">
-                  <template id="project-details-template">
-                    <div class="swiper-slide">
-                      <div class="project-details-item">
-                        <img class ="img-fluid" src="#" alt="">
+      <div id = "projects-all-container" class="service-gallery row gy-3" data-aos="fade-up" data-aos-delay="300">
 
-                      </div>
-                    </div>
-                  </template>
-                </div><!--Close swipper wrapper-->
-
-                <div class="swiper-navigation">
-                  <div class="swiper-button-prev"></div>
-                  <div class="swiper-button-next"></div>
-                </div>
-
-              </div>
-<!--            </div>-->
-
-
-            <div class="project-content row gy-4 align-items-center" >
-
-              <div class="project-description-container col-md-4 border-end-md pe-md-5">
-                <p id = "project-description" class="service-intro">Descripcion proyecto bla bla blah</p>
-              </div>
-            <div class = "links-container-detail col-md-3 text-md-end">
-              <a id = "repo-link"  href="#"><b>No repo link :(</b></a>
-
-            </div>
-
-            </div>
-        <hr>
-        <div id = "similar-projects-container" class="service-gallery row gy-3"" data-aos="fade-up" data-aos-delay="300">
-          <h4 data-lang-key="similar-projects">Proyectos similares</h4>
-
-          <template id="related-project-template">
-            <div class="col-md-3">
-              <div class="project-index-item">
-                <h5 class="project-title"> </h5>
-                <img class ="img-fluid" src="#" alt="">
-                <p class="service-description p-description">Descripción corta/subtitulo del proyecto.</p>
-                <div class="project-tags mt-3" style="font-size: 0.8rem; opacity: 0.7;">
-                </div>
-                <div class="links-container">
-                  <a class="project-link" href="#" >
-                    <i class="bi bi-gitlab"></i>
-                  </a>
-                </div>
-
-              </div>
-            </div>
-          </template>
       </div>
 
+      </div>
     </section><!-- /Service Details Section -->
 
   </main>
