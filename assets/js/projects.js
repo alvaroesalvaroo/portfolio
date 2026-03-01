@@ -70,7 +70,7 @@ const allProjects = [
         tags: ["C#", "Unity 2D", "WebGL"],
         numberOfImages: 2,
         repoLink: "https://gitlab.com/aruizgarcia14/pec2_platformergame_alvaroruiz",
-        relevance: 50
+        relevance: 40
     },
 
     {
@@ -89,6 +89,8 @@ const allProjects = [
             En ell, implementem un sistema de desat de les nostres millors voltes. Competim contra un ghost car que replica la nostra millor marca. També experimentem amb els Terrain Assets d'Unity.`,
 
         tags:  ["C#", "Unity 3D", "Windows build"],
+        numberOfImages: 1,
+
         repoLink: "",
         relevance: 10
     },
@@ -108,6 +110,8 @@ const allProjects = [
         descriptionEN: `            It uses features like animation layers, is fully compatible with controllers, and has a difficulty selector with three possible levels.
             It's a simple game inspired by other titles like One Finger Death Punch or Stick Fight: The Game. But I'm satisfied with the finish and (moderately) with the gameplay.
         `,
+        numberOfImages: 0,
+        video: "stickman.mp4",
         tags: ["C#", "Unity 2D", "WebGL"],
         repoLink: "https://gitlab.com/aruizgarcia14/stickman-brawl",
         relevance: 30
@@ -117,15 +121,107 @@ const allProjects = [
         title: "Rap Battle Game",
         subtitleES: "Un test de mecánicas sobre eleccion de diálogos durante una batalla de rap, incluyendo sincronización con música.",
         descriptionES: `Una idea en la que el reto consiste en elegir la mejor frase posible durante un patrón breve de espera. El beat musical marca el ritmo del gameloop en 4 fases: frase del rival, elegir respuesta, rapear la respuesta, escuchar la reacción del público. Cada respuesta posible tiene una puntuación asociada (+1, -1 o 0).
-        El mayor reto técnico es triggear eventos cuando la muestra de sonido alcanza un sample concreto. La implementación de Unity para WebGL no permite un funcionamiento correcto.
+        El mayor reto técnico es triggear eventos cuando la muestra de sonido alcanza un sample concreto. La implementación de audio de Unity para WebGL es una cosa.
         `,
-        // TODO: traducir
-
+        numberOfImages: 2,
+        repoLink: "https://gitlab.com/aruizgarcia14/juego-de-aventuras-alvaro-ruiz",
+        relevance: 25,
         tags: ["C#", "Unity 2D", "WebGL"]
 
+    },
+    {
+        key:"mariont",
+        title: "Super Marion't",
+        subtitleES: "Un juego en C++/Raylib, con físicas hechas a mano",
+        subtitleEN: "a C++/Raylib Platformer Game, with handmade physics",
+        descriptionEN: `I liked how code result was pretty boilerplate and organized. The game includes a basic Physics Engine, and a 2D Camera with parallax effect..
+        `,
+        numberOfImages: 2,
+
+        repoLink: "https://gitlab.com/aruizgarcia14/pgpec2-a-platformer-in-c-with-raylib",
+        relevance: 60,
+        tags: ["C++"]
+    },
+    {
+        key: "ia-motion",
+        title: "Flocking and Formation Motion",
+        subtitleES: "Simulación de comportamientos de grupo y formaciones dinámicas en Unity 3D",
+        subtitleEN: "Flocking and formation motion group behaviors simulation in Unity 3D",
+        subtitleCAT: "Simulació de comportaments de grup i formacions dinàmiques a Unity 3D",
+        descriptionES: `
+        Este proyecto implementa sistemas de movimiento de grupo basados en los algoritmos de Millington y Reynolds. 
+        Por un lado, una formación en flecha (arrowhead) donde cada guardia mantiene su posición relativa respecto al siguiente. 
+        Por otro, un sistema de 'boids' para un enjambre de abejas que utiliza componentes de cohesión, alineación y separación para lograr un movimiento orgánico.
+        Cabe destacar el uso de Árboles de Comportamiento (Behaviour Trees) para coordinar la lógica: el enjambre persigue a los guardias pero regresa al nido si se aleja demasiado.
+    `,
+        descriptionEN: `
+        This project implements group motion systems based on Millington and Reynolds algorithms. 
+        It features an emergent arrowhead formation where guards maintain relative positions, and a 'boids' system for a bee swarm using cohesion, alignment, and separation. 
+        A notable feature is the integration of Behaviour Trees to coordinate logic: the swarm pursues the guards but returns to its nest if it strays too far.
+    `,
+        descriptionCAT: `
+        Aquest projecte implementa sistemes de moviment de grup basats en els algoritmes de Millington i Reynolds. 
+        D'una banda, una formació en fletxa (arrowhead) on cada guàrdia manté la seva posició relativa respecte del següent. 
+        De l'altra, un sistema de boids per a un eixam d'abelles que utilitza components de cohesió, alineació i separació per aconseguir un moviment orgànic.
+        Cal destacar l'ús d'Arbres de Comportament (Behaviour Trees) per coordinar la lògica: l'eixam persegueix els guàrdies, però torna al niu si s'allunya massa.
+        `,
+        tags: [
+            "C#",
+        ],
+        video: "flockin1.mp4",
+        numberOfImages: 2,
+        repoLink: "https://gitlab.com/aruizgarcia14/iapec2-formation-and-flocking-motion-colective-behaviours",
+        relevance: 35
+    },
+    {
+        key: "ia-ml",
+        title: "Cooperative ML-Agents: Rob the Nest",
+        subtitleES: "Entrenamiento de agentes inteligentes mediante aprendizaje por refuerzo cooperativo en Unity",
+        subtitleEN: "Cooperative Reinforcement Learning for intelligent agents in Unity",
+        subtitleCAT: "Entrenament d'agents intel·ligents mitjançant aprenentatge per reforç cooperatiu a Unity",
+        descriptionES: `
+        En este proyecto utilicé Unity ML-Agents para entrenar a un grupo de tres "ladrones" que deben cooperar para alcanzar un nido custodiado por una IA enemiga. 
+        Lo más interesante fue el proceso de refinamiento de la función de recompensa; inicialmente, los agentes aprendieron a ser "cobardes" para evitar penalizaciones por muerte, lo que me obligó a ajustar los pesos y añadir recompensas por proximidad al objetivo.
+        La clave del éxito fue introducir una observación específica (isBeingAggroed), esto logró una victoria de más de un 90%.
+    `,
+        descriptionEN: `
+        In this project, I used Unity ML-Agents to train a group of three "robbers" to cooperate and reach a nest guarded by an AI bee. 
+        The most interesting part was the reward function refinement; agents initially learned "coward" behaviors to avoid death penalties, leading me to implement proximity-based rewards. 
+        The breakthrough came from adding a specific observation (isBeingAggroed), resulting in a 90% win rate.
+    `,
+        descriptionCAT: `
+        En aquest projecte vaig utilitzar Unity ML-Agents per entrenar un grup de tres "lladres" que han de cooperar per assolir un niu custodiat per una IA enemiga. 
+        El més interessant va ser el procés de refinament de la funció de recompensa; inicialment, els agents van aprendre a ser "covards" per evitar penalitzacions per mort, cosa que em va obligar a ajustar els pesos i afegir recompenses per proximitat a l'objectiu.
+        La clau de lèxit va ser introduir una observació específica (isBeingAggroed), això va aconseguir una victòria de més dun 90%.
+        `,
+        tags: [
+            "C#",
+            "ML-Agents",
+        ],
+        video: "final-demo.mp4",
+        numberOfImages: 1,
+        repoLink: "https://gitlab.com/aruizgarcia14/iapec3-machine-learning-with-unity-ml-agents", // Ajustar según tu URL
+        relevance: 90
+    },
+    {
+        key: "low-level-bricks",
+        title: "Low-Level Bricks",
+        subtitleES: "Arcade multiplayer de alto rendimiento desarrollado en C++ y OpenGL",
+        subtitleEN: "High-performance multiplayer arcade game built with C++ and OpenGL",
+        subtitleCAT: "Arcade multiplayer d'alt rendiment desenvolupat en C++ i OpenGL",
+        descriptionES: "Versión extendida del clásico Breakout con soporte para multijugador local. Implementa un motor de renderizado propio (Shaders, Post-procesado) y un sistema de físicas basado en el tutorial de LearnOpenGL. Destaca el uso de herencia para la lógica de dos jugadores y un motor de audio en SDL_mixer con un sistema de 'cooldown' de 50ms para evitar saturación sonora en colisiones múltiples.",
+        descriptionEN: "Extended Breakout-style arcade with local multiplayer support. Features a custom rendering engine (Shaders, Post-processing) and physics built on C++ and OpenGL. Key highlights include an inheritance-based architecture for 2-player logic and an SDL_mixer audio engine with a 50ms cooldown system to prevent sound overlapping during rapid collisions.",
+        descriptionCAT: "Versió estesa del clàssic Breakout amb suport per a multijugador local. Implementa un motor de renderització propi (Shaders, Post-processat) i un sistema de físiques basat en el tutorial de LearnOpenGL. Destaca l'ús d'herència per a la lògica de dos jugadors i un motor d'àudio en SDL_mixer amb un sistema de 'cooldown' de 50ms per evitar la saturació sonora en col·lisions múltiples.",
+        tags: ["C++", "OpenGL", "SDL2"],
+        video: "LowLevelBricksDemo.mp4",
+        numberOfImages: 1,
+        repoLink: "https://gitlab.com/aruizgarcia14/pgpec3-a-game-in-c-with-opengl",
+        relevance: 75
     }
 
+
 ];
+
 
 // Projects logic
 function createProjectCard(project, template, container) {
@@ -141,13 +237,18 @@ function createProjectCard(project, template, container) {
     let subtitle = clone.querySelector('.service-description');
 
     // Asinar la key correspondiente para el servicio de traudcción
-    subtitle.setAttribute('data-lang-key', project.key + "-subtitle");
-    subtitle.textContent = project.subtitleES; // Just in case
+    if (!project.subtitleES) {
+        subtitle.remove();
+    } else {
+        subtitle.setAttribute('data-lang-key', project.key + "-subtitle");
+        subtitle.textContent = project.subtitleES; // Just in case
+    }
+
 
     let linkDiv = clone.querySelector('a');
 
     // Si existe un link, poner un boton
-    if (project.repoLink)
+    if (project.repoLink && project.subtitleES)
     {
         linkDiv.href = project.repoLink;
         if (project.repoLink.toLowerCase().includes("gitlab.com"))
@@ -342,6 +443,8 @@ function createAllProjects() {
     }
     for (const project of allProjects) {
         createProjectCard(project, template, container);
+        insertProjectTranslation(project);
+
     }
 
     createAllTags();
@@ -384,24 +487,41 @@ function createSimilarProjects(project)
     const template = document.querySelector("#related-project-template");
 
     for (const topScoredProject of topThree) {
+        
+        topScoredProject.project.subtitleEN = topScoredProject.project.subtitleES = topScoredProject.project.subtitleCAT = undefined;
         createProjectCard(topScoredProject.project, template, container);
     }
 
 
 }
 
-function createImageCarrousel(project) {
+function createMediaCarrousel(project) {
     let numberOfImages = project.numberOfImages || 1;
 
     let container = document.querySelector("#projects-images-container");
     let template = document.querySelector("#project-details-template");
 
-    // solo una imagen
-    // let image = document.querySelector('img');
-    // image.src = "assets/img/projects/" + project.key + "/01.png";
+    if (project.video) {
+        // if videos is an array, add them all
 
-    for (let i = 1; i <= numberOfImages; i++)
-    {
+        const videos = Array.isArray(project.video) ? project.video : [project.video];
+        videos.forEach(video => {
+            const clone = template.content.cloneNode(true);
+            const videoTag = clone.querySelector('video');
+            const sourceTag = videoTag.querySelector('source');
+
+            sourceTag.src = `assets/img/projects/${project.key}/${video}`;
+            videoTag.classList.remove('d-none'); // Mostrar video
+
+            // Importante: Cargar el video después de cambiar el source
+            videoTag.load();
+
+            container.appendChild(clone);
+        });
+    }
+
+    // Images
+    for (let i = 1; i <= numberOfImages; i++) {
         const clone = template.content.cloneNode(true);
         let image = clone.querySelector('img');
 
@@ -410,7 +530,10 @@ function createImageCarrousel(project) {
         container.appendChild(clone);
     }
 
+
+
 }
+
 function createTags(project) {
     let tagContainer = document.querySelector(".tags-container");
     tagContainer.innerHTML = "";
@@ -420,8 +543,7 @@ function createTags(project) {
     }
 }
 
-function createProjectInDetail(projects)
-{
+function createProjectInDetail(projects) {
     const params = new URLSearchParams(window.location.search);
     const projectKey = params.get('projectKey');
     let project = null;
@@ -436,7 +558,7 @@ function createProjectInDetail(projects)
     }
 
     // Añadir imagenes
-    createImageCarrousel(project)
+    createMediaCarrousel(project)
 
     // Añadir tags
     createTags(project);
@@ -459,22 +581,16 @@ function createProjectInDetail(projects)
     let linkDiv = document.querySelector('#repo-link');
 
     // Si existe un link, poner un boton
-    if (project.repoLink)
-    {
+    if (project.repoLink) {
         linkDiv.href = project.repoLink;
-        if (project.repoLink.toLowerCase().includes("gitlab.com"))
-        {
+        if (project.repoLink.toLowerCase().includes("gitlab.com")) {
             linkDiv.textContent = "Link to Gitlab";
             linkDiv.setAttribute('data-lang-key', "gitlab-link");
-        }
-        else if (project.repoLink.toLowerCase().includes("github"))
-        {
+        } else if (project.repoLink.toLowerCase().includes("github")) {
             linkDiv.textContent = "Link to GitHub";
             linkDiv.setAttribute('data-lang-key', "github-link");
         }
-    }
-    else
-    {
+    } else {
         linkDiv.remove(); // Borrar link del DOM si no existe
     }
 
@@ -483,48 +599,55 @@ function createProjectInDetail(projects)
 
 }
 
-const btnDropdown = document.querySelector(".btn-dropdown");
-const tagContainer = document.querySelector(".tags-container");
+function setupTagsDropdown() {
+    const btnDropdown = document.querySelector(".btn-dropdown");
+    const tagContainer = document.querySelector(".tags-container");
 
-btnDropdown.addEventListener("click", function() {
+    btnDropdown.addEventListener("click", function () {
 
-    // Mover elementos
-    this.classList.toggle("active");
-    const isNowActive = tagContainer.classList.toggle("show");
+        // Mover elementos
+        this.classList.toggle("active");
+        const isNowActive = tagContainer.classList.toggle("show");
 
-    // Despues del transition time, recargamos proyectos
-    setTimeout(() => {
+        // Despues del transition time, recargamos proyectos
+        setTimeout(() => {
 
-        // 3. Si se acaba de cerrar (no está activo), resetear proyectos
-        if (isNowActive) {
-            // setActiveTag("C#", document.getElementById(`tag-C#`));
-        }
-        else
-        {
-            createAllProjects();
-        }
-    }, 400);
-});
+            // 3. Si se acaba de cerrar (no está activo), resetear proyectos
+            if (isNowActive) {
+                // setActiveTag("C#", document.getElementById(`tag-C#`));
+            } else {
+                createAllProjects();
+            }
+        }, 400);
+    });
+}
 
+function sortProjectsByRelevanceWithRandomness() {
+    allProjects.sort((a, b) => {
+        // Calculamos la "puntuación temporal" restando un random entre 0 y 30
+        const scoreA = a.relevance - (Math.random() * 30);
+        const scoreB = b.relevance - (Math.random() * 30);
+
+        // Orden descendente (de mayor puntuación a menor)
+        return scoreB - scoreA;
+    });
+}
 
 
 window.addEventListener("load", () => {
-    const fullURL = window.location.href; // La URL entera
+    // const fullURL = window.location.href; // La URL entera
     const path = window.location.pathname;
-    const isHome = path === "/" || path.endsWith("/portfolio/") || path.endsWith("index.html");
-
-    if (isHome)
-    {
+    // Check if we are on index
+    const isHome = path === "/" || path.endsWith("/portfolio/") || path.includes("index.html");
+    sortProjectsByRelevanceWithRandomness();
+    if (isHome) {
         createProjectsInIndex(allProjects);
-    }
-    else if (path.includes("project-details.html")) {
+    } else if (path.includes("project-details.html")) {
         createProjectInDetail(allProjects); // The function will detect which project to show based on the URL parameters
-    }
-    else if (path.includes("project-all.html")) {
+    } else if (path.includes("project-all.html")) {
         createAllProjects();
-    }
-    else
-    {
+        setupTagsDropdown();
+    } else {
         console.error("I dont know which scene am I");
     }
 });

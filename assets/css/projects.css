@@ -143,6 +143,16 @@
     transition: all 0.3s;
     /*box-shadow: 0 0 5px color-mix(in srgb, var(--accent-color), transparent 70%);*/
 }
+@media (max-width: 768px) {
+    .testimonials .btn-primary {
+        padding: 10px 20px;    /* Reducimos altura (arriba/abajo) y anchura */
+        font-size: 14px;      /* Letra un poco más pequeña para asegurar una línea */
+        margin-left: 0;       /* Normalmente en móvil es mejor que no tenga margen lateral */
+        white-space: nowrap;  /* PROPIEDAD CLAVE: Prohíbe que el texto salte de línea */
+        width: auto;          /* Se ajusta al contenido */
+        gap: 6px;             /* Estrechamos el espacio con el icono */
+    }
+}
 
 .testimonials  .btn-primary:hover {
     /*transform: translateY(-2px);*/
@@ -215,6 +225,40 @@
     transition: transform 0.4s ease;
 }
 
+#projects h3 {
+    font-size: 32px;
+    font-weight: 700;
+    position: relative;
+}
+
+#projects h3:after {
+    content: "";
+    position: absolute;
+    width: 60%;
+    height: 3px;
+    background-color: var(--accent-color);
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+}
+
+/*#projects h3:before,*/
+/*#projects h3:after {*/
+/*    content: "";*/
+/*    width: 50px;*/
+/*    height: 2px;*/
+/*    background: var(--accent-color);*/
+/*    display: inline-block;*/
+/*}*/
+
+/*#projects h3:before {*/
+/*    margin: 0 15px 10px 0;*/
+/*}*/
+
+/*#projects h3:after {*/
+/*    margin: 0 0 10px 15px;*/
+/*}*/
+
 .tags-container {
     max-height: 0;       /* Empieza colapsado */
     overflow: hidden;    /* Oculta lo que sobresale */
@@ -223,12 +267,19 @@
     pointer-events: none; /* Evita que se pueda clicar mientras está oculto */
 }
 
-/* Esta clase la pondremos con JavaScript */
 .tags-container.show {
-    max-height: 100px;   /* Un valor mayor a lo que ocupen tus tags */
+    /* CRITICO PARA RESPONSIVE */
+    max-height: 100px;
     opacity: 1;
     pointer-events: auto;
     margin-top: 15px;    /* Espacio opcional al abrirse */
+}
+
+@media (max-width: 700px) {
+    .tags-container.show {
+        max-height: 500px;
+    }
+
 }
 
 /* Girar la flecha cuando se abre */

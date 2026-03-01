@@ -1,6 +1,5 @@
 // Variable global para almacenar las traducciones cargadas
 let translations = {};
-let currentLanguage = 'en'; // Idioma por defecto
 
 function insertProjectTranslation(project)
 {
@@ -17,6 +16,8 @@ function insertProjectTranslation(project)
     if (project.subtitleES)     translations[subtitleKey]["es"] = project.subtitleES;
     if (project.subtitleCAT)    translations[subtitleKey]["cat"] = project.subtitleCAT;
     if (project.subtitleEN)     translations[subtitleKey]["en"] = project.subtitleEN;
+
+    applyTranslations()
 }
 
 /**
@@ -149,10 +150,12 @@ function showCorrectTypedAnimation() {
  * @param {string} lang El código del idioma (ej. 'es', 'en').
  */
 function setLanguage(lang) {
+
     if (translations[Object.keys(translations)[0]] && translations[Object.keys(translations)[0]][lang]) {
         currentLanguage = lang;
         localStorage.setItem('preferredLanguage', lang); // Guardar preferencia
         applyTranslations();
+
         console.log(`Idioma cambiado a: ${lang}`);
     } else {
         console.error(`Idioma ${lang} no soportado o traducciones no cargadas.`);
@@ -162,6 +165,7 @@ function setLanguage(lang) {
 
 
 // Inicialización: Cargar traducciones y aplicar el idioma inicial
+let currentLanguage = localStorage.getItem('preferredLanguage');
 
 document.addEventListener('DOMContentLoaded', async () => {
     await loadTranslations();
@@ -169,14 +173,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     initializeAllTypedAnimations();
 
     // Elegir idioma inicial basado en la ubicación/preferencia
-    const storedLang = localStorage.getItem('preferredLanguage');
-    const browserLang = navigator.language.split('-')[0]; // 'es-ES' -> 'es'
-
-    if (storedLang && translations[Object.keys(translations)[0]] && translations[Object.keys(translations)[0]][storedLang]) {
-        currentLanguage = storedLang;
-    } else if (translations[Object.keys(translations)[0]] && translations[Object.keys(translations)[0]][browserLang]) {
-        currentLanguage = browserLang;
+    if (!currentLanguage) {
+        currentLanguage = navigator.language.split('-')[0];
+        // Guardarlo para la próxima vez
+        localStorage.setItem('preferredLanguage', currentLanguage);
     }
+
     applyTranslations();
 
     // Botones de cambio de idioma
