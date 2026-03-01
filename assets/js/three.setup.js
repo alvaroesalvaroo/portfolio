@@ -25,7 +25,7 @@ renderer.setSize( sizes.width, sizes.height );
 const loader = new GLTFLoader();
 let loadedScene = null;
 
-loader.load( './assets/3Dmodels/EscenaEstatica.glb', function ( gltf ) {
+loader.load( './assets/3Dmodels/EscenaEstaticaCompressed.glb', function ( gltf ) {
   loadedScene = gltf.scene;
   onModelLoaded(gltf.scene);
 
