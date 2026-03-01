@@ -12,6 +12,10 @@
     font-weight: 700;
     margin-bottom: 10px;
 }
+.this-title {
+    font-family: 'Consolas';
+    color: #d3b677;
+}
 #project-details-section {
     padding-top:0;
 }
@@ -269,7 +273,7 @@
 
 .tags-container.show {
     /* CRITICO PARA RESPONSIVE */
-    max-height: 100px;
+    max-height: 200px;
     opacity: 1;
     pointer-events: auto;
     margin-top: 15px;    /* Espacio opcional al abrirse */
@@ -280,31 +284,6 @@
         max-height: 500px;
     }
 
-}
-
-/* Girar la flecha cuando se abre */
-.btn-dropdown.active i {
-    transform: rotate(180deg);
-    transition: transform 0.3s ease;
-}
-
-.project-content {
-    font-size: 1.2rem;
-}
-#similar-projects-container {
-
-}
-/* Linea entre descripcion y repo-link*/
-@media (min-width: 768px) {
-    .border-end-md {
-        border-right: 1px solid var(--accent-color); /* Color gris suave de Bootstrap */
-    }
-}
-
-.repo-style {
-    text-decoration: none;
-    color: #333;
-    display: inline-block;
 }
 
 
@@ -338,11 +317,42 @@
 }
 
 
-.links-container {
+/* Girar la flecha cuando se abre */
+.btn-dropdown.active i {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+.project-content {
+    font-size: 1.2rem;
+}
+
+
+/* Linea entre descripcion y repo-link*/
+@media (min-width: 768px) {
+    .links-container-detail {
+        margin: 0 100px;
+    }
+    .border-end-md {
+        border-right: 1px solid var(--accent-color); /* Color gris suave de Bootstrap */
+    }
+}
+
+
+#similar-projects-container {
+
+}
+.project-link {
+    margin: 0 7px;
+}
+
+
+.links-container,
+.links-container-detail {
     display: flex;
     justify-content: center;
 }
-
+.links-container-detail a,
 .links-container a {
     display: flex;
     align-items: center;
@@ -356,6 +366,14 @@
     transition: all 0.3s ease;
 }
 
+.links-container-detail a
+{
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+}
+
+.links-container-detail a:hover,
 .links-container a:hover {
     background: var(--contrast-color);
     color: var(--surface-color);

@@ -19,9 +19,10 @@ const allProjects = [
         The game combines melee attacks, throws, grenades, and driving in an environment plagued with enemies (characters from Mortadelo and Filemón) that appear progressively faster.
         The (non-)aim system with a weapon is a notable feature, an interesting solution for simple shooting systems.`,
 
-        tags: ["C#", "Unity 3D", "Windows build"],
+        tags: ["C#", "Unity 3D"],
         repoLink: "https://gitlab.com/aruizgarcia14/pec3-un-juego-de-accion",
-        donwloadlink: "",
+        windowsLink: "https://drive.google.com/drive/folders/1StYa06P6bNei5cgcGYwyURMpUS6NNvwT?usp=sharing",
+        webLink: "https://play.unity.com/es/user/98453246-b7ce-49c5-ab6b-c4f3c5546cb9",
         relevance:70
     },
     {
@@ -43,7 +44,7 @@ const allProjects = [
 
         tags: ["C#", "Unity 3D"],
         repoLink: "https://gitlab.com/aruizgarcia14/pec2-un-juego-de-disparos",
-        windowsLink: "",
+        windowsLink: "https://drive.google.com/drive/folders/1StYa06P6bNei5cgcGYwyURMpUS6NNvwT?usp=sharing",
         numberOfImages:6,
         relevance: 60
     },
@@ -67,9 +68,11 @@ const allProjects = [
         in a very good looking (but hardware-demanding) environment`,
 
 
-        tags: ["C#", "Unity 2D", "WebGL"],
+        tags: ["C#", "Unity 2D", "Web"],
         numberOfImages: 2,
         repoLink: "https://gitlab.com/aruizgarcia14/pec2_platformergame_alvaroruiz",
+        windowsLink: "https://drive.google.com/drive/folders/1lbniG5F2ZeoO-HrxS_lg2mOPlM_nEJCL?usp=sharing",
+        webLink: "https://play.unity.com/es/user/98453246-b7ce-49c5-ab6b-c4f3c5546cb9",
         relevance: 40
     },
 
@@ -88,10 +91,11 @@ const allProjects = [
         descriptionCAT: `Un exercici interessant per aprendre eines clau d'Unity com els Scriptable Objects, els Wheel Colliders, teles, shaders...
             En ell, implementem un sistema de desat de les nostres millors voltes. Competim contra un ghost car que replica la nostra millor marca. També experimentem amb els Terrain Assets d'Unity.`,
 
-        tags:  ["C#", "Unity 3D", "Windows build"],
-        numberOfImages: 1,
+        tags:  ["C#", "Unity 3D"],
+        numberOfImages: 5,
 
-        repoLink: "",
+        repoLink: "https://gitlab.com/aruizgarcia14/pec1-unjuegodecarreras",
+        windowsLink: "https://drive.google.com/drive/folders/1StYa06P6bNei5cgcGYwyURMpUS6NNvwT?usp=sharing",
         relevance: 10
     },
     {
@@ -112,8 +116,11 @@ const allProjects = [
         `,
         numberOfImages: 0,
         video: "stickman.mp4",
-        tags: ["C#", "Unity 2D", "WebGL"],
+        tags: ["C#", "Unity 2D", "Web"],
         repoLink: "https://gitlab.com/aruizgarcia14/stickman-brawl",
+        windowsLink: "https://drive.google.com/drive/folders/1lbniG5F2ZeoO-HrxS_lg2mOPlM_nEJCL?usp=sharing",
+        webLink: "https://play.unity.com/es/user/98453246-b7ce-49c5-ab6b-c4f3c5546cb9",
+
         relevance: 30
     },
     {
@@ -133,8 +140,9 @@ const allProjects = [
         `,
         numberOfImages: 2,
         repoLink: "https://gitlab.com/aruizgarcia14/juego-de-aventuras-alvaro-ruiz",
+        windowsLink: "https://drive.google.com/drive/folders/1lbniG5F2ZeoO-HrxS_lg2mOPlM_nEJCL?usp=sharing",
         relevance: 25,
-        tags: ["C#", "Unity 2D", "WebGL"]
+        tags: ["C#", "Unity 2D", "Web"]
 
     },
     {
@@ -153,6 +161,7 @@ const allProjects = [
         numberOfImages: 2,
 
         repoLink: "https://gitlab.com/aruizgarcia14/pgpec2-a-platformer-in-c-with-raylib",
+        windowsLink: "https://gitlab.com/aruizgarcia14/pgpec2-a-platformer-in-c-with-raylib/-/tree/main/build/x64-Release?ref_type=heads",
         relevance: 60,
         tags: ["C++"]
     },
@@ -185,6 +194,7 @@ const allProjects = [
         video: "flocking1.mp4",
         numberOfImages: 2,
         repoLink: "https://gitlab.com/aruizgarcia14/iapec2-formation-and-flocking-motion-colective-behaviours",
+
         relevance: 35
     },
     {
@@ -230,12 +240,125 @@ const allProjects = [
         video: "LowLevelBricksDemo.mp4",
         numberOfImages: 4,
         repoLink: "https://gitlab.com/aruizgarcia14/pgpec3-a-game-in-c-with-opengl",
+        windowsLink: "https://gitlab.com/aruizgarcia14/pgpec3-a-game-in-c-with-opengl/-/tree/main/build?ref_type=heads",
         relevance: 75
+    },
+    {
+        key: "tanks",
+        title: "Tanks! You're Welcome",
+        subtitleES: "Un juego multijugador, tanto en local como online",
+        subtitleEN: "A multiplayer game, both local and online",
+        subtitleCAT: "Un joc multijugador, tant en local com online",
+        descriptionES: `En este juego, bombardearemos a los tanques de nuestros amigos durante una serie de rondas. En local, dividiremos la pantalla y añadiremos un minimapa. En el modo online, usaremos la librería de Mirror y sincronización con leaderboards en Playfab.
+            El sistema de colisión de la cámara y el código son altamente reciclables.`,
+        descriptionEN:`
+        In this game, we bomb our friends' tanks over a series of rounds. The local mode features split-screen and a minimap, while the online mode uses the Mirror library and leaderboard synchronization via Playfab. Both the camera collision system and the code are highly reusable.
+        `,
+        descriptionCAT: `
+        En aquest joc, bombardejarem els tancs dels nostres amics durant una sèrie de rondes. En local, dividirem la pantalla i afegirem un minimapa. En el mode online, utilitzarem la llibreria de Mirror i sincronització amb leaderboards a Playfab. El sistema de col·lisió de la càmera i el codi són altament reciclables.
+        ` ,
+        tags: ["C#", "Unity 3D", "Multiplayer"],
+        gif: "CamCollisions.gif",
+        numberOfImages: 2,
+        repoLink: "https://gitlab.com/aruizgarcia14/jmpec1-alvaroruiz",
+        repoLink2:"https://gitlab.com/aruizgarcia14/jm-practica-final",
+        windowsLink: "https://drive.google.com/drive/folders/1rJ6Yp1zIPcwDtg_cJLMW28tB9vyyLLVh?usp=sharing",
+        relevance: 50,
+    },
+
+    {
+        key: "ocalight",
+        title: "Ocalight 🪿",
+        subtitleES: "El proyecto más sencillo, simple y moderadamente divertido que verás hoy.",
+        subtitleEN: "The simplest and most moderately fun project you will see today.",
+        subtitleCAT: "El projecte més senzill, simple i moderadament divertit que veuràs avui.",
+        descriptionES: ` Cuando jugamos al clásico juego de la Oca, no tomamos ninguna decisión. Esto hace posible que simplemente pulsando un botón, un programa calcule los resultados.
+        Por suerte, me tomé yo mismo la molestia en hacerlo. Disfruta, pero moderadamente.
+        `,
+        descriptionEN:`When we play the classic Game of the Goose, we don't make any decisions. This makes it possible for a program to calculate the results with just the press of a button.
+        Luckily, I took the trouble to do it myself. Enjoy, but moderately.
+        `,
+        descriptionCAT: `Quan juguem al clàssic joc de l'Oca, no prenem cap decisió. Això fa possible que, simplement prement un botó, un programa calculi els resultats.
+        Per sort, m'he pres la molèstia de fer-ho jo mateix. Gaudeix-ne, però moderadament.
+        `,
+        tags: ["Web"],
+        webLink: "https://ocalight.barxetitafest.es/?i=1",
+        numberOfImages: 1,
+        relevance: -100, // Siempre el último
+
+    },
+    {
+        key: "this",
+        title: "this.project",
+        subtitleES: "Este portfolio ha sido hecho con Three.js y Bootstrap",
+        subtitleEN: "This portfolio was built using Three.js and Bootstrap",
+        subtitleCAT: "Aquest portfolio ha estat fet amb Three.js i Bootstrap",
+        descriptionES: "Autoalojado en mi pequeña Raspberry, un espacio personal en el que aprender renderizados 3D en web, y compartir y mostrar mis proyectos.",
+        descriptionEN: "Self-hosted on my small Raspberry Pi, a personal space to learn 3D web rendering and to share and showcase my projects.",
+        descriptionCAT: "Autoallotjat en la meva petita Raspberry Pi, un espai personal on aprendre renderitzats 3D en web, i compartir i mostrar els meus projectes.",
+        tags: ["Web"],
+        webLink: "/",
+        repoLink: "https://github.com/alvaroesalvaroo/portfolio",
+        numberOfImages: 1,
+        relevance: -10,
+
     }
 
 
 ];
 
+
+function addLinksToCard(project, linkContainer) {
+    // const linkContainer = templateClone.querySelector(".links-container");
+    if (!linkContainer) return;
+
+    linkContainer.innerHTML = "";
+
+    const createLink = (href, iconClass) => {
+        if (!href) return null;
+
+        const a = document.createElement('a');
+        a.className = "project-link";
+        a.href = href;
+        a.target = "_blank";
+
+        a.onclick = (event) => {
+            event.stopPropagation(); // Esto evita que el clic "suba" hasta el card.onclick
+        };
+
+        const icon = document.createElement('i');
+        icon.className = iconClass;
+        a.appendChild(icon);
+
+        return a;
+    };
+
+    // Repo Link (GitLab / GitHub)
+    if (project.repoLink) {
+        let iconType = "bi bi-link-45deg";
+        if (project.repoLink.toLowerCase().includes("gitlab")) iconType = "bi bi-gitlab";
+        if (project.repoLink.toLowerCase().includes("github")) iconType = "bi bi-github";
+
+        const linkEl = createLink(project.repoLink, iconType);
+        if (linkEl) linkContainer.appendChild(linkEl);
+    }
+
+    // Windows Link
+    if (project.windowsLink) {
+        const winLink = createLink(project.windowsLink, "bi bi-windows");
+        if (winLink) linkContainer.appendChild(winLink);
+    }
+
+    // Web Link
+    if (project.webLink) {
+        const webLink = createLink(project.webLink, "bi bi-globe");
+        if (webLink) linkContainer.appendChild(webLink);
+    }
+
+    if (!project.repoLink && !project.webLink && !project.windowsLink) {
+        linkContainer.remove();
+    }
+}
 
 // Projects logic
 function createProjectCard(project, template, container) {
@@ -247,7 +370,9 @@ function createProjectCard(project, template, container) {
         window.location.href = "project-details.html?projectKey="+project.key;
     };
     // Rellenar los datos dentro del clon
-    clone.querySelector('.project-title').textContent = project.title;
+    let title = clone.querySelector('.project-title');
+    title.textContent = project.title;
+    title.classList.add(project.key+"-title");
     let subtitle = clone.querySelector('.service-description');
 
     // Asinar la key correspondiente para el servicio de traudcción
@@ -257,29 +382,8 @@ function createProjectCard(project, template, container) {
         subtitle.setAttribute('data-lang-key', project.key + "-subtitle");
         subtitle.textContent = project.subtitleES; // Just in case
     }
-
-
-    let linkDiv = clone.querySelector('a');
-
-    // Si existe un link, poner un boton
-    if (project.repoLink && project.subtitleES)
-    {
-        linkDiv.href = project.repoLink;
-        if (project.repoLink.toLowerCase().includes("gitlab.com"))
-        {
-            // linkDiv.textContent = "<i class=\"bi bi-gitlab\"></i>";
-            // linkDiv.setAttribute('data-lang-key', "gitlab-link");
-        }
-        else if (project.repoLink.toLowerCase().includes("github"))
-        {
-            // linkDiv.textContent = "Link to GitHub";
-            //linkDiv.setAttribute('data-lang-key', "github-link");
-        }
-    }
-    else
-    {
-        linkDiv.remove(); // Borrar link del DOM si no existe
-    }
+    const linkContainer = clone.querySelector(".links-container");
+    addLinksToCard(project, linkContainer);
 
 
     // Añadir imagenes
@@ -531,6 +635,7 @@ function createMediaCarrousel(project) {
         });
     }
 
+
     // Images
     for (let i = 1; i <= numberOfImages; i++) {
         const clone = template.content.cloneNode(true);
@@ -538,6 +643,17 @@ function createMediaCarrousel(project) {
 
         image.src = "assets/img/projects/" + project.key + "/" +
             i.toString().padStart(2, '0') + ".png";
+        container.appendChild(clone);
+    }
+
+    // Gif
+    if (project.gif)
+    {
+        const clone = template.content.cloneNode(true);
+        let image = clone.querySelector('img');
+
+        image.src = "assets/img/projects/" + project.key + "/" +
+            project.gif;
         container.appendChild(clone);
     }
 
@@ -579,7 +695,7 @@ function createProjectInDetail(projects) {
 
     let title = document.querySelector('#project-title');
     title.textContent = project.title;
-
+    title.classList.add(project.key + "-title");
     let subtitle = document.querySelector('#project-subtitle');
     // Asinar la key correspondiente para el servicio de traudcción
     subtitle.setAttribute('data-lang-key', project.key + "-subtitle");
@@ -589,21 +705,22 @@ function createProjectInDetail(projects) {
     description.textContent = project.descriptionES;
     description.setAttribute('data-lang-key', project.key + "-description");
 
-    let linkDiv = document.querySelector('#repo-link');
+    let linksContainer = document.querySelector('.links-container-detail');
 
     // Si existe un link, poner un boton
-    if (project.repoLink) {
-        linkDiv.href = project.repoLink;
-        if (project.repoLink.toLowerCase().includes("gitlab.com")) {
-            linkDiv.textContent = "Link to Gitlab";
-            linkDiv.setAttribute('data-lang-key', "gitlab-link");
-        } else if (project.repoLink.toLowerCase().includes("github")) {
-            linkDiv.textContent = "Link to GitHub";
-            linkDiv.setAttribute('data-lang-key', "github-link");
-        }
-    } else {
-        linkDiv.remove(); // Borrar link del DOM si no existe
-    }
+    addLinksToCard(project, linksContainer);
+    // if (project.repoLink) {
+    //     linkDiv.href = project.repoLink;
+    //     if (project.repoLink.toLowerCase().includes("gitlab.com")) {
+    //         linkDiv.textContent = "Link to Gitlab";
+    //         linkDiv.setAttribute('data-lang-key', "gitlab-link");
+    //     } else if (project.repoLink.toLowerCase().includes("github")) {
+    //         linkDiv.textContent = "Link to GitHub";
+    //         linkDiv.setAttribute('data-lang-key', "github-link");
+    //     }
+    // } else {
+    //     linkDiv.remove(); // Borrar link del DOM si no existe
+    // }
 
 }
 
