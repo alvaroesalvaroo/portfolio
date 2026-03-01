@@ -168,7 +168,7 @@ const allProjects = [
         tags: [
             "C#",
         ],
-        video: "flockin1.mp4",
+        video: "flocking1.mp4",
         numberOfImages: 2,
         repoLink: "https://gitlab.com/aruizgarcia14/iapec2-formation-and-flocking-motion-colective-behaviours",
         relevance: 35
