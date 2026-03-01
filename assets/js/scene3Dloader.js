@@ -37,6 +37,7 @@ LoadGLTFByPath(scene)
     console.error('Error loading JSON scene:', error);
   });
 
+
 //retrieve list of all cameras
 function retrieveListOfCameras(scene){
   // Get a list of all cameras in the scene

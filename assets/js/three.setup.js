@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import CustomCamera from './CustomCamera.js';
 
-const DEBUG_MODE = false;
+const DEBUG_MODE = true;
 const scene = new THREE.Scene();
 const sizes = {
 width: window.innerWidth,
@@ -20,6 +20,30 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize( sizes.width, sizes.height );
 // document.body.appendChild( renderer.domElement );
+
+//==============TODO: bloom
+//
+
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+// 1. Creamos el compositor
+const composer = new EffectComposer(renderer);
+
+// 2. Añadimos el pase de renderizado normal (lo que ya tienes)
+const renderPass = new RenderPass(scene, myCamera.camera);
+composer.addPass(renderPass);
+
+// 3. Añadimos el pase de Bloom (el blur de luz)
+const bloomPass = new UnrealBloomPass(
+    new THREE.Vector2(window.innerWidth, window.innerHeight),
+    1.5,  // Fuerza del brillo (0 a 3 suele estar bien)
+    0.4,  // Radio (qué tanto se expande el blur)
+    0.6  // Threshold (qué tan brillante debe ser un color para que empiece a brillar)
+);
+composer.addPass(bloomPass);
+//==============
 
 // Load model
 const loader = new GLTFLoader();
@@ -39,15 +63,58 @@ function debugModelInfo(model)
 {
   console.log("Success loading " + model.name+ " with mesh children");
   model.traverse( ( child ) => {
-        if ( child.isMesh ) {
-           // console.log(child.name);
+
+        const materials = Array.isArray(child.material) ? child.material : [child.material];
+        for (const mat of materials) {
+          if (!mat) continue;
+          console.log("material " + mat.name+ " of object" + child.name);
+
+          const textureKeys = ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'emissiveMap'];
+          for (const key in textureKeys) {
+            if (mat[key]) {
+              console.log("texture " + mat[key].name+ " of object" + child.name);
+            }
+          }
+
         }
+
+
+
       });
+
 }
+
 
 function onModelLoaded(model)
 {
   scene.add( model );
+  model.traverse( ( child ) => {
+    if (child.isMesh) {
+      const materials = Array.isArray(child.material) ? child.material : [child.material];
+      for (const material of materials) {
+        if (material.name.startsWith("sun"))
+        {
+          console.log("Here is sun");
+          let texture = material["map"];
+          console.log("material " + material.name+ " with map texture" + texture.name);
+
+          const emissiveMaterial = new THREE.MeshStandardMaterial({
+            color: 0x111111,          // Color base del objeto (oscuro para que resalte el brillo)
+            emissive: 0xffffff,       // Color del brillo (blanco si la textura ya tiene color)
+            emissiveIntensity: 2,     // Fuerza del resplandor
+            emissiveMap: texture, // La textura que dicta dónde hay luz
+            roughness: 0.4,
+            metalness: 0.7
+          });
+
+          child.material = emissiveMaterial;
+
+        }
+      }
+    }
+  })
+
+
 
   // if (DEBUG_MODE === true) debugModelInfo(model);
 }
@@ -104,6 +171,7 @@ function animate() {
   
   // Camera and render
   myCamera.update();
-  renderer.render( scene, myCamera.camera );
+  // renderer.render( scene, myCamera.camera );
+  composer.render();
   
 }

@@ -58,7 +58,7 @@
 {
   /* background-color: red; */
   opacity: 1;
-  margin:1;
+  margin: 0;
   outline: none;
   position: fixed;
   
@@ -1064,6 +1064,9 @@ section.about
 # About Section
 --------------------------------------------------------------*/
 .about .image-wrapper {
+  display: flex;
+  justify-content: center;
+
   position: relative;
   overflow: hidden;
   border-radius: 8px;
