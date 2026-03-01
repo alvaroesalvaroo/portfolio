@@ -123,6 +123,14 @@ const allProjects = [
         descriptionES: `Una idea en la que el reto consiste en elegir la mejor frase posible durante un patrón breve de espera. El beat musical marca el ritmo del gameloop en 4 fases: frase del rival, elegir respuesta, rapear la respuesta, escuchar la reacción del público. Cada respuesta posible tiene una puntuación asociada (+1, -1 o 0).
         El mayor reto técnico es triggear eventos cuando la muestra de sonido alcanza un sample concreto. La implementación de audio de Unity para WebGL es una cosa.
         `,
+        descriptionCAT: `
+        Una idea on el repte consisteix a triar la millor frase possible durant un patró breu d'espera. El beat musical marca el ritme del gameloop en 4 fases: frase del rival, triar resposta, rapejar la resposta, escoltar la reacció del públic. Cada resposta possible té una puntuació associada (+1, –1 o 0).
+        El repte tècnic més gran és triggear esdeveniments quan la mostra de so arriba a un sample concret. La implementació d'àudio d'Unity per a WebGL és una cosa.
+        `,
+        descriptionEN: `
+        An idea where the challenge is to choose the best possible phrase during a short holding pattern. The musical beat sets the rhythm of the gameloop in 4 phases: rival's phrase, choose an answer, rap the answer, listen to the audience's reaction. Each possible answer has an associated score (+1, -1 or 0).
+        The biggest technical challenge is triggering events when the sound sample reaches a specific sample. Unity's audio implementation for WebGL is one thing.
+        `,
         numberOfImages: 2,
         repoLink: "https://gitlab.com/aruizgarcia14/juego-de-aventuras-alvaro-ruiz",
         relevance: 25,
@@ -132,10 +140,16 @@ const allProjects = [
     {
         key:"mariont",
         title: "Super Marion't",
-        subtitleES: "Un juego en C++/Raylib, con físicas hechas a mano",
+        subtitleES: "Un juego en C++/Raylib, con físicas hechas desde cero",
         subtitleEN: "a C++/Raylib Platformer Game, with handmade physics",
-        descriptionEN: `I liked how code result was pretty boilerplate and organized. The game includes a basic Physics Engine, and a 2D Camera with parallax effect..
+        subtitleCAT: "Un joc a C++/Raylib, amb físiques fetes des de zero",
+        descriptionEN: `I liked how code result was pretty boilerplate and organized. The project includes basic managers every engine need (Textures, Resources, Animation, Sound, TileMap)
+        and also as a basic Physics Engine, and a 2D Camera with parallax effect.
         `,
+        descriptionES: `Me gustó cómo el código final resultó ser bastante boilerplate y organizado. El proyecto incluye gestores básicos que cada motor necesita (Texturas, Recursos, Animación, Sonido, TileMap)
+        y también un motor de física básico, una cámara 2D con efecto de paralaje.`,
+        descriptionCAT: `Em va agradar com el codi va resultar molt boilerplate i organitzat. El projecte inclou gestors bàsics que cada motor necessita (Textures, Recursos, Animació, So, TileMap)
+        i també un motor físic bàsic, és a dir, una càmera 2D amb efecte de paral·laxi.`,
         numberOfImages: 2,
 
         repoLink: "https://gitlab.com/aruizgarcia14/pgpec2-a-platformer-in-c-with-raylib",
@@ -182,17 +196,17 @@ const allProjects = [
         descriptionES: `
         En este proyecto utilicé Unity ML-Agents para entrenar a un grupo de tres "ladrones" que deben cooperar para alcanzar un nido custodiado por una IA enemiga. 
         Lo más interesante fue el proceso de refinamiento de la función de recompensa; inicialmente, los agentes aprendieron a ser "cobardes" para evitar penalizaciones por muerte, lo que me obligó a ajustar los pesos y añadir recompensas por proximidad al objetivo.
-        La clave del éxito fue introducir una observación específica (isBeingAggroed), esto logró una victoria de más de un 90%.
+        La clave del éxito fue introducir una observación específica para cada agente (amIBeingAggroed), esto logró una victoria de más de un 90%.
     `,
         descriptionEN: `
         In this project, I used Unity ML-Agents to train a group of three "robbers" to cooperate and reach a nest guarded by an AI bee. 
         The most interesting part was the reward function refinement; agents initially learned "coward" behaviors to avoid death penalties, leading me to implement proximity-based rewards. 
-        The breakthrough came from adding a specific observation (isBeingAggroed), resulting in a 90% win rate.
+        The breakthrough came from adding a specific observation for each agent (amIBeingAggroed), resulting in a 90% win rate.
     `,
         descriptionCAT: `
         En aquest projecte vaig utilitzar Unity ML-Agents per entrenar un grup de tres "lladres" que han de cooperar per assolir un niu custodiat per una IA enemiga. 
         El més interessant va ser el procés de refinament de la funció de recompensa; inicialment, els agents van aprendre a ser "covards" per evitar penalitzacions per mort, cosa que em va obligar a ajustar els pesos i afegir recompenses per proximitat a l'objectiu.
-        La clau de lèxit va ser introduir una observació específica (isBeingAggroed), això va aconseguir una victòria de més dun 90%.
+        La clau de lèxit va ser introduir una observació específica a cada agent (amIBeingAggroed), això va aconseguir una victòria de més dun 90%.
         `,
         tags: [
             "C#",
@@ -209,12 +223,12 @@ const allProjects = [
         subtitleES: "Arcade multiplayer de alto rendimiento desarrollado en C++ y OpenGL",
         subtitleEN: "High-performance multiplayer arcade game built with C++ and OpenGL",
         subtitleCAT: "Arcade multiplayer d'alt rendiment desenvolupat en C++ i OpenGL",
-        descriptionES: "Versión extendida del clásico Breakout con soporte para multijugador local. Implementa un motor de renderizado propio (Shaders, Post-procesado) y un sistema de físicas basado en el tutorial de LearnOpenGL. Destaca el uso de herencia para la lógica de dos jugadores y un motor de audio en SDL_mixer con un sistema de 'cooldown' de 50ms para evitar saturación sonora en colisiones múltiples.",
-        descriptionEN: "Extended Breakout-style arcade with local multiplayer support. Features a custom rendering engine (Shaders, Post-processing) and physics built on C++ and OpenGL. Key highlights include an inheritance-based architecture for 2-player logic and an SDL_mixer audio engine with a 50ms cooldown system to prevent sound overlapping during rapid collisions.",
-        descriptionCAT: "Versió estesa del clàssic Breakout amb suport per a multijugador local. Implementa un motor de renderització propi (Shaders, Post-processat) i un sistema de físiques basat en el tutorial de LearnOpenGL. Destaca l'ús d'herència per a la lògica de dos jugadors i un motor d'àudio en SDL_mixer amb un sistema de 'cooldown' de 50ms per evitar la saturació sonora en col·lisions múltiples.",
+        descriptionES: "Versión extendida del clásico Breakout con soporte para multijugador local. Implementa un motor de renderizado propio (Shaders, Post-procesado) y un sistema de físicas basado en el tutorial de LearnOpenGL. Destaca el uso de herencia en el Game Controller para la lógica de dos jugadores y un motor de audio en SDL_mixer.",
+        descriptionEN: "Extended Breakout-style arcade with local multiplayer support. Features a custom rendering engine (Shaders, Post-processing) and physics built on C++ and OpenGL. Key highlights include an inheritance-based architecture on the Game Controller for 2-player logic and an SDL_mixer audio engine.",
+        descriptionCAT: "Versió estesa del clàssic Breakout amb suport per a multijugador local. Implementa un motor de renderització propi (Shaders, Post-processat) i un sistema de físiques basat en el tutorial de LearnOpenGL. Destaca l'ús d'herència en el Game Controller per a la lògica de dos jugadors i un motor d'àudio en SDL_mixer.",
         tags: ["C++", "OpenGL", "SDL2"],
         video: "LowLevelBricksDemo.mp4",
-        numberOfImages: 1,
+        numberOfImages: 4,
         repoLink: "https://gitlab.com/aruizgarcia14/pgpec3-a-game-in-c-with-opengl",
         relevance: 75
     }
@@ -267,8 +281,6 @@ function createProjectCard(project, template, container) {
         linkDiv.remove(); // Borrar link del DOM si no existe
     }
 
-    // Añadir traducciones
-    insertProjectTranslation(project);
 
     // Añadir imagenes
     let image = clone.querySelector('img');
@@ -443,7 +455,6 @@ function createAllProjects() {
     }
     for (const project of allProjects) {
         createProjectCard(project, template, container);
-        insertProjectTranslation(project);
 
     }
 
@@ -594,9 +605,6 @@ function createProjectInDetail(projects) {
         linkDiv.remove(); // Borrar link del DOM si no existe
     }
 
-    // Añadir traducciones
-    insertProjectTranslation(project);
-
 }
 
 function setupTagsDropdown() {
@@ -650,5 +658,7 @@ window.addEventListener("load", () => {
     } else {
         console.error("I dont know which scene am I");
     }
+    applyTranslations();
+
 });
 

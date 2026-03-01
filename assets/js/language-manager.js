@@ -1,29 +1,34 @@
 // Variable global para almacenar las traducciones cargadas
 let translations = {};
 
-function insertProjectTranslation(project)
-{
-    // Add subtitle and description translation
-    let subtitleKey = project.key + "-subtitle";
-    let descriptionKey = project.key + "-description";
 
-    translations[descriptionKey] = {};
-    if (project.descriptionES)  translations[descriptionKey]["es"] = project.descriptionES;
-    if (project.descriptionCAT) translations[descriptionKey]["cat"] = project.descriptionCAT;
-    if (project.descriptionEN)  translations[descriptionKey]["en"] = project.descriptionEN;
+function insertAllProjectTranslations() {
+    console.log("Inserting All translations FROM PROJECTS");
 
-    translations[subtitleKey] = {};
-    if (project.subtitleES)     translations[subtitleKey]["es"] = project.subtitleES;
-    if (project.subtitleCAT)    translations[subtitleKey]["cat"] = project.subtitleCAT;
-    if (project.subtitleEN)     translations[subtitleKey]["en"] = project.subtitleEN;
+    for(const project of allProjects) {
+        // Add subtitle and description translation
+        let subtitleKey = project.key + "-subtitle";
+        let descriptionKey = project.key + "-description";
+        translations[descriptionKey] = {};
+        if (project.descriptionES)  translations[descriptionKey]["es"] = project.descriptionES;
+        if (project.descriptionCAT) translations[descriptionKey]["cat"] = project.descriptionCAT;
+        if (project.descriptionEN)  translations[descriptionKey]["en"] = project.descriptionEN;
 
-    applyTranslations()
+        translations[subtitleKey] = {};
+        if (project.subtitleES)     translations[subtitleKey]["es"] = project.subtitleES;
+        if (project.subtitleCAT)    translations[subtitleKey]["cat"] = project.subtitleCAT;
+        if (project.subtitleEN)     translations[subtitleKey]["en"] = project.subtitleEN;
+    }
 }
+
 
 /**
  * Carga las traducciones desde el archivo CSV.
  * @returns {Promise<void>} Una promesa que se resuelve cuando las traducciones están cargadas.
  */
+
+window.translationsPromise = loadTranslations();
+
 async function loadTranslations() {
     const response = await fetch('./assets/language.csv'); // Asegúrate de que la ruta sea correcta
     const csvText = await response.text();
@@ -48,6 +53,8 @@ async function loadTranslations() {
     });
 
     console.log('Traducciones cargadas:', translations);
+    return translations;
+
 
 }
 
@@ -78,11 +85,10 @@ const typedInstances = {};
     // Reconocer las typed animations
 function initializeAllTypedAnimations() {
     return;
-    const typedElementsRefs = { // Renombrado para evitar confusión con el objeto typedInstances
+    const typedElementsRefs = {
         'es': document.getElementById('typed-es'),
         'en': document.getElementById('typed-en'),
-        'fr': document.getElementById('typed-fr'),
-        'cat': document.getElementById('typed-cat') // Asegúrate de incluirlo si lo usas
+        'cat': document.getElementById('typed-cat')
     };
 
     for (const langCode in typedElementsRefs) {
@@ -165,20 +171,28 @@ function setLanguage(lang) {
 
 
 // Inicialización: Cargar traducciones y aplicar el idioma inicial
-let currentLanguage = localStorage.getItem('preferredLanguage');
+let currentLanguage = "en";
 
 document.addEventListener('DOMContentLoaded', async () => {
-    await loadTranslations();
-    
+    await window.translationsPromise;
+    insertAllProjectTranslations();
     initializeAllTypedAnimations();
 
-    // Elegir idioma inicial basado en la ubicación/preferencia
+    let savedLangSource = "default";
+
+    currentLanguage = localStorage.getItem('preferredLanguage');
     if (!currentLanguage) {
         currentLanguage = navigator.language.split('-')[0];
         // Guardarlo para la próxima vez
         localStorage.setItem('preferredLanguage', currentLanguage);
+        savedLangSource = "navigator language";
+    }
+    else
+    {
+        savedLangSource = "local storage";
     }
 
+    console.log("Language will be " + currentLanguage + " from source" + savedLangSource);
     applyTranslations();
 
     // Botones de cambio de idioma
