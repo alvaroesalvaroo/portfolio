@@ -7,6 +7,14 @@
     position: relative;
 }
 
+@media (max-width: 700px) {
+    #skill-tabs .nav-link {
+        padding: 10px;
+        min-height: 1px;
+    }
+}
+
+
 .line-separator {
 
     border: none;
@@ -56,13 +64,14 @@
             inset 0 0 50px 10px var(--background-color),
                 /* Sombra Superior (empujada hacia abajo) */
             inset 0 50px 60px -10px var(--background-color),
+
                 /* Sombra Inferior (empujada hacia arriba) */
             inset 0 -50px 60px -10px var(--background-color);
 
     background: radial-gradient(
             circle at center,
-            transparent 40%,
-            var(--background-color) 95%
+            transparent 50%,
+            var(--background-color) 100%
     );
 }
 
