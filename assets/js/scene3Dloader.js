@@ -20,7 +20,7 @@ renderer.useLegacyLights  = false;
 renderer.toneMapping = THREE.NoToneMapping;
 renderer.setClearColor(0xffffff, 0);
 //make sure three/build/three.module.js is over r152 or this feature is not available. 
-renderer.outputColorSpace = THREE.SRGBColorSpace 
+renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 const scene = new THREE.Scene();
 

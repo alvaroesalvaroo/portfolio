@@ -1,0 +1,72 @@
+#skill-tabs {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+#skill-tabs h4 {
+    position: relative;
+}
+
+.line-separator {
+
+    border: none;
+    opacity: 1; /* Bootstrap suele ponerle opacity baja, la subimos */
+
+    /* 2. Dimensiones */
+    width: 60%;       /* El largo que quieras */
+    height: 1px;       /* El grosor */
+
+    background-color: var(--accent-color); /* Tu color turquesa/verde */
+    margin: 0 0 10px 0; /* Margen inferior para separarla del texto */
+
+    border-radius: 2px;
+}
+
+[data-aos="grow-left"] {
+    width: 0;
+    transition-property: width;
+}
+
+[data-aos="grow-left"].aos-animate {
+    width: 60%;
+}
+
+.extra-webgl-container {
+    position: relative;
+    width: 100%;
+    height: 500px; /* Ajusta según necesites */
+    background-color: #000; /* El fondo del contenido es negro */
+    overflow: hidden;
+    border-radius: 15px; /* Opcional: bordes redondeados */
+
+}
+
+/* El pseudo-elemento crea el fundido sobre el canvas */
+.extra-webgl-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* permite hacer click/interactuar con el canvas debajo */
+
+    box-shadow:
+        /* Sombra General (suave en los 4 lados) */
+            inset 0 0 50px 10px var(--background-color),
+                /* Sombra Superior (empujada hacia abajo) */
+            inset 0 50px 60px -10px var(--background-color),
+                /* Sombra Inferior (empujada hacia arriba) */
+            inset 0 -50px 60px -10px var(--background-color);
+
+    background: radial-gradient(
+            circle at center,
+            transparent 40%,
+            var(--background-color) 95%
+    );
+}
+
+.extra-webgl-container canvas {
+    width: 100%;
+    height: 100%;
+}

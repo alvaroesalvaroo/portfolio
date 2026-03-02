@@ -1,6 +1,9 @@
 import * as THREE from 'three';
 
-
+function init()
+{
+  
+}
 console.log("Init three.js");
 // Texture
 const textureLoader = new THREE.TextureLoader();

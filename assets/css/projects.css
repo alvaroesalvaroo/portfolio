@@ -1,4 +1,7 @@
-
+#projects {
+    margin-bottom: 0px;
+    padding-bottom: 0;
+}
 .project-page-title {
     color: var(--default-color);
     background-color: var(--background-color);

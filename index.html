@@ -29,6 +29,8 @@
   <link href="assets/css/main.css" rel="stylesheet">
   <!-- Projects CSS File-->
   <link href="assets/css/projects.css" rel="stylesheet">
+  <!-- Skills tab CSS File-->
+  <link href="assets/css/skills.css" rel="stylesheet">
 
 </head>
 
@@ -202,10 +204,11 @@
 
 
     <!-- Otros roles section-->
-    <section id="features-tabs" class="features-tabs section">
-
+    <section id="skill-tabs" class="features-tabs section">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <h5 data-lang-key="Iamalso"></h5>
+        <hr class = "line-separator" data-aos="grow-left">
+
+        <h4 data-lang-key="Iamalso"></h4>
         <br>
         <!-- <div class="tabs-wrapper"> -->
           <ul class="nav nav-tabs" data-aos="fade-up" data-aos-delay="100">
@@ -215,17 +218,6 @@
 
                 <div class="tab-content">
                   <h5 data-lang-key="3dartist">Artista 3D</h5>
-<!--                  <span data-lang-key="3dartistmore">Te lo juro</span>-->
-                </div>
-              </a>
-            </li><!-- End tab nav item -->
-
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tabs-tab-2">
-
-                <div class="tab-content">
-                  <h5 data-lang-key="fullstack">Full stack</h5>
-                  <span>Jurao que yo hice la oca light</span>
                 </div>
               </a>
             </li><!-- End tab nav item -->
@@ -235,10 +227,19 @@
 
                 <div class="tab-content">
                   <h5 data-lang-key="sound">Diseñador sonoro</h5>
-<!--                  <span data-lang-key="soundmore">Por supuesto</span>-->
+                  <!--                  <span data-lang-key="soundmore">Por supuesto</span>-->
                 </div>
               </a>
             </li><!-- End tab nav item -->
+
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tabs-tab-2">
+                <div class="tab-content">
+                  <h5 data-lang-key="fullstack">Full stack</h5>
+                </div>
+              </a>
+            </li><!-- End tab nav item -->
+
 
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tabs-tab-4">
@@ -259,26 +260,14 @@
 
                 <div class="col-lg-5">
                   <div class="content-wrapper">
-                    <div class="icon-badge">
-                      <i class="bi bi-badge-3d"></i>
-                    </div>
-                    <h3 data-lang-key="3dartist"></h3>
                     <p data-lang-key="3dartist-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore veritatis.</p>
                   </div>
                 </div>
 
                 <div class="col-lg-7">
                   <div class="visual-content">
-                    <div class="main-image">
-<!--                      <img src="./a.png" alt="" class="img-fluid">-->
-<!--                      <div class="floating-card">-->
-<!--                        <i class="bi bi-graph-up-arrow"></i>-->
-<!--                        <div class="card-content">-->
-<!--                          <span>Performance</span>-->
-<!--                          <strong>+85% Improvement</strong>-->
-<!--                        </div>-->
-                      <h4 style="margin-left: 10px"> Some cool 3D animation is loading</h4>
-                      <h6> (Kidding, i havent done that)</h6>
+                    <div class="extra-webgl-container">
+                      <canvas> </canvas>
 
                     </div>
                   </div>
@@ -290,21 +279,16 @@
               <div class="row align-items-center">
                 <div class="col-lg-5">
                   <div class="content-wrapper">
-                    <div class="icon-badge">
-                      <i class="bi bi-globe-europe-africa-fill"></i>
-                    </div>
-                    <h3 data-lang-key="fullstack">asd</h3>
                     <p data-lang-key="fullstack-description">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit sed quia non numquam eius modi tempora incidunt ut labore.</p>
                   </div>
                 </div>
 
                 <div class="col-lg-7">
                   <div class="visual-content">
-                    <div class="main-image">
+                    <div class="extra-webgl-container">
 
-                      <h4 style="margin-left: 10px"> Some cool 3D animation is loading</h4>
-                      <h6> (Kidding, i havent done that)</h6>
-<!--                      </div>-->
+                      <canvas> </canvas>
+
                     </div>
                   </div>
                 </div>
@@ -317,22 +301,14 @@
 
                 <div class="col-lg-5">
                   <div class="content-wrapper">
-                    <div class="icon-badge">
-                      <i class="bi bi-headphones"></i>
-                    </div>
-                    <h3 data-lang-key="sound"></h3>
                     <p data-lang-key="sound-description">Ut enim ad minima veniam quis nostrum exercitationem ullam corporis suscipit laboriosam nisi ut aliquid ex ea commodi consequatur quis autem vel.</p>
-
                   </div>
                 </div>
 
                 <div class="col-lg-7">
                   <div class="visual-content">
-                    <div class="main-image">
-                      <h4 style="margin-left: 10px"> Some cool 3D animation is loading</h4>
-                      <h6> (Kidding, i havent done that)</h6>
-
-                      </div>
+                    <div class="extra-webgl-container">
+                      <canvas> </canvas>
                     </div>
                   </div>
                 </div>
@@ -345,20 +321,14 @@
 
                 <div class="col-lg-5">
                   <div class="content-wrapper">
-                    <div class="icon-badge">
-                      <i class="bi bi-radioactive"></i>
-                    </div>
-                    <h3 data-lang-key="physicist"></h3>
                     <p data-lang-key="physicist-description">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
                   </div>
                 </div>
 
                 <div class="col-lg-7">
                   <div class="visual-content">
-                    <div class="main-image">
-                      <h4 style="margin-left: 10px">Some cool 3D animation is loading</h4>
-                      <h6> (Kidding, i havent done that)</h6>
-
+                    <div class="extra-webgl-container">
+                      <canvas> </canvas>
                     </div>
                   </div>
                 </div>
