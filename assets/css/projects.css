@@ -36,7 +36,7 @@
     align-items: center;
 }
 
-.tags-container {
+.tags-container-dropdown {
     display: flex;         /* Alinea los hijos en fila */
     flex-wrap: wrap;       /* Si no caben en una línea, saltan a la siguiente */
     gap: 10px;             /* Crea espacio entre los botones sin usar margin manual */
@@ -57,8 +57,13 @@
 }
 
 .tag-button:hover {
-    background-color: color-mix(in srgb, var(--accent-color), transparent 80%);
-    border-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+    /*background-color: color-mix(in srgb, var(--accent-color), transparent 80%);*/
+    /*border-color: color-mix(in srgb, var(--accent-color), transparent 20%);*/
+
+    /* Compatibility with html2canvas */
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+
 }
 /* An active filter means the button is greyed */
 .tag-filter.active {
@@ -72,6 +77,11 @@
     border-color: #aaaaaa;
 }
 
+.project-details .swiper-button-prev,
+.project-details .swiper-button-next {
+    color: var(--accent-color);
+    -webkit-text-stroke: 1px black;
+}
 
 .tag-filter {
     cursor: pointer;
@@ -132,7 +142,9 @@
 }
 
 .project-index-item {
-    background: linear-gradient(135deg, var(--surface-color) 0%, color-mix(in srgb, var(--surface-color), var(--accent-color) 2%) 100%);
+    /*Compatibility with html2canvas*/
+    background: linear-gradient(135deg, var(--surface-color) 0%, rgba(128, 128, 128, 0.02) 100%);
+    /*background: linear-gradient(135deg, var(--surface-color) 0%, color-mix(in srgb, var(--surface-color), var(--accent-color) 2%) 100%);*/
     border-radius: 20px;
     padding: 20px;
     height: 100%;
@@ -141,7 +153,10 @@
     flex-direction: column;
     justify-content: space-between; /* Empuja el footer o links al final si quieres */
 
-    border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    /*border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);*/
+    /* Compatibility with html2canvas */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+
     transition: all 0.4s ease;
     overflow: hidden;
     position: relative;
@@ -149,8 +164,11 @@
 
 
 
-.testimonials  .btn-primary {
-    background: linear-gradient(135deg, var(--accent-color), color-mix(in srgb, var(--accent-color), var(--heading-color) 20%));
+.projects  .btn-primary {
+    /*background: linear-gradient(135deg, var(--accent-color), color-mix(in srgb, var(--accent-color), var(--heading-color) 20%));*/
+    /* Compatibility with html2canvas */
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-color));
+
     color: var(--surface-color);
     padding: 15px 35px;
     margin-left: 30px;
@@ -165,7 +183,7 @@
     /*box-shadow: 0 0 5px color-mix(in srgb, var(--accent-color), transparent 70%);*/
 }
 @media (max-width: 768px) {
-    .testimonials .btn-primary {
+    .projects .btn-primary {
         padding: 10px 20px;    /* Reducimos altura (arriba/abajo) y anchura */
         font-size: 14px;      /* Letra un poco más pequeña para asegurar una línea */
         margin-left: 0;       /* Normalmente en móvil es mejor que no tenga margen lateral */
@@ -175,7 +193,7 @@
     }
 }
 
-.testimonials  .btn-primary:hover {
+.projects  .btn-primary:hover {
     /*transform: translateY(-2px);*/
     transform: scale(1.05);
 
@@ -183,17 +201,17 @@
 
 }
 
-.testimonials  .btn-primary:hover i {
+.projects  .btn-primary:hover i {
     transform: translateX(5px);
 }
 
-.testimonials  .btn-primary i {
+.projects  .btn-primary i {
     transition: transform 0.3s ease;
 }
 
 .btn-dropdown,
-.testimonials .swiper-button-prev,
-.testimonials .swiper-button-next {
+.projects .swiper-button-prev,
+.projects .swiper-button-next {
     position: static;
     width: 45px;
     height: 45px;
@@ -212,20 +230,22 @@
     line-height: 1; /* Evita que el texto empuje el icono hacia abajo */
 }
 .btn-dropdown:hover,
-.testimonials .swiper-button-prev:hover,
-.testimonials .swiper-button-next:hover {
-    background: color-mix(in srgb, var(--accent-color), var(--heading-color) 20%);
+.projects .swiper-button-prev:hover,
+.projects .swiper-button-next:hover {
+    /*background: color-mix(in srgb, var(--accent-color), var(--heading-color) 20%);*/
+    /* Compatibility with html2canvas */
+    background: var(--accent-color);
     transform: scale(1.05);
 }
 .btn-dropdown::after,
-.testimonials .swiper-button-prev::after,
-.testimonials .swiper-button-next::after {
+.projects .swiper-button-prev::after,
+.projects .swiper-button-next::after {
     font-size: 16px;
     font-weight: 600;
 }
 
 
-.testimonials .actions {
+.projects .actions {
     display: flex;
     justify-content: space-between; /* Empuja los elementos a los extremos */
     align-items: center;           /* Los alinea verticalmente al centro */
@@ -233,14 +253,16 @@
     margin: 20px;           /* Separación con el contenido de abajo */
 }
 
-.testimonials .project-index-item::before {
+.projects .project-index-item::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color), var(--heading-color) 30%));
+    /*background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color), var(--heading-color) 30%));*/
+    /* Compatibility with html2canvas */
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-color));
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.4s ease;
@@ -279,8 +301,15 @@
 /*#projects h3:after {*/
 /*    margin: 0 0 10px 15px;*/
 /*}*/
-
 .tags-container {
+    display: flex;          /* Activa el modo flexible */
+    flex-wrap: wrap;       /* ¡La clave! Permite que bajen a la siguiente línea */
+    align-items: center;    /* Los alinea verticalmente si tienen distintas alturas */
+    margin: 15px;
+    gap: 15px;             /* Mantiene el espacio entre botones en ambas direcciones */
+}
+
+.tags-container-dropdown {
     max-height: 0;       /* Empieza colapsado */
     overflow: hidden;    /* Oculta lo que sobresale */
     opacity: 0;          /* Invisible */
@@ -288,7 +317,7 @@
     pointer-events: none; /* Evita que se pueda clicar mientras está oculto */
 }
 
-.tags-container.show {
+.tags-container-dropdown.show {
     /* CRITICO PARA RESPONSIVE */
     max-height: 200px;
     opacity: 1;
@@ -297,38 +326,37 @@
 }
 
 @media (max-width: 700px) {
-    .tags-container.show {
+    .tags-container-dropdown.show {
         max-height: 500px;
     }
-
 }
 
 
-.testimonials .project-index-item {
+.projects .project-index-item {
     cursor: pointer;
 }
 /* Highlight border on hover*/
 
-.testimonials .project-index-item:hover {
+.projects .project-index-item:hover {
     border-color: var(--accent-color);
 }
 
 /* For some amazing reason, this is loading bar in the top of the item*/
-/*.testimonials .project-index-item:hover::before {*/
+/*.projects .project-index-item:hover::before {*/
 /*    transform: scaleX(1);*/
 /*}*/
 
-/*.testimonials .project-index-item:hover .testimonial-header img {*/
+/*.projects .project-index-item:hover .testimonial-header img {*/
 /*    transform: scale(1.05);*/
 /*}*/
 
-.testimonials .project-index-item:hover .quote-icon {
+.projects .project-index-item:hover .quote-icon {
     color: var(--accent-color);
     transform: scale(1.1);
 }
 
 @media (max-width: 991px) {
-    .testimonials .project-index-item {
+    .projects .project-index-item {
         margin-bottom: 30px;
     }
 }
@@ -356,11 +384,33 @@
 }
 
 
-#similar-projects-container {
-
-}
 .project-link {
     margin: 0 7px;
+}
+
+.line-separator {
+
+    border: none;
+    opacity: 1; /* Bootstrap suele ponerle opacity baja, la subimos */
+
+    /* 2. Dimensiones */
+    width: 60%;       /* El largo que quieras */
+    height: 1px;       /* El grosor */
+
+    background-color: var(--accent-color); /* Tu color turquesa/verde */
+    margin: 40px 0 10px 0; /* Margen inferior para separarla del texto */
+
+    border-radius: 2px;
+}
+
+
+[data-aos="grow-left"] {
+    width: 0;
+    transition-property: width;
+}
+
+[data-aos="grow-left"].aos-animate {
+    width: 60%;
 }
 
 
@@ -395,4 +445,16 @@
     background: var(--contrast-color);
     color: var(--surface-color);
     transform: translateY(-3px);
+}
+
+/* FRACTAL CANVAS */
+.fractal-layer {
+    display: block;
+    max-width: 100%;
+    width: 70%;
+    max-height: 40%;
+    height: auto;
+
+
+    margin: 20px auto;
 }

@@ -23,7 +23,7 @@ const allProjects = [
         repoLink: "https://gitlab.com/aruizgarcia14/pec3-un-juego-de-accion",
         windowsLink: "https://drive.google.com/drive/folders/1StYa06P6bNei5cgcGYwyURMpUS6NNvwT?usp=sharing",
         webLink: "https://play.unity.com/es/user/98453246-b7ce-49c5-ab6b-c4f3c5546cb9",
-        relevance:70
+        relevance:75
     },
     {
         key: "fps",
@@ -46,7 +46,7 @@ const allProjects = [
         repoLink: "https://gitlab.com/aruizgarcia14/pec2-un-juego-de-disparos",
         windowsLink: "https://drive.google.com/drive/folders/1StYa06P6bNei5cgcGYwyURMpUS6NNvwT?usp=sharing",
         numberOfImages:6,
-        relevance: 60
+        relevance: 70
     },
     {
         key: "ssp",
@@ -129,6 +129,8 @@ const allProjects = [
         key:"rapbattle",
         title: "Rap Battle Game",
         subtitleES: "Un test de mecánicas sobre eleccion de diálogos durante una batalla de rap, incluyendo sincronización con música.",
+        subtitleEN: "A mechanics test for dialogue choices during a rap battle, featuring music synchronization.",
+        subtitleCAT: "Un test de mecàniques sobre elecció de diàlegs durant una batalla de rap, incloent sincronització amb la música.",
         descriptionES: `Una idea en la que el reto consiste en elegir la mejor frase posible durante un patrón breve de espera. El beat musical marca el ritmo del gameloop en 4 fases: frase del rival, elegir respuesta, rapear la respuesta, escuchar la reacción del público. Cada respuesta posible tiene una puntuación asociada (+1, -1 o 0).
         El mayor reto técnico es triggear eventos cuando la muestra de sonido alcanza un sample concreto. La implementación de audio de Unity para WebGL es una cosa.
         `,
@@ -144,7 +146,7 @@ const allProjects = [
         repoLink: "https://gitlab.com/aruizgarcia14/juego-de-aventuras-alvaro-ruiz",
         windowsLink: "https://drive.google.com/drive/folders/1lbniG5F2ZeoO-HrxS_lg2mOPlM_nEJCL?usp=sharing",
         relevance: 25,
-        tags: ["C#", "Unity 2D", "Web"]
+        tags: ["C#", "Unity 2D"]
 
     },
     {
@@ -164,7 +166,7 @@ const allProjects = [
 
         repoLink: "https://gitlab.com/aruizgarcia14/pgpec2-a-platformer-in-c-with-raylib",
         windowsLink: "https://gitlab.com/aruizgarcia14/pgpec2-a-platformer-in-c-with-raylib/-/tree/main/build/x64-Release?ref_type=heads",
-        relevance: 60,
+        relevance: 55,
         tags: ["C++"]
     },
     {
@@ -227,7 +229,7 @@ const allProjects = [
         video: "final-demo.mp4",
         numberOfImages: 1,
         repoLink: "https://gitlab.com/aruizgarcia14/iapec3-machine-learning-with-unity-ml-agents", // Ajustar según tu URL
-        relevance: 90
+        relevance: 80
     },
     {
         key: "low-level-bricks",
@@ -691,8 +693,8 @@ function createProjectInDetail(projects) {
         return;
     }
 
-    // Añadir imagenes
-    createMediaCarrousel(project)
+
+
 
     // Añadir tags
     createTags(project);
@@ -716,24 +718,32 @@ function createProjectInDetail(projects) {
 
     // Si existe un link, poner un boton
     addLinksToCard(project, linksContainer);
-    // if (project.repoLink) {
-    //     linkDiv.href = project.repoLink;
-    //     if (project.repoLink.toLowerCase().includes("gitlab.com")) {
-    //         linkDiv.textContent = "Link to Gitlab";
-    //         linkDiv.setAttribute('data-lang-key', "gitlab-link");
-    //     } else if (project.repoLink.toLowerCase().includes("github")) {
-    //         linkDiv.textContent = "Link to GitHub";
-    //         linkDiv.setAttribute('data-lang-key', "github-link");
-    //     }
-    // } else {
-    //     linkDiv.remove(); // Borrar link del DOM si no existe
-    // }
+
+    // Añadir imagenes, a no ser que...
+    if (project.key != "this")
+    {
+        createMediaCarrousel(project)
+    }
+    else
+    {
+        // I wanna see debugs
+        initFractal();
+        // try {
+        //     createFractal();
+        // }
+        // catch(e) {
+        //     console.log ("Since there was an error creating fractal, normal media will be loaded: ");
+        //     createMediaCarrousel(project);
+        //     console.error (e);
+        // }
+    }
+
 
 }
 
 function setupTagsDropdown() {
     const btnDropdown = document.querySelector(".btn-dropdown");
-    const tagContainer = document.querySelector(".tags-container");
+    const tagContainer = document.querySelector(".tags-container-dropdown");
 
     btnDropdown.addEventListener("click", function () {
 

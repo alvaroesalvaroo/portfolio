@@ -17,6 +17,7 @@
   "author": "alvarodelchill",
   "license": "ISC",
   "dependencies": {
+    "html2canvas": "^1.4.1",
     "three": "^0.177.0"
   }
 }

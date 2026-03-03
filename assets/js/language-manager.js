@@ -52,7 +52,8 @@ async function loadTranslations() {
         }
     });
 
-    console.log('Traducciones cargadas:', translations);
+    // DEBUG ALL TRANSLATIONS
+    // console.log('Traducciones cargadas:', translations);
     return translations;
 
 

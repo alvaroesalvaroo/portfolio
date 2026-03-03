@@ -131,7 +131,7 @@
 
 
     <!-- Mis proyectos section -->
-    <section id="projects" class="testimonials section">
+    <section id="projects" class="projects section">
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="container section-title" data-aos="fade-up">
@@ -412,14 +412,17 @@
   {
     "imports": {
       "three": "./assets/vendor/three/build/three.module.js",
-      "three/addons/": "./assets/vendor/three/examples/jsm/"
+      "three/addons/": "./assets/vendor/three/examples/jsm/",
+      "html2canvas": "./assets/vendor/html2canvas/dist/html2canvas.esm.js"
     }
   }
 </script>
-  <!--Check if this is necessary-->
+  <!--Considering to use cdn-->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script> -->
   <!-- <script src="https://threejs.org/examples/js/loaders/GLTFLoader.js"></script> -->
+
   <script type="module" src="assets/js/three.setup.js"></script>
+  <script type="module" src="assets/js/3dskills.setup.js"></script>
 
   
 

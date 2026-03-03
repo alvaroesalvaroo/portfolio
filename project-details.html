@@ -85,78 +85,90 @@
     </div><!-- End Page Title -->
 
     <!-- Project Details Section -->
-    <section id = "project-details-section" class="testimonials section" > <!--class="service-details section"-->
+    <section id = "project-details-section" class="section" > <!--class="service-details section"-->
+
+      <!--Container for project details-->
+      <div class="project-details container" data-aos="fade-up" data-aos-delay="100">
+
+<!--            <div class="service-hero">-->
+
+        <div class="project-slider swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 4000
+              },
+              "slidesPerView": 1,
+              "spaceBetween": 30,
+              "navigation": {
+                "nextEl": ".swiper-button-next",
+                "prevEl": ".swiper-button-prev"
+              },
+              "breakpoints": {
+                "768": {
+                  "slidesPerView": 1
+                },
+                "1200": {
+                  "slidesPerView": 1
+                }
+              }
+            }
+          </script>
+          <div class="swiper-wrapper" id ="projects-images-container">
+            <template id="project-details-template">
+              <div class="swiper-slide">
+                <div class="project-details-item">
+                  <img class ="img-fluid" src="#" alt="">
+                  <video class="img-fluid d-none" controls muted loop>
+                    <source src="" type="video/mp4">
+                    Error loading video, really sorry :(
+                  </video>
+                </div>
+              </div>
+            </template>
+          </div><!--Close swipper wrapper-->
+
+          <div class="swiper-navigation">
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+
+        </div>
+<!--            </div>-->
+        <div class = "tags-container">
+
+          <a href="#" class="btn tag-button">Tag 1</a>
+          <a href="#" class="btn tag-button">Tag 2</a>
+          <a href="#" class="btn tag-button">Tag 3sssssssssssasd</a>
+
+        </div>
+
+        <div class="project-content d-flex flex-wrap align-items-center justify-content-center gap-4" >
+
+          <div class="project-description-container col-md-4 flex-grow-1 border-end-md pe-md-5">
+            <p id = "project-description" class="service-intro">Descripcion proyecto bla bla blah</p>
+          </div>
+
+          <div class = "links-container-detail">
+            <a id = "project-link"  href="#"></a>
+          </div>
+        </div>
+
+
+
+
+      </div>
+      <!--Container for related projects-->
+      <div class="container" >
+        <hr class = "line-separator" data-aos="grow-left" data-aos-delay="100">
+
+      </div>
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-          <div class = "tags-container">
-
-            <a href="#" class="btn tag-button">Tag 1</a>
-            <a href="#" class="btn tag-button">Tag 2</a>
-            <a href="#" class="btn tag-button">Tag 3sssssssssssasd</a>
-
-          </div>
-<!--            <div class="service-hero">-->
-
-              <div class="project-slider swiper init-swiper">
-                <script type="application/json" class="swiper-config">
-                  {
-                    "loop": true,
-                    "speed": 600,
-                    "autoplay": {
-                      "delay": 4000
-                    },
-                    "slidesPerView": 1,
-                    "spaceBetween": 30,
-                    "navigation": {
-                      "nextEl": ".swiper-button-next",
-                      "prevEl": ".swiper-button-prev"
-                    },
-                    "breakpoints": {
-                      "768": {
-                        "slidesPerView": 1
-                      },
-                      "1200": {
-                        "slidesPerView": 1
-                      }
-                    }
-                  }
-                </script>
-                <div class="swiper-wrapper" id ="projects-images-container">
-                  <template id="project-details-template">
-                    <div class="swiper-slide">
-                      <div class="project-details-item">
-                        <img class ="img-fluid" src="#" alt="">
-                        <video class="img-fluid d-none" controls muted loop>
-                          <source src="" type="video/mp4">
-                          Error loading video, really sorry :(
-                        </video>
-                      </div>
-                    </div>
-                  </template>
-                </div><!--Close swipper wrapper-->
-
-                <div class="swiper-navigation">
-                  <div class="swiper-button-prev"></div>
-                  <div class="swiper-button-next"></div>
-                </div>
-
-              </div>
-<!--            </div>-->
-
-
-            <div class="project-content d-flex flex-wrap align-items-center justify-content-center gap-4" >
-
-              <div class="project-description-container col-md-4 flex-grow-1 border-end-md pe-md-5">
-                <p id = "project-description" class="service-intro">Descripcion proyecto bla bla blah</p>
-              </div>
-
-              <div class = "links-container-detail">
-                <a id = "project-link"  href="#"></a>
-              </div>
-            </div>
-        <hr>
-        <div id = "similar-projects-container" class="service-gallery row gy-3" data-aos="fade-up" data-aos-delay="300">
+        <div id = "similar-projects-container" class="projects service-gallery row gy-3" data-aos="fade-up" data-aos-delay="300">
           <h4 data-lang-key="similar-projects">Proyectos similares</h4>
 
           <template id="related-project-template">
@@ -224,10 +236,18 @@
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="assets/vendor/typed.js/typed.umd.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-
-  <!-- Main JS File -->
-
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./assets/vendor/three/build/three.module.js",
+        "three/addons/": "./assets/vendor/three/examples/jsm/",
+        "html2canvas": "./assets/vendor/html2canvas/dist/html2canvas.esm.js"
+      }
+    }
+  </script>
+  <!-- My JS Files -->
   <script src="assets/js/main.js"></script>
+  <script type = "module" src="assets/js/fractal.js"></script>
   <script src="assets/js/projects.js"></script>
   <script src="assets/js/language-manager.js"></script>
 

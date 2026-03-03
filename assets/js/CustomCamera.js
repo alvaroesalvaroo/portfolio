@@ -3,7 +3,7 @@ import * as THREE from 'three';
 export default class CustomCamera {
   constructor(sizes, fov = 75) {
     this.sizes = sizes;
-    this.velocity = 0.4;
+    this.velocity = 0.1;
     // this.direction = new THREE.Vector3();
     
     this.camera = new THREE.PerspectiveCamera(

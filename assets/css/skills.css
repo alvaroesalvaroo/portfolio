@@ -30,14 +30,6 @@
     border-radius: 2px;
 }
 
-[data-aos="grow-left"] {
-    width: 0;
-    transition-property: width;
-}
-
-[data-aos="grow-left"].aos-animate {
-    width: 60%;
-}
 
 .extra-webgl-container {
     position: relative;
