@@ -137,7 +137,7 @@
           <h3 data-lang-key="projects">Mis proyectos</h3>
         </div>
 
-        <div class="project-slider swiper init-swiper">
+        <div class="project-slider swiper init-swiper-on-render">
           <script type="application/json" class="swiper-config">
             {
               "loop": true,
@@ -150,6 +150,10 @@
               "navigation": {
                 "nextEl": ".swiper-button-next",
                 "prevEl": ".swiper-button-prev"
+              },
+              "watchSlidesProgress": true,
+              "on": {
+                "init": "function() { this.autoplay.stop(); }"
               },
               "breakpoints": {
                 "768": {

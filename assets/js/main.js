@@ -121,6 +121,7 @@
    * Init swiper sliders
    */
   function initSwiper() {
+
     document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
       let config = JSON.parse(
         swiperElement.querySelector(".swiper-config").innerHTML.trim()
@@ -132,7 +133,27 @@
         new Swiper(swiperElement, config);
       }
     });
+
+    // Special carrousel that inits when its observed:
+    document.querySelectorAll(".init-swiper-on-render").forEach(function(swiperElement) {
+      console.log("Init swiper on render");
+      let config = JSON.parse(
+          swiperElement.querySelector(".swiper-config").innerHTML.trim()
+      );
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Inicializamos el Swiper normalmente
+            new Swiper(swiperElement, config);
+            // Dejamos de observar para no repetir la carga
+            observer.unobserve(swiperElement);
+          }
+        });
+      }, { threshold: 0.1 });
+      observer.observe(swiperElement);
+    });
   }
+
 
   window.addEventListener("load", initSwiper);
 
