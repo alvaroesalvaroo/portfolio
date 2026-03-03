@@ -69,7 +69,9 @@ const allProjects = [
 
 
         tags: ["C#", "Unity 2D", "Web"],
-        numberOfImages: 2,
+        numberOfImages: 3,
+        gif: "ssp-menu.gif",
+        gifIsFirst: true,
         repoLink: "https://gitlab.com/aruizgarcia14/pec2_platformergame_alvaroruiz",
         windowsLink: "https://drive.google.com/drive/folders/1lbniG5F2ZeoO-HrxS_lg2mOPlM_nEJCL?usp=sharing",
         webLink: "https://play.unity.com/es/user/98453246-b7ce-49c5-ab6b-c4f3c5546cb9",
@@ -389,7 +391,12 @@ function createProjectCard(project, template, container) {
     // Añadir imagenes
     let image = clone.querySelector('img');
     // En la pagina inicial, solo cargamos la primera imagen
-    image.src = "assets/img/projects/" + project.key + "/01.png";
+    if (project.gif && project.gifIsFirst) {
+        image.src = "assets/img/projects/" + project.key + "/" + project.gif;
+    }
+    else {
+        image.src = "assets/img/projects/" + project.key + "/01.png";
+    }
 
     // Inyectamos en el DOM
     container.appendChild(clone);
