@@ -22,6 +22,20 @@
 #project-details-section {
     padding-top:0;
 }
+
+#project-details-section .swiper-slide {
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center;
+}
+
+
+.project-details-item {
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center;
+}
+
 .tags-container {
     display: flex;         /* Alinea los hijos en fila */
     flex-wrap: wrap;       /* Si no caben en una línea, saltan a la siguiente */
