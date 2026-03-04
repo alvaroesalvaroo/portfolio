@@ -13,7 +13,6 @@ const sizes = {
     height: window.innerHeight,
 };
 
-const myCamera = new CustomCamera(sizes, 75);
 // Create renderer in html canvas webgl element
 const canvas = document.querySelector(".extra-webgl-container canvas");
 const renderer = new THREE.WebGLRenderer({canvas});
@@ -48,7 +47,8 @@ function debugModelMatsAndTextures(model)
 
 // TODO:
 function setupLight(light) {
-
+    console.log(`Luz detectada: ${light.name} | Intensidad original: ${light.intensity}`);
+    light.intensity = 10;
 }
 function onScenelLoaded(model)
 {
@@ -62,6 +62,18 @@ function onScenelLoaded(model)
         } else if (child.isLight) {
             setupLight(child);
         }
+
+        if (child.name.includes("CameraPosition1") || child.name.includes("CameraPosition2")) {
+            console.log("Append target");
+            camPositions.push(child);
+        }
+        if (child.name.includes("CameraLookAt"))
+        {
+            console.log("Found camera look at");
+
+            camTarget = child;
+        }
+
     })
     console.log("Scene loaded: " + modelPath + " with mesh children: " + childCount);
 }
@@ -81,13 +93,14 @@ function createLights()
 
 function moveCameraToBlenderPosition() {
     scene.traverse( ( child ) => {
-        if (child.name === "CameraPosition") {s
-            child.updateWorldMatrix(true, false);s
+        if (child.name === "CameraPosition") {
+            child.updateWorldMatrix(true, false);
             const worldPos = new THREE.Vector3();
+            console.log(worldPos);
             child.getWorldPosition(worldPos);
-            myCamera.camera.position.copy(worldPos);
-            myCamera.camera.rotation.copy(child.rotation);
-            // myCamera.camera.updateProjectionMatrix();
+            camera.position.copy(worldPos);
+            // camera.rotation.copy(child.rotation);
+            // camera.updateProjectionMatrix();
         }
     })
 }
@@ -99,7 +112,9 @@ window.addEventListener("resize", () => {
     // Update sizes
     sizes.width = window.innerWidth;
     sizes.height = window.innerHeight;
-    myCamera.resize(sizes);
+
+    camera.aspect = sizes.width / sizes.height;
+    camera.updateProjectionMatrix();
 
     // Update renderer
     renderer.setSize(sizes.width, sizes.height);
@@ -107,12 +122,40 @@ window.addEventListener("resize", () => {
 });
 
 //--------------
-// INIT
+// INIT SCENE AND CAMERA
 // ------------
 
+let camera = new THREE.PerspectiveCamera(
+    50,
+    sizes.width / sizes.height,   // aspect
+    0.1,                          // near point
+    1000                          // far away point
+);
+const rotationSpeed = 1;
+const maxMoveSpeed = 1;
+const minMoveSpeed = 0.2;
+let currentTargetIndex = 0;
+let camPositions = [];
+let camTarget;
 
+
+let initialRotationY= null;
+
+let angleBounds = [0.5, -0.5];
+
+function calibrateCameraPosition() {
+    // Initial camera "harcoded" calibration to refine blender's position in responsive
+
+    // Works ok for mobile
+    camPositions[0].position.y -= 1;
+    camPositions[1].position.x += 0.1;
+
+}
 function init() {
     renderer.setSize( sizes.width, sizes.height );
+
+
+
 
     // Load glb model
     const loader = new GLTFLoader();
@@ -120,25 +163,75 @@ function init() {
     loader.load( modelPath, function ( gltf ) {
         onScenelLoaded(gltf.scene);
         // createLights();
-       moveCameraToBlenderPosition();
+       // moveCameraToBlenderPosition();
+
+        calibrateCameraPosition();
+
+        camera.position.copy(camPositions[0].position);
+
+        camera.lookAt(camTarget.position);
+       // initialRotationY = camera.rotation.y;
+        renderer.setAnimationLoop( animate );
+
+
     }, undefined, function ( error ) {
         console.error( error );
     } );
 }
 
-
 // -------------
 // MAIN LOOP
 // ---------------
 
-renderer.setAnimationLoop( animate );
+
+const startTime = Date.now();
+const clock = new THREE.Clock();
+
+
+const targetPos = new THREE.Vector3();
+const targetQuat = new THREE.Quaternion();
+
 
 
 function animate() {
 
-    // Camera and render
-    myCamera.update();
-    renderer.render( scene, myCamera.camera );
+    // const deltaTime = clock.getDelta();
+    const deltaTime = clock.getDelta();
+
+    // const oscillation = Math.sin(elapsed * rotationSpeed * Math.PI / 180) * angleBounds[1];
+
+    if (camPositions.length === 0) console.log("No cam targets!");
+    const activeTarget = camPositions[currentTargetIndex];
+
+    activeTarget.updateWorldMatrix(true, false);
+    activeTarget.getWorldPosition(targetPos);
+    activeTarget.getWorldQuaternion(targetQuat);
+
+
+
+    // camera.quaternion.slerp(targetQuat, rotationSpeed * deltaTime);    // Render
+    camera.lookAt(camTarget.position);
+
+    camera.updateProjectionMatrix();
+
+    const distance = camera.position.distanceTo(targetPos);
+    let speed = maxMoveSpeed;
+    if (distance < 1)
+    {
+        speed = maxMoveSpeed *distance/1;
+    }
+    if (distance < 0.1) {
+        speed = minMoveSpeed;
+        currentTargetIndex = (currentTargetIndex + 1) % camPositions.length;
+        console.log("Objetivo alcanzado. Cambiando a:", camPositions[currentTargetIndex].name);
+    }
+    else
+    {
+        const direction = new THREE.Vector3().subVectors(targetPos, camera.position).normalize();
+        camera.position.add(direction.multiplyScalar(speed * deltaTime));
+    }
+
+    renderer.render( scene, camera );
 
 }
 
