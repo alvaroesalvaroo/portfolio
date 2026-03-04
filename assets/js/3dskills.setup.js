@@ -8,6 +8,7 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 const modelPath = "./assets/3Dmodels/laboratorio.glb";
 
 const scene = new THREE.Scene();
+const container = document.querySelector(".extra-webgl-container");
 const sizes = {
     width: window.innerWidth,
     height: window.innerHeight,
@@ -144,11 +145,11 @@ let initialRotationY= null;
 let angleBounds = [0.5, -0.5];
 
 function calibrateCameraPosition() {
-    // Initial camera "harcoded" calibration to refine blender's position in responsive
+    // Initial camera "hardcoded" calibration to refine blender's position in responsive
 
     // Works ok for mobile
-    camPositions[0].position.y -= 1;
-    camPositions[1].position.x += 0.1;
+    // camPositions[0].position.y -= 1;
+    // camPositions[1].position.x += 0.1;
 
 }
 function init() {
@@ -183,22 +184,13 @@ function init() {
 // MAIN LOOP
 // ---------------
 
-
-const startTime = Date.now();
 const clock = new THREE.Clock();
-
 
 const targetPos = new THREE.Vector3();
 const targetQuat = new THREE.Quaternion();
 
-
-
 function animate() {
-
-    // const deltaTime = clock.getDelta();
     const deltaTime = clock.getDelta();
-
-    // const oscillation = Math.sin(elapsed * rotationSpeed * Math.PI / 180) * angleBounds[1];
 
     if (camPositions.length === 0) console.log("No cam targets!");
     const activeTarget = camPositions[currentTargetIndex];
