@@ -207,7 +207,7 @@
     </section><!-- /Services Section -->
 
 
-    <!-- Otros roles section-->
+    <!-- Otros roles/skills section-->
     <section id="skill-tabs" class="features-tabs section">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <hr class = "line-separator" data-aos="grow-left" data-aos-delay="100">
@@ -218,7 +218,7 @@
           <ul class="nav nav-tabs" data-aos="fade-up" data-aos-delay="100">
 
             <li class="nav-item">
-              <a class="nav-link active show" data-bs-toggle="tab" id = "cambutton1">
+              <a class="nav-link active show" data-bs-toggle="tab" id = "cambutton3D">
 
                 <div class="tab-content">
                   <h5 data-lang-key="3dartist">Artista 3D</h5>
@@ -227,7 +227,7 @@
             </li><!-- End tab nav item -->
 
             <li class="nav-item" >
-              <a class="nav-link" data-bs-toggle="tab" id = "cambutton2">
+              <a class="nav-link" data-bs-toggle="tab" id = "cambuttonMusic">
 
                 <div class="tab-content">
                   <h5 data-lang-key="sound">Diseñador sonoro</h5>
@@ -237,7 +237,7 @@
             </li><!-- End tab nav item -->
 
             <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="tab" id = "cambutton3">
+              <a class="nav-link" data-bs-toggle="tab" id = "cambuttonWeb">
                 <div class="tab-content">
                   <h5 data-lang-key="fullstack">Full stack</h5>
                 </div>
@@ -246,10 +246,10 @@
 
 
             <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="tab" id = "cambutton4">
+              <a class="nav-link" data-bs-toggle="tab" id = "cambuttonPhysics">
 
                 <div class="tab-content">
-                  <h5 data-lang-key="physicist">Support</h5>
+                  <h5 data-lang-key="physicist">Physicist</h5>
 <!--                  <span data-lang-key="physicistmore">Pero eso es lo de menos</span>-->
                 </div>
               </a>
@@ -262,40 +262,44 @@
             <div class="tab-pane fade active show" id="features-tabs-tab-1">
               <div class="row align-items-center">
 
+                <div class="col-lg-7">
+                  <div class="visual-content">
+                    <div class="extra-webgl-container">
+                      <canvas> </canvas>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="col-lg-5">
                   <div class="content-wrapper">
                     <p data-lang-key="3dartist-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore veritatis.</p>
                   </div>
                 </div>
 
-                <div class="col-lg-7">
-                  <div class="visual-content">
-                    <div class="extra-webgl-container">
-                      <canvas> </canvas>
 
-                    </div>
-                  </div>
-                </div>
               </div>
             </div><!-- End tab content item -->
 
             <div class="tab-pane fade" id="features-tabs-tab-2">
               <div class="row align-items-center">
+
+
+                <div class="col-lg-7">
+                  <div class="visual-content">
+                    <div class="extra-webgl-container">
+
+                      <canvas> </canvas>
+
+                    </div>
+                  </div>
+                </div>
+
                 <div class="col-lg-5">
                   <div class="content-wrapper">
                     <p data-lang-key="fullstack-description">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit sed quia non numquam eius modi tempora incidunt ut labore.</p>
                   </div>
                 </div>
 
-                <div class="col-lg-7">
-                  <div class="visual-content">
-                    <div class="extra-webgl-container">
-
-                      <canvas> </canvas>
-
-                    </div>
-                  </div>
-                </div>
 
               </div>
             </div><!-- End tab content item -->
@@ -303,17 +307,17 @@
             <div class="tab-pane fade" id="features-tabs-tab-3">
               <div class="row align-items-center">
 
-                <div class="col-lg-5">
-                  <div class="content-wrapper">
-                    <p data-lang-key="sound-description">Ut enim ad minima veniam quis nostrum exercitationem ullam corporis suscipit laboriosam nisi ut aliquid ex ea commodi consequatur quis autem vel.</p>
-                  </div>
-                </div>
-
                 <div class="col-lg-7">
                   <div class="visual-content">
                     <div class="extra-webgl-container">
                       <canvas> </canvas>
                     </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-5">
+                  <div class="content-wrapper">
+                    <p data-lang-key="sound-description">Ut enim ad minima veniam quis nostrum exercitationem ullam corporis suscipit laboriosam nisi ut aliquid ex ea commodi consequatur quis autem vel.</p>
                   </div>
                 </div>
 
@@ -323,12 +327,6 @@
             <div class="tab-pane fade" id="features-tabs-tab-4">
               <div class="row align-items-center">
 
-                <div class="col-lg-5">
-                  <div class="content-wrapper">
-                    <p data-lang-key="physicist-description">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                  </div>
-                </div>
-
                 <div class="col-lg-7">
                   <div class="visual-content">
                     <div class="extra-webgl-container">
@@ -336,15 +334,21 @@
                     </div>
                   </div>
                 </div>
+                <div class="col-lg-5">
+                  <div class="content-wrapper">
+                    <p data-lang-key="physicist-description">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                  </div>
+                </div>
+
 
               </div>
             </div><!-- End tab content item -->
 
 
-        <!-- </div> -->
+         </div>
 
       </div>
-
+      </div>
     </section><!-- /Features Tabs Section -->
 
 

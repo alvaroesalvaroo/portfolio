@@ -56,19 +56,22 @@ const lights = [];
 
 function setupLights() {
     // Ajustar luz ambiente
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.3); // Luz general, suave
-    scene.add(ambientLight);
-
-    const sunLight = new THREE.DirectionalLight(0xffffff, 1.2);
-    sunLight.rotation.set(5, 10, 7.5); // Orientación del sol
+    // const ambientLight = new THREE.AmbientLight(0xffffff, 1.3); // Luz general, suave
+    // scene.add(ambientLight);
+    //
+    // const sunLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    // sunLight.rotation.set(5, 10, 7.5); // Orientación del sol
     // sunLight.castShadow = true;
-    sunLight.shadow.mapSize.width = 1024;
-    sunLight.shadow.mapSize.height = 1024;
-    sunLight.shadow.camera.near = 0.5;
-    sunLight.shadow.camera.far = 50;
+    // sunLight.shadow.mapSize.width = 1024;
+    // sunLight.shadow.mapSize.height = 1024;
+    // sunLight.shadow.camera.near = 0.5;
+    // sunLight.shadow.camera.far = 50;
 
     for (const light of lights) {
         light.intensity = 10;
+        if (light.name.includes("Spot")) {
+            light.intensity = 0;
+        }
     }
 }
 
@@ -111,7 +114,7 @@ function onScenelLoaded(model)
 // ---------
 // SCREEN RESIZE
 // --------
-window.addEventListener("resize", () => {
+function resize () {
     // Update sizes
     sizes.width = container.clientWidth;
     sizes.height = container.clientHeight;
@@ -122,21 +125,23 @@ window.addEventListener("resize", () => {
     // Update renderer
     renderer.setSize(sizes.width, sizes.height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-});
+}
+
+window.addEventListener("resize", resize);
+
 
 //--------------
 // INIT SCENE AND CAMERA
 // ------------
 
 let camera = new THREE.PerspectiveCamera(
-    50,
+    25,
     sizes.width / sizes.height,   // aspect
     0.1,                          // near point
     1000                          // far away point
 );
 const rotationSpeed = 1;
-const maxMoveSpeed = 1;
-const minMoveSpeed = 0.2;
+const speed = 1;
 let currentTargetIndex = 0;
 let camPositions = [];
 // let camTarget;
@@ -147,31 +152,31 @@ let initialRotationY= null;
 let angleBounds = [0.5, -0.5];
 
 
+const buttonKeys = ["cambutton3D", "cambuttonWeb", "cambuttonPhysics", "cambuttonMusic"];
+const langKeys = ["3dartist-description", "fullstack-description", "sound-description", "physicist-description"];
 function setupButtons() {
-    let button1 = document.querySelector("#cambutton1");
-    button1.addEventListener("click", function () {
-        console.log("Click on butt1");
-        currentTargetIndex = 0;
-    })
-    let button2 = document.querySelector("#cambutton2");
-    button2.addEventListener("click", function () {
-        currentTargetIndex = 1;
-    })
-    let button3 = document.querySelector("#cambutton3");
-    button3.addEventListener("click", function () {
-        currentTargetIndex = 2;
-    })
-    let button4 = document.querySelector("#cambutton4");
-    button4.addEventListener("click", function () {
-        currentTargetIndex = 3;
-    })
+    for (let i = 0; i < buttonKeys.length; i++) {
+        let button = document.querySelector("#" + buttonKeys[i]);
+
+        if (!button) console.log("button key is missing " + buttonKeys[i]);
+        button.addEventListener("click", (e) => {
+            currentTargetIndex = i;
+        })
+    }
+}
+// TODO:
+const descriptionElement = document.querySelector(".tab-content h5");
+function changeDescription(index) {
+    descriptionElement.dataset.dataLangKey = langKeys[index];
+    try { applyTranslations()}
+    catch(e) { console.warn("Translations could not be applied")}
 }
 
 
+
+
 function init() {
-    renderer.setSize( sizes.width, sizes.height );
-    renderer.setSize(sizes.width, sizes.height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    resize();
 
     // Load glb model
     const loader = new GLTFLoader();
@@ -205,43 +210,36 @@ const m1 = new THREE.Matrix4();
 const correction = new THREE.Matrix4().makeRotationX(-Math.PI / 2);
 
 
-
-function animate() {
-    const deltaTime = clock.getDelta();
+function lerpCameraPositionAndRotation(deltaTime) {
 
     if (camPositions.length === 0) console.log("No cam targets!");
 
     const activeTarget = camPositions[currentTargetIndex];
     activeTarget.updateWorldMatrix(true, false);
     activeTarget.getWorldPosition(targetPos);
-    // camera.updateWorldMatrix();
-    // camera.quaternion.slerp(targetQuat, rotationSpeed * deltaTime);    // Render
-    // camera.lookAt(camTarget.position);
-
-    camera.updateProjectionMatrix();
 
     const distance = camera.position.distanceTo(targetPos);
-    let speed = maxMoveSpeed;
-    // Cutre lerp
-    let lerpDistance = 1;
-    if (distance < lerpDistance) // Adjust speed when close to objetive
-    {
-        speed = maxMoveSpeed * distance / lerpDistance;
-        if (speed < minMoveSpeed) speed = minMoveSpeed;
-    }
-    if (distance > 0.1) { // Move only when there is threshold to the objetive
-        const direction = new THREE.Vector3().subVectors(targetPos, camera.position).normalize();
-        camera.position.add(direction.multiplyScalar(speed * deltaTime));
+    if (distance > 0.005) {
+        // Lerp position
+        camera.position.lerpVectors(camera.position, targetPos, speed * deltaTime);
     }
 
     // Sustituyamos     activeTarget.getWorldQuaternion(targetQuat); por este follon:
     m1.extractRotation(activeTarget.matrixWorld);
     m1.multiply(correction);
     targetQuat.setFromRotationMatrix(m1);
+    // Lerp rotation
+    // Quaternions are a thing. when quaternion.dot gets to 1, angle is the same
+    if (1 - Math.abs(camera.quaternion.dot(targetQuat)) > 0.000001) {
+        camera.quaternion.slerp(targetQuat, rotationSpeed * deltaTime);
+    }
+}
 
-    camera.quaternion.slerp(targetQuat, rotationSpeed * deltaTime);
+function animate() {
+    const deltaTime = clock.getDelta();
+    lerpCameraPositionAndRotation(deltaTime);
 
-    renderer.render( scene, camera );
+    renderer.render(scene, camera);
 
 }
 
