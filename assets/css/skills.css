@@ -1,10 +1,6 @@
-#skill-tabs {
+ul .nav-tabs {
     margin-top: 0;
-    padding-top: 0;
-}
-
-#skill-tabs h4 {
-    position: relative;
+    margin-bottom: 0;
 }
 
 @media (max-width: 700px) {

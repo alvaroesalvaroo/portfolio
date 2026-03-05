@@ -118,8 +118,10 @@ function resize () {
     // Update sizes
     sizes.width = container.clientWidth;
     sizes.height = container.clientHeight;
-
+    console.log("Resized canvas to " + sizes.width + ", " + sizes.height);
     camera.aspect = sizes.width / sizes.height;
+    let isNarrowDevice = sizes.width < narrowThreshold;
+    camera.setFocalLength(isNarrowDevice ? fovNarrow : fov);
     camera.updateProjectionMatrix();
 
     // Update renderer
@@ -134,8 +136,12 @@ window.addEventListener("resize", resize);
 // INIT SCENE AND CAMERA
 // ------------
 
+const fov = 40;
+const fovNarrow = 30; // For (narrow) mobile devices
+const narrowThreshold = 500;
+
 let camera = new THREE.PerspectiveCamera(
-    25,
+    fov,
     sizes.width / sizes.height,   // aspect
     0.1,                          // near point
     1000                          // far away point
@@ -161,13 +167,16 @@ function setupButtons() {
         if (!button) console.log("button key is missing " + buttonKeys[i]);
         button.addEventListener("click", (e) => {
             currentTargetIndex = i;
+            changeDescription(i);
         })
     }
 }
 // TODO:
-const descriptionElement = document.querySelector(".tab-content h5");
+const descriptionElement = document.querySelector(".nav-tabs p");
 function changeDescription(index) {
+    console.log("change description", index);
     descriptionElement.dataset.dataLangKey = langKeys[index];
+    descriptionElement.innerHTML = "ehjhjhjhe";
     try { applyTranslations()}
     catch(e) { console.warn("Translations could not be applied")}
 }
@@ -187,7 +196,6 @@ function init() {
 
         camera.position.copy(camPositions[0].position);
         camera.rotation.copy(camPositions[0].rotation);
-        console.log("cam move to ", camPositions[0].position);
         camera.lookAt(0, 0, 0);
         // console.log("cam look at ", camTarget.position);
        // initialRotationY = camera.rotation.y;
