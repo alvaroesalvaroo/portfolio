@@ -13,8 +13,8 @@ window.scene = scene;
 const container = document.querySelector('.extra-webgl-container');
 console.log(container);
 const sizes = {
-    width: container.clientWidth,
-    height: container.clientWidth,
+    width: container.clientWidth - 1,
+    height: container.clientWidth -1 ,
 };
 
 console.log("container sizes are " + sizes.width + ", " + sizes.height);
@@ -82,6 +82,7 @@ function onScenelLoaded(model)
     model.traverse( ( child ) => {
         if (child.isMesh) {
             childCount++;
+            child.receiveShadow = true;
             // console.log("Mesh loaded: " + child.name);
             // debugModelMatsAndTextures(model);
         } else if (child.isLight) {
@@ -116,8 +117,8 @@ function onScenelLoaded(model)
 // --------
 function resize () {
     // Update sizes
-    sizes.width = container.clientWidth;
-    sizes.height = container.clientHeight;
+    sizes.width = container.clientWidth - 1;
+    sizes.height = container.clientHeight - 1;
     console.log("Resized canvas to " + sizes.width + ", " + sizes.height);
     camera.aspect = sizes.width / sizes.height;
     let isNarrowDevice = sizes.width < narrowThreshold;
@@ -136,8 +137,8 @@ window.addEventListener("resize", resize);
 // INIT SCENE AND CAMERA
 // ------------
 
-const fov = 40;
-const fovNarrow = 30; // For (narrow) mobile devices
+const fov = 50;
+const fovNarrow = 45; // For (narrow) mobile devices
 const narrowThreshold = 500;
 
 let camera = new THREE.PerspectiveCamera(
@@ -159,7 +160,7 @@ let angleBounds = [0.5, -0.5];
 
 
 const buttonKeys = ["cambutton3D", "cambuttonWeb", "cambuttonPhysics", "cambuttonMusic"];
-const langKeys = ["3dartist-description", "fullstack-description", "sound-description", "physicist-description"];
+const langKeys = ["3dartist-description", "fullstack-description", "physicist-description", "sound-description"];
 function setupButtons() {
     for (let i = 0; i < buttonKeys.length; i++) {
         let button = document.querySelector("#" + buttonKeys[i]);
@@ -171,11 +172,11 @@ function setupButtons() {
         })
     }
 }
+
 // TODO:
-const descriptionElement = document.querySelector(".nav-tabs p");
+const descriptionElement = document.querySelector("#skill-description");
 function changeDescription(index) {
-    console.log("change description", index);
-    descriptionElement.dataset.dataLangKey = langKeys[index];
+    descriptionElement.dataset.langKey = langKeys[index];
     descriptionElement.innerHTML = "ehjhjhjhe";
     try { applyTranslations()}
     catch(e) { console.warn("Translations could not be applied")}
