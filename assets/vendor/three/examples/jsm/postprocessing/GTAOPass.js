@@ -93,7 +93,7 @@ class GTAOPass extends Pass {
 		 *
 		 * @type {Scene}
 		 */
-		this.scene = scene;
+		this.skillsScene = scene;
 
 		/**
 		 * The output configuration.

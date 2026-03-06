@@ -180,13 +180,13 @@ class TileShadowNodeHelper extends Group {
 	 */
 	dispose() {
 
-		if ( this.scene ) {
+		if ( this.skillsScene ) {
 
 			for ( const mesh of this._debugMeshes ) {
 
 				mesh.geometry.dispose();
 				mesh.material.dispose();
-				this.scene.remove( mesh );
+				this.skillsScene.remove( mesh );
 
 			}
 
@@ -194,7 +194,7 @@ class TileShadowNodeHelper extends Group {
 
 				if ( helper ) {
 
-					this.scene.remove( helper );
+					this.skillsScene.remove( helper );
 
 				}
 

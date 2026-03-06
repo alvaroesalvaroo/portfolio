@@ -1,14 +1,12 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import CustomCamera from './CustomCamera.js';
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
 
 const modelPath = "./assets/3Dmodels/laboratorio.glb";
 
 const scene = new THREE.Scene();
-window.scene = scene;
+window.skillsScene = scene; // Open up this object
+
 // const container = window;
 const container = document.querySelector('.extra-webgl-container');
 console.log(container);
@@ -21,10 +19,15 @@ console.log("container sizes are " + sizes.width + ", " + sizes.height);
 
 // Create renderer in html canvas webgl element
 const canvas = document.querySelector(".extra-webgl-container canvas");
-const renderer = new THREE.WebGLRenderer({canvas});
+const renderer = new THREE.WebGLRenderer({
+    canvas: canvas,
+    antialias: true,
+    alpha: true // To combine other renderers
+});
 
-
-
+// ===== CSSRenderer stuff ========= //
+renderer.domElement.style.zIndex = '1';
+renderer.domElement.style.pointerEvents = 'none';
 
 function debugModelMatsAndTextures(model)
 {
@@ -44,8 +47,6 @@ function debugModelMatsAndTextures(model)
             }
 
         }
-
-
 
     });
 
@@ -75,10 +76,11 @@ function setupLights() {
     }
 }
 
-function onScenelLoaded(model)
+function onSceneLoaded(model)
 {
     scene.add( model );
     let childCount = 0;
+    let screen = {};
     model.traverse( ( child ) => {
         if (child.isMesh) {
             childCount++;
@@ -100,13 +102,17 @@ function onScenelLoaded(model)
 
             // camTarget = child;
         }
+        if (child.name === "screen") {
+            screen = child;
+        }
 
     })
 
     setupLights();
+
+    initCSS3D(container, screen);
+
     console.log("Scene loaded: " + modelPath + " with mesh children: " + childCount);
-
-
 
 }
 
@@ -144,7 +150,7 @@ const narrowThreshold = 500;
 let camera = new THREE.PerspectiveCamera(
     fov,
     sizes.width / sizes.height,   // aspect
-    0.1,                          // near point
+    0.01,                          // near point
     1000                          // far away point
 );
 const rotationSpeed = 1;
@@ -154,11 +160,6 @@ let camPositions = [];
 // let camTarget;
 
 
-let initialRotationY= null;
-
-let angleBounds = [0.5, -0.5];
-
-
 const buttonKeys = ["cambutton3D", "cambuttonWeb", "cambuttonPhysics", "cambuttonMusic"];
 const langKeys = ["3dartist-description", "fullstack-description", "physicist-description", "sound-description"];
 function setupButtons() {
@@ -166,18 +167,16 @@ function setupButtons() {
         let button = document.querySelector("#" + buttonKeys[i]);
 
         if (!button) console.log("button key is missing " + buttonKeys[i]);
-        button.addEventListener("click", (e) => {
+        button.addEventListener("click", () => {
             currentTargetIndex = i;
             changeDescription(i);
         })
     }
 }
 
-// TODO:
 const descriptionElement = document.querySelector("#skill-description");
 function changeDescription(index) {
     descriptionElement.dataset.langKey = langKeys[index];
-    descriptionElement.innerHTML = "ehjhjhjhe";
     try { applyTranslations()}
     catch(e) { console.warn("Translations could not be applied")}
 }
@@ -192,7 +191,7 @@ function init() {
     const loader = new GLTFLoader();
     // Onload
     loader.load( modelPath, function ( gltf ) {
-        onScenelLoaded(gltf.scene);
+        onSceneLoaded(gltf.scene);
         setupButtons();
 
         camera.position.copy(camPositions[0].position);
@@ -201,6 +200,7 @@ function init() {
         // console.log("cam look at ", camTarget.position);
        // initialRotationY = camera.rotation.y;
         renderer.setAnimationLoop( animate );
+
 
     }, undefined, function ( error ) {
         console.error( error );
@@ -249,6 +249,12 @@ function animate() {
     lerpCameraPositionAndRotation(deltaTime);
 
     renderer.render(scene, camera);
+
+    try {
+        renderCSS(camera);
+    } catch (e) {
+        console.error(e);
+    }
 
 }
 

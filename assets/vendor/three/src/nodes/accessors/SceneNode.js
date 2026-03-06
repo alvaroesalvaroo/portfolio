@@ -50,7 +50,7 @@ class SceneNode extends Node {
 		 * @type {?Scene}
 		 * @default null
 		 */
-		this.scene = scene;
+		this.skillsScene = scene;
 
 	}
 

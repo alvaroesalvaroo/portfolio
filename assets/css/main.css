@@ -62,9 +62,11 @@
   outline: none;
   position: fixed;
   
-  z-index: -10;
+  z-index: 10;
   width: 100vw;
   height: 100vh;
+
+  pointer-events: none; /* Para poder clicar el iframe de atrás */
 }
 
 

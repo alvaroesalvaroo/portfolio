@@ -343,7 +343,7 @@ class XRControllerModelFactory {
 				const cachedAsset = this._assetCache[ controllerModel.motionController.assetUrl ];
 				if ( cachedAsset ) {
 
-					scene = cachedAsset.scene.clone();
+					scene = cachedAsset.skillsScene.clone();
 
 					addAssetSceneToControllerModel( controllerModel, scene );
 

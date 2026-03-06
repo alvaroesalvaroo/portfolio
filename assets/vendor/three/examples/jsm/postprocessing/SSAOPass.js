@@ -100,7 +100,7 @@ class SSAOPass extends Pass {
 		 *
 		 * @type {Scene}
 		 */
-		this.scene = scene;
+		this.skillsScene = scene;
 
 		/**
 		 * The kernel radius controls how wide the

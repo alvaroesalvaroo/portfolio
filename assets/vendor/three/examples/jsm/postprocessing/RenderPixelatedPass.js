@@ -47,7 +47,7 @@ class RenderPixelatedPass extends Pass {
 		 *
 		 * @type {Scene}
 		 */
-		this.scene = scene;
+		this.skillsScene = scene;
 
 		/**
 		 * The camera.

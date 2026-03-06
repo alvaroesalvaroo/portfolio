@@ -154,7 +154,7 @@ class KMZLoader extends Loader {
 		}
 
 		console.error( 'KMZLoader: Couldn\'t find .dae file.' );
-		return { scene: new Group() };
+		return { skillsScene: new Group() };
 
 	}
 

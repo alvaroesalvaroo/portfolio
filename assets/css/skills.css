@@ -38,6 +38,10 @@ ul .nav-tabs {
 
 }
 
+/*.extra-webgl-container div {*/
+/*    overflow: hidden;*/
+/*}*/
+
 /* El pseudo-elemento crea el fundido sobre el canvas */
 .extra-webgl-container::after {
     content: "";
