@@ -59,6 +59,10 @@ function onScenelLoaded(model)
 {
   scene.add( model );
   model.traverse( ( child ) => {
+
+    if (child.name.toLowerCase().includes("light")) {
+      lightPosition = child.position;
+    }
     if (child.isMesh) {
       const materials = Array.isArray(child.material) ? child.material : [child.material];
       for (const material of materials) {
@@ -87,7 +91,7 @@ function onScenelLoaded(model)
   // if (DEBUG_MODE === true) debugModelInfo(model);
 }
 
-
+let lightPosition;
 function createLights()
 {
 
@@ -95,7 +99,8 @@ function createLights()
   scene.add(ambientLight);
 
   const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-  directionalLight.position.set(-2, 0, -5);
+  // directionalLight.position.set(-2, 0, -5);
+  directionalLight.position.copy(lightPosition);
 
   scene.add(directionalLight);
   scene.add(directionalLight.target);
