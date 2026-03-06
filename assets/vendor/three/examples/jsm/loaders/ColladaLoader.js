@@ -4019,7 +4019,7 @@ class ColladaLoader extends Loader {
 
 		if ( text.length === 0 ) {
 
-			return { skillsScene: new Scene() };
+			return { scene: new Scene() };
 
 		}
 
@@ -4145,7 +4145,7 @@ class ColladaLoader extends Loader {
 			},
 			kinematics: kinematics,
 			library: library,
-			skillsScene: scene
+			scene: scene
 		};
 
 	}

@@ -53,7 +53,7 @@ class SAOPass extends Pass {
 		 *
 		 * @type {Scene}
 		 */
-		this.skillsScene = scene;
+		this.scene = scene;
 
 		/**
 		 * The camera.

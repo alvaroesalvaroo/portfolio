@@ -128,7 +128,7 @@ class ArcballControls extends Controls {
 		 * @type {?Scene}
 		 * @default null
 		 */
-		this.skillsScene = scene;
+		this.scene = scene;
 
 		/**
 		 * The control's focus point.

@@ -653,7 +653,7 @@ class Nodes extends DataMap {
 
 	getNodeFrameForRender( renderObject ) {
 
-		return this.getNodeFrame( renderObject.renderer, renderObject.skillsScene, renderObject.object, renderObject.camera, renderObject.material );
+		return this.getNodeFrame( renderObject.renderer, renderObject.scene, renderObject.object, renderObject.camera, renderObject.material );
 
 	}
 

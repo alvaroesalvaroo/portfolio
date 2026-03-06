@@ -179,7 +179,7 @@ class PassNode extends TempNode {
 		 *
 		 * @type {Scene}
 		 */
-		this.skillsScene = scene;
+		this.scene = scene;
 
 		/**
 		 * A reference to the camera.

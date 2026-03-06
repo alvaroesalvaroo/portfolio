@@ -7,8 +7,8 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 
 const scene = new THREE.Scene();
 const sizes = {
-  width: window.innerWidth,
-  height: window.innerHeight,
+width: window.innerWidth,
+height: window.innerHeight,
 };
 
 const myCamera = new CustomCamera(sizes, 75);
@@ -17,14 +17,12 @@ const myCamera = new CustomCamera(sizes, 75);
 const canvas = document.querySelector("canvas.webgl");
 
 const renderer = new THREE.WebGLRenderer({canvas});
-renderer.setSize( sizes.width, sizes.height );
 // document.body.appendChild( renderer.domElement );
 
 
 // Bloom effect
 
 const composer = new EffectComposer(renderer); // Renderer must have sizes already defined
-const renderPass = new RenderPass(scene, myCamera.camera);
 
 
 
@@ -34,23 +32,23 @@ function debugModelInfo(model)
   console.log("Success loading " + model.name+ " with mesh children");
   model.traverse( ( child ) => {
 
-    const materials = Array.isArray(child.material) ? child.material : [child.material];
-    for (const mat of materials) {
-      if (!mat) continue;
-      console.log("material " + mat.name+ " of object" + child.name);
+        const materials = Array.isArray(child.material) ? child.material : [child.material];
+        for (const mat of materials) {
+          if (!mat) continue;
+          console.log("material " + mat.name+ " of object" + child.name);
 
-      const textureKeys = ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'emissiveMap'];
-      for (const key in textureKeys) {
-        if (mat[key]) {
-          console.log("texture " + mat[key].name+ " of object" + child.name);
+          const textureKeys = ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'emissiveMap'];
+          for (const key in textureKeys) {
+            if (mat[key]) {
+              console.log("texture " + mat[key].name+ " of object" + child.name);
+            }
+          }
+
         }
-      }
-
-    }
 
 
 
-  });
+      });
 
 }
 
@@ -84,7 +82,11 @@ function onScenelLoaded(model)
     }
   })
 
-  // if (DEBUG_MODE === true) debugModelInfo(model);
+  scene.background = new THREE.Color( 0xaa0000 );
+
+
+
+  debugModelInfo(model);
 }
 
 
@@ -95,7 +97,7 @@ function createLights()
   scene.add(ambientLight);
 
   const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-  directionalLight.position.set(-2, 0, -5);
+  directionalLight.position.set(-2, 0, -5); 
 
   scene.add(directionalLight);
   scene.add(directionalLight.target);
@@ -112,6 +114,7 @@ window.addEventListener("resize", () => {
 
   // Update renderer
   renderer.setSize(sizes.width, sizes.height);
+  composer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
 
@@ -123,14 +126,24 @@ window.addEventListener("resize", () => {
 function init() {
 
   // Init bloom
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  composer.setSize(window.innerWidth, window.innerHeight);
+
   const bloomPass = new UnrealBloomPass(
       new THREE.Vector2(window.innerWidth, window.innerHeight),
       1.5,  // Fuerza del brillo (0 a 3 suele estar bien)
       0.4,  // Radio (qué tanto se expande el blur)
       0.6  // Threshold (qué tan brillante debe ser un color para que empiece a brillar)
   );
+  const renderPass = new RenderPass(scene, myCamera.camera);
+
+  console.log(bloomPass);
+  console.log(renderPass);
+
+  composer.passes = [];
   composer.addPass(renderPass);
   composer.addPass(bloomPass);
+
 
   // Load glb model
   const loader = new GLTFLoader();
@@ -143,14 +156,12 @@ function init() {
   } );
 }
 
-init();
-
 // -------------
 // MAIN LOOP
 // ---------------
 
 renderer.setAnimationLoop( animate );
-
+const clock = new THREE.Clock();
 
 function animate() {
 
@@ -163,6 +174,15 @@ function animate() {
   // Camera and render
   myCamera.update();
   // renderer.render( scene, myCamera.camera );
-  composer.render(); // Missing delta time
+  // try {
+    composer.render(clock.getDelta()); // Missing delta time
+  // } catch (e) {
+    // console.log("Postprocessing not possible. Standard rendering")
+    // renderer.render(scene, myCamera.camera);
+  // }
 
 }
+
+
+init();
+

@@ -2743,7 +2743,7 @@ class GLTFParser {
 		} ).then( function ( dependencies ) {
 
 			const result = {
-				scene: dependencies[ 0 ][ json.skillsScene || 0 ],
+				scene: dependencies[ 0 ][ json.scene || 0 ],
 				scenes: dependencies[ 0 ],
 				animations: dependencies[ 1 ],
 				cameras: dependencies[ 2 ],

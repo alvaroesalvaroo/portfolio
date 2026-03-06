@@ -54,7 +54,7 @@ class XRHandMeshModel {
 
 		loader.load( `${handedness}.glb`, gltf => {
 
-			const object = gltf.skillsScene.children[ 0 ];
+			const object = gltf.scene.children[ 0 ];
 			this.handModel.add( object );
 
 			const mesh = object.getObjectByProperty( 'type', 'SkinnedMesh' );

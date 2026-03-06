@@ -77,7 +77,7 @@ class OutlineNode extends TempNode {
 		 *
 		 * @type {Scene}
 		 */
-		this.skillsScene = scene;
+		this.scene = scene;
 
 		/**
 		 * The camera the scene is rendered with.
