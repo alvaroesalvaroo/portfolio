@@ -272,7 +272,7 @@ const allProjects = [
 
     {
         key: "ocalight",
-        title: "Ocalight 🪿",
+        title: "Ocaligh d",
         subtitleES: "El proyecto más sencillo, simple y moderadamente divertido que verás hoy.",
         subtitleEN: "The simplest and most moderately fun project you will see today.",
         subtitleCAT: "El projecte més senzill, simple i moderadament divertit que veuràs avui.",
@@ -720,23 +720,9 @@ function createProjectInDetail(projects) {
     addLinksToCard(project, linksContainer);
 
     // Añadir imagenes, a no ser que...
-    if (project.key != "this")
-    {
-        createMediaCarrousel(project)
-    }
-    else
-    {
-        // I wanna see debugs
-        initFractal();
-        // try {
-        //     createFractal();
-        // }
-        // catch(e) {
-        //     console.log ("Since there was an error creating fractal, normal media will be loaded: ");
-        //     createMediaCarrousel(project);
-        //     console.error (e);
-        // }
-    }
+
+    createMediaCarrousel(project)
+
 
 
 }

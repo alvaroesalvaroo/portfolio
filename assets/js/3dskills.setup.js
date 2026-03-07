@@ -118,9 +118,10 @@ function onSceneLoaded(model)
 
 
 // ---------
-// ---------
 // SCREEN RESIZE
 // --------
+window.addEventListener("resize", resize);
+
 function resize () {
     // Update sizes
     sizes.width = container.clientWidth - 1;
@@ -136,7 +137,6 @@ function resize () {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 }
 
-window.addEventListener("resize", resize);
 
 
 //--------------

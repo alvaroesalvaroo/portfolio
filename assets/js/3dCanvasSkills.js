@@ -3,24 +3,34 @@ import * as THREE from 'three';
 
 import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
 
-let CSSrenderer;
+let cssRenderer;
 let cssScene;
+let css3DObject;
 
 window.initCSS3D = initCSS3D;
+window.renderCSS = renderCSS;
 
+function resizeCssRenderer (container, referenceObject) {
+
+    cssRenderer.setSize(container.clientWidth - 1, container.clientHeight -1);
+
+    console.log("CSS3D Resized to:", width, height);
+}
 
 function initCSS3D(container, referenceObject) {
     console.log("Init css aditional scene");
+
+
     cssScene = new THREE.Scene();
 
     // sizes = {width: container.clientWidth, height: container.clientHeight};
-    CSSrenderer = new CSS3DRenderer();
-    CSSrenderer.setSize( container.clientWidth, container.clientHeight );
-    CSSrenderer.domElement.style.position = 'absolute';
-    CSSrenderer.domElement.style.top = '0px';
-    CSSrenderer.domElement.style.zIndex = '0'; // REVISAR
+    cssRenderer = new CSS3DRenderer();
+    cssRenderer.setSize( container.clientWidth, container.clientHeight );
+    cssRenderer.domElement.style.position = 'absolute';
+    cssRenderer.domElement.style.top = '0px';
+    cssRenderer.domElement.style.zIndex = '0'; // REVISAR
 
-    container.appendChild( CSSrenderer.domElement );
+    container.appendChild( cssRenderer.domElement );
     // document.body.appendChild( CSSrenderer.domElement );
 
 
@@ -54,15 +64,15 @@ function initCSS3D(container, referenceObject) {
     iframe.style.border = '0px';
     iframe.style.backfaceVisibility = 'visible';
     const baseUrl = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-    const finalPath = "project-details.html?projectKey=this";
+    const finalPath = "project-all.html";
     const finalUrl = new URL(finalPath, baseUrl).href;
-
+    console.log("Creating CSS texture based on url: " + finalUrl);
     // "Plz do magic" line:
     // iframe.src = urlWithNoHash;
     iframe.src = finalUrl;
 
     // Create CSSObject
-    const css3DObject = new CSS3DObject(iframe);
+    css3DObject = new CSS3DObject(iframe);
     referenceObject.updateWorldMatrix(true, false);
     css3DObject.position.copy( meshBase.position );
     css3DObject.rotation.copy( meshBase.rotation );
@@ -77,14 +87,19 @@ function initCSS3D(container, referenceObject) {
 
     cssScene.add(css3DObject);
 
+    window.addEventListener("resize", () => {
+        resizeCssRenderer(container, referenceObject);
+    });
     console.log("Init CSS aditional scene in ", css3DObject.position);
 }
 
-window.renderCSS = renderCSS;
+
 
 function renderCSS(camera) {
-    CSSrenderer.render(cssScene, camera);
+    cssRenderer.render(cssScene, camera);
 }
+
+/*
 
 function buildFrame( width, height, thickness ) {
 
@@ -128,3 +143,4 @@ function buildFrame( width, height, thickness ) {
     return group;
 
 }
+*/

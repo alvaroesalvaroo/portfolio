@@ -11,14 +11,14 @@ const sizes = {
   height: window.innerHeight,
 };
 
-const myCamera = new CustomCamera(sizes, 75);
+const myCamera = new CustomCamera(sizes, 75, 0);
 
 // Create renderer in html canvas webgl element
 const canvas = document.querySelector("canvas.webgl");
 
 const renderer = new THREE.WebGLRenderer({canvas});
 renderer.setSize( sizes.width, sizes.height );
-// document.body.appendChild( renderer.domElement );
+
 
 
 // Bloom effect
@@ -163,7 +163,6 @@ function animate() {
   {
     scene.rotation.set(scene.rotation.x, scene.rotation.y -=0.005, scene.rotation.z);
   }
-
 
   // Camera and render
   myCamera.update();
