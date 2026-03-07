@@ -407,7 +407,7 @@ function createProjectCard(project, template, container) {
 function createProjectsInIndex(projectsArray) {
     const container = document.querySelector("#projects-container");
     const template = document.querySelector("#project-index-template");
-    console.log("creating cards with projects");
+    console.log("creating index projects carrousel");
     if (!container || !template) {
             console.error("Error: No se encontró el contenedor o el template de la sección projects en el index.");
             return;
@@ -741,9 +741,7 @@ function setupTagsDropdown() {
         setTimeout(() => {
 
             // 3. Si se acaba de cerrar (no está activo), resetear proyectos
-            if (isNowActive) {
-                // setActiveTag("C#", document.getElementById(`tag-C#`));
-            } else {
+            if (!isNowActive) {
                 createAllProjects();
             }
         }, 400);

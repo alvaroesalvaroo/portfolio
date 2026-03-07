@@ -3,7 +3,7 @@ let translations = {};
 
 
 function insertAllProjectTranslations() {
-    console.log("Inserting All translations FROM PROJECTS");
+    console.log("Inserting All project translations");
 
     for(const project of allProjects) {
         // Add subtitle and description translation

@@ -18,12 +18,10 @@ function resizeCssRenderer (container, referenceObject) {
 }
 
 function initCSS3D(container, referenceObject) {
-    console.log("Init css aditional scene");
-
+    console.log("Init css aditional scene with sizes: " + container.clientWidth + ", " + container.clientHeight );
 
     cssScene = new THREE.Scene();
 
-    // sizes = {width: container.clientWidth, height: container.clientHeight};
     cssRenderer = new CSS3DRenderer();
     cssRenderer.setSize( container.clientWidth, container.clientHeight );
     cssRenderer.domElement.style.position = 'absolute';
@@ -31,8 +29,6 @@ function initCSS3D(container, referenceObject) {
     cssRenderer.domElement.style.zIndex = '0'; // REVISAR
 
     container.appendChild( cssRenderer.domElement );
-    // document.body.appendChild( CSSrenderer.domElement );
-
 
     // CREATE BOX
     referenceObject.updateMatrixWorld(true);
@@ -90,7 +86,6 @@ function initCSS3D(container, referenceObject) {
     window.addEventListener("resize", () => {
         resizeCssRenderer(container, referenceObject);
     });
-    console.log("Init CSS aditional scene in ", css3DObject.position);
 }
 
 

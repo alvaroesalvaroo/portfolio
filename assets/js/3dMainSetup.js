@@ -16,45 +16,15 @@ const myCamera = new CustomCamera(sizes, 75, 0);
 // Create renderer in html canvas webgl element
 const canvas = document.querySelector("canvas.webgl");
 
-const renderer = new THREE.WebGLRenderer({canvas});
+const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias : true});
 renderer.setSize( sizes.width, sizes.height );
 
 
-
 // Bloom effect
-
 const composer = new EffectComposer(renderer); // Renderer must have sizes already defined
 const renderPass = new RenderPass(scene, myCamera.camera);
 
-
-
-
-function debugModelInfo(model)
-{
-  console.log("Success loading " + model.name+ " with mesh children");
-  model.traverse( ( child ) => {
-
-    const materials = Array.isArray(child.material) ? child.material : [child.material];
-    for (const mat of materials) {
-      if (!mat) continue;
-      console.log("material " + mat.name+ " of object" + child.name);
-
-      const textureKeys = ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'emissiveMap'];
-      for (const key in textureKeys) {
-        if (mat[key]) {
-          console.log("texture " + mat[key].name+ " of object" + child.name);
-        }
-      }
-
-    }
-
-
-
-  });
-
-}
-
-
+// Setup lighting
 function onScenelLoaded(model)
 {
   scene.add( model );
@@ -68,9 +38,7 @@ function onScenelLoaded(model)
       for (const material of materials) {
         if (material.name.startsWith("sun"))
         {
-          console.log("Here is sun");
           let texture = material["map"];
-          console.log("material " + material.name+ " with map texture" + texture.name);
 
           const emissiveMaterial = new THREE.MeshStandardMaterial({
             color: 0x111111,          // Color base del objeto (oscuro para que resalte el brillo)
@@ -88,7 +56,7 @@ function onScenelLoaded(model)
     }
   })
 
-  // if (DEBUG_MODE === true) debugModelInfo(model);
+  // debugModelInfo(model);
 }
 
 let lightPosition;
@@ -108,8 +76,7 @@ function createLights()
 
 // ---------
 // SCREEN RESIZE
-// --------
-window.addEventListener("resize", () => {
+function resize() {
   // Update sizes
   sizes.width = window.innerWidth;
   sizes.height = window.innerHeight;
@@ -118,15 +85,14 @@ window.addEventListener("resize", () => {
   // Update renderer
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-});
+}
+window.addEventListener("resize", () => resize());
 
 //--------------
 // INIT
-// ------------
-
-
 function init() {
 
+  console.log("Init Main three.js scene");
   // Init bloom
   const bloomPass = new UnrealBloomPass(
       new THREE.Vector2(window.innerWidth, window.innerHeight),
@@ -143,12 +109,12 @@ function init() {
   loader.load( './assets/3Dmodels/EscenaEstaticaCompressed.glb', function ( gltf ) {
     onScenelLoaded(gltf.scene);
     createLights();
+    resize();
+
   }, undefined, function ( error ) {
     console.error( error );
   } );
 }
-
-init();
 
 // -------------
 // MAIN LOOP
@@ -158,15 +124,36 @@ renderer.setAnimationLoop( animate );
 
 
 function animate() {
+  if (!isObserved) return;
 
+  // Update scene and camera
   if (scene)
   {
     scene.rotation.set(scene.rotation.x, scene.rotation.y -=0.005, scene.rotation.z);
   }
-
-  // Camera and render
   myCamera.update();
+
+  // Render
   // renderer.render( scene, myCamera.camera );
   composer.render(); // Missing delta time
+}
 
+init();
+
+// TODO: decide if remove this
+// initObservedListener(canvas);
+
+// Control if canvas is being observed
+// Not working in main canvas.
+let isObserved = true;
+
+function initObservedListener(mainContainer) {
+  const observer = new IntersectionObserver((entries) => {
+    // Como solo observamos uno, podemos acceder directamente al primer entry
+    const entry = entries[0];
+    isObserved = entry.isIntersecting;
+
+  }, { threshold: 0.1 });
+
+  observer.observe(mainContainer);
 }

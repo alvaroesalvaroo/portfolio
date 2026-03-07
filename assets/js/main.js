@@ -136,7 +136,6 @@
 
     // Special carrousel that inits when its observed:
     document.querySelectorAll(".init-swiper-on-render").forEach(function(swiperElement) {
-      console.log("Init swiper on render");
       let config = JSON.parse(
           swiperElement.querySelector(".swiper-config").innerHTML.trim()
       );
@@ -144,6 +143,8 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             // Inicializamos el Swiper normalmente
+            console.log("Init index project carrousel");
+
             new Swiper(swiperElement, config);
             // Dejamos de observar para no repetir la carga
             observer.unobserve(swiperElement);

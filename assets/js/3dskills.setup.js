@@ -9,13 +9,11 @@ window.skillsScene = scene; // Open up this object
 
 // const container = window;
 const container = document.querySelector('.extra-webgl-container');
-console.log(container);
 const sizes = {
     width: container.clientWidth - 1,
     height: container.clientWidth -1 ,
 };
 
-console.log("container sizes are " + sizes.width + ", " + sizes.height);
 
 // Create renderer in html canvas webgl element
 const canvas = document.querySelector(".extra-webgl-container canvas");
@@ -85,21 +83,16 @@ function onSceneLoaded(model)
         if (child.isMesh) {
             childCount++;
             child.receiveShadow = true;
-            // console.log("Mesh loaded: " + child.name);
-            // debugModelMatsAndTextures(model);
         } else if (child.isLight) {
-            // Light adjustement
             lights.push(child);
         }
 
         if (child.name.startsWith("CameraPosition")) {
-            console.log("cam position found");
+            console.log("cam position found on lab scene");
             camPositions.push(child);
         }
         if (child.name.includes("CameraLookAt"))
         {
-            console.log("Found camera look at");
-
             // camTarget = child;
         }
         if (child.name === "screen") {
@@ -107,13 +100,7 @@ function onSceneLoaded(model)
         }
 
     })
-
-    setupLights();
-
     initCSS3D(container, screen);
-
-    console.log("Scene loaded: " + modelPath + " with mesh children: " + childCount);
-
 }
 
 
@@ -126,7 +113,7 @@ function resize () {
     // Update sizes
     sizes.width = container.clientWidth - 1;
     sizes.height = container.clientHeight - 1;
-    console.log("Resized canvas to " + sizes.width + ", " + sizes.height);
+    console.log("Resized lab canvas to " + sizes.width + ", " + sizes.height);
     camera.aspect = sizes.width / sizes.height;
     let isNarrowDevice = sizes.width < narrowThreshold;
     camera.setFocalLength(isNarrowDevice ? fovNarrow : fov);
@@ -185,13 +172,18 @@ function changeDescription(index) {
 
 
 function init() {
-    resize();
+    console.log("Init lab scene in container with sizes: " + sizes.width + ", " + sizes.height);
+
 
     // Load glb model
     const loader = new GLTFLoader();
     // Onload
     loader.load( modelPath, function ( gltf ) {
         onSceneLoaded(gltf.scene);
+        setupLights();
+        resize();
+
+
         setupButtons();
 
         camera.position.copy(camPositions[0].position);
@@ -221,7 +213,7 @@ const correction = new THREE.Matrix4().makeRotationX(-Math.PI / 2);
 
 function lerpCameraPositionAndRotation(deltaTime) {
 
-    if (camPositions.length === 0) console.log("No cam targets!");
+    if (camPositions.length === 0) console.warn("No cam targets in lab scene!");
 
     const activeTarget = camPositions[currentTargetIndex];
     activeTarget.updateWorldMatrix(true, false);
@@ -245,13 +237,18 @@ function lerpCameraPositionAndRotation(deltaTime) {
 }
 
 function animate() {
+
+    // Update
     const deltaTime = clock.getDelta();
     lerpCameraPositionAndRotation(deltaTime);
 
+    if (!isObserved)    return; // Skip render when not observed
+
+    // Render
     renderer.render(scene, camera);
 
     try {
-        renderCSS(camera);
+       renderCSS(camera);
     } catch (e) {
         console.error(e);
     }
@@ -259,4 +256,19 @@ function animate() {
 }
 
 init();
+initObservedListener(container);
+
+// Control if canvas is being observed
+let isObserved = false;
+
+function initObservedListener(mainContainer) {
+    const observer = new IntersectionObserver((entries) => {
+        // Como solo observamos uno, podemos acceder directamente al primer entry
+        const entry = entries[0];
+        isObserved = entry.isIntersecting;
+
+    }, { threshold: 0.1 });
+
+    observer.observe(mainContainer);
+}
 
