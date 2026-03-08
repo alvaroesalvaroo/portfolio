@@ -17,7 +17,8 @@ function resizeCssRenderer (container, referenceObject) {
     console.log("CSS3D Resized to: " + container.clientWidth - 1 + ", " + container.clientHeight -1);
 }
 
-function initCSS3D(container, referenceObject) {
+
+function initCSS3D(container, referenceObject, relativeUrl = "project-all.html") {
     console.log("Init css aditional scene with sizes: " + container.clientWidth + ", " + container.clientHeight );
 
     cssScene = new THREE.Scene();
@@ -60,8 +61,7 @@ function initCSS3D(container, referenceObject) {
     iframe.style.border = '0px';
     iframe.style.backfaceVisibility = 'visible';
     const baseUrl = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-    const finalPath = "project-all.html";
-    const finalUrl = new URL(finalPath, baseUrl).href;
+    const finalUrl = new URL(relativeUrl, baseUrl).href;
     console.log("Creating CSS texture based on url: " + finalUrl);
     // "Plz do magic" line:
     // iframe.src = urlWithNoHash;

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const modelPath = "./assets/3Dmodels/laboratorio-small.glb";
 
@@ -9,10 +9,7 @@ window.skillsScene = scene; // Open up this object
 
 
 let container = {};
-const sizes = {
-    width: container.clientWidth - 1,
-    height: container.clientWidth -1 ,
-};
+const sizes = {};
 
 // Create renderer in html canvas webgl element
 let canvas = {};
@@ -27,29 +24,29 @@ let screen = {};
 const lights = [];
 
 function setupLights() {
+    const ambientLight = new THREE.AmbientLight(0xffffff);
+    scene.add(ambientLight);
     for (const light of lights) {
         light.intensity = 10;
-        if (light.name.includes("Spot")) {
-            light.intensity = 0;
-        }
     }
 }
-
+let xinxeta;
 function onSceneLoaded(model)
 {
     scene.add( model );
-    let childCount = 0;
+    let meshCount = 0;
+
 
     model.traverse( ( child ) => {
         if (child.isMesh) {
-            childCount++;
+            meshCount++;
             child.receiveShadow = true;
         } else if (child.isLight) {
             lights.push(child);
         }
 
         if (child.name.startsWith("CameraPosition")) {
-            console.log("cam position found on lab scene");
+            console.log("cam position found on small lab scene");
             camPositions.push(child);
         }
 
@@ -57,7 +54,13 @@ function onSceneLoaded(model)
             screen = child;
         }
 
+        if (child.name.includes("Circle.002") ) {
+            xinxeta = child;
+        }
+
     })
+
+    console.log("Loaded scene with mesh count: " + meshCount);
 }
 
 // ---------
@@ -69,7 +72,7 @@ function resize () {
     // Update sizes
     sizes.width = container.clientWidth - 1;
     sizes.height = container.clientHeight - 1;
-    console.log("Resized lab canvas to " + sizes.width + ", " + sizes.height);
+    console.log("Resized lab small canvas to " + sizes.width + ", " + sizes.height);
     camera.aspect = sizes.width / sizes.height;
     let isNarrowDevice = sizes.width < narrowThreshold;
     camera.setFocalLength(isNarrowDevice ? fovNarrow : fov);
@@ -101,8 +104,16 @@ let camPositions = [];
 
 function init() {
 
-    container = document.querySelector('.extra-webgl-container');
-    canvas = document.querySelector(".extra-webgl-container canvas");
+    // Create and clearn container
+    container = document.querySelector('#project-details-section .project-slider');
+    container.classList.remove('init-swiper');
+    container.classList.add('extra-webgl-container');
+    container.innerHTML = "";
+
+    sizes.width = container.clientWidth - 1; sizes.height = container.clientHeight - 1;
+    canvas = document.createElement("canvas");
+    container.appendChild(canvas);
+
     renderer = new THREE.WebGLRenderer({
         canvas: canvas,
         antialias: true,
@@ -112,6 +123,7 @@ function init() {
     // ===== CSSRenderer stuff ========= //
     renderer.domElement.style.zIndex = '1';
     renderer.domElement.style.pointerEvents = 'none';
+
 
     console.log("Init lab (small) scene in container with sizes: " + sizes.width + ", " + sizes.height);
 
@@ -123,16 +135,15 @@ function init() {
         setupLights();
         resize();
 
-        initCSS3D(container, screen);
+        initCSS3D(container, screen, "index.html");
 
         camera.position.copy(camPositions[0].position);
-        camera.rotation.copy(camPositions[0].rotation);
-
+        camera.lookAt(screen.position);
         renderer.setAnimationLoop( animate );
 
 
     }, undefined, function ( error ) {
-        console.error( error );
+        console.error( "Error loading model" + error );
     } );
 }
 
@@ -143,9 +154,6 @@ const clock = new THREE.Clock();
 let deltaTime;
 
 function animate() {
-
-    // Update
-    deltaTime = clock.getDelta();
 
     // Render
     renderer.render(scene, camera);

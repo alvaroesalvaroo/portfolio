@@ -624,6 +624,8 @@ function createSimilarProjects(project)
 }
 
 function createMediaCarrousel(project) {
+
+
     let numberOfImages = project.numberOfImages || 1;
 
     let container = document.querySelector("#projects-images-container");
@@ -698,8 +700,6 @@ function createProjectInDetail(projects) {
     }
 
 
-
-
     // Añadir tags
     createTags(project);
 
@@ -724,11 +724,9 @@ function createProjectInDetail(projects) {
     addLinksToCard(project, linksContainer);
 
     // Añadir imagenes, a no ser que...
-
-    createMediaCarrousel(project)
-
-
-
+    if (project.key !== "this") {
+        createMediaCarrousel(project)
+    }
 }
 
 function setupTagsDropdown() {

@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import CustomCamera from '../../backups/CustomCamera.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
@@ -36,6 +35,8 @@ let lightPosition;
 const rotationSceneSpeed = 0.5;
 const clock = new THREE.Clock();
 let deltaTime;
+let mixer;
+let animations;
 
 let isObserved = true;
 window.isMainSceneObserved = isObserved;
@@ -131,7 +132,15 @@ function init() {
   // Load glb model
   const loader = new GLTFLoader();
   // Onload
-  loader.load( './assets/3Dmodels/EscenaEstaticaCompressed.glb', function ( gltf ) {
+  loader.load( './assets/3Dmodels/EscenaMain-Rig.glb', function ( gltf ) {
+    mixer = new THREE.AnimationMixer(gltf.scene);
+
+    // Recorremos el array de animaciones y las disparamos todas
+    gltf.animations.forEach((clip) => {
+      const action = mixer.clipAction(clip);
+      action.play();
+    });
+
     onScenelLoaded(gltf.scene);
     createLights();
     resize();
@@ -152,8 +161,10 @@ function animate() {
 
   // Update scene and camera
   deltaTime = clock.getDelta();
-  if (scene)
-  {
+  if (mixer) {
+    mixer.update(deltaTime);
+  }
+  if (scene) {
     scene.rotation.set(scene.rotation.x, scene.rotation.y -= rotationSceneSpeed * deltaTime, scene.rotation.z);
   }
 
