@@ -66,13 +66,13 @@
 
 }
 /* An active filter means the button is greyed */
-.tag-filter.active {
+.tags-container-dropdown .tag-filter.active {
     background-color: #e0e0e0; /* Gris pálido */
     border-color: #bdbdbd;     /* Borde gris un poco más oscuro */
     color: #757575;            /* Texto grisáceo */
     opacity: 0.8;
 }
-.tag-filter.active:hover {
+.tags-container-dropdown .tag-filter.active:hover {
     background-color: #d5d5d5;
     border-color: #aaaaaa;
 }
@@ -88,6 +88,13 @@
 .project-details .swiper-button-prev:after,
 .project-details .swiper-button-next:after {
     font-size: 80px;
+}
+/* Reducir tamaño de flechas en mobile */
+@media (max-width: 800px) {
+    .project-details .swiper-button-prev:after,
+    .project-details .swiper-button-next:after {
+        font-size: 50px;
+    }
 }
 
 .project-details .swiper-button-prev:hover,

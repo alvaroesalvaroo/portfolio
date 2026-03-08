@@ -7,24 +7,22 @@ const modelPath = "./assets/3Dmodels/laboratorio-small.glb";
 const scene = new THREE.Scene();
 window.skillsScene = scene; // Open up this object
 
-// const container = window;
-const container = document.querySelector('.extra-webgl-container');
+
+let container = {};
 const sizes = {
     width: container.clientWidth - 1,
     height: container.clientWidth -1 ,
 };
 
 // Create renderer in html canvas webgl element
-const canvas = document.querySelector(".extra-webgl-container canvas");
-const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-    antialias: true,
-    alpha: true // To combine other renderers
-});
+let canvas = {};
+let renderer = {};
 
-// ===== CSSRenderer stuff ========= //
-renderer.domElement.style.zIndex = '1';
-renderer.domElement.style.pointerEvents = 'none';
+
+// Reference for creating other canvas inside
+let screen = {};
+
+
 
 const lights = [];
 
@@ -41,7 +39,7 @@ function onSceneLoaded(model)
 {
     scene.add( model );
     let childCount = 0;
-    let screen = {};
+
     model.traverse( ( child ) => {
         if (child.isMesh) {
             childCount++;
@@ -54,18 +52,13 @@ function onSceneLoaded(model)
             console.log("cam position found on lab scene");
             camPositions.push(child);
         }
-        if (child.name.includes("CameraLookAt"))
-        {
-            // camTarget = child;
-        }
+
         if (child.name === "screen") {
             screen = child;
         }
 
     })
-    initCSS3D(container, screen);
 }
-
 
 // ---------
 // SCREEN RESIZE
@@ -106,10 +99,21 @@ let camera = new THREE.PerspectiveCamera(
 
 let camPositions = [];
 
-
 function init() {
-    console.log("Init lab scene in container with sizes: " + sizes.width + ", " + sizes.height);
 
+    container = document.querySelector('.extra-webgl-container');
+    canvas = document.querySelector(".extra-webgl-container canvas");
+    renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        antialias: true,
+        alpha: true // To combine other renderers
+    });
+
+    // ===== CSSRenderer stuff ========= //
+    renderer.domElement.style.zIndex = '1';
+    renderer.domElement.style.pointerEvents = 'none';
+
+    console.log("Init lab (small) scene in container with sizes: " + sizes.width + ", " + sizes.height);
 
     // Load glb model
     const loader = new GLTFLoader();
@@ -119,11 +123,11 @@ function init() {
         setupLights();
         resize();
 
+        initCSS3D(container, screen);
+
         camera.position.copy(camPositions[0].position);
         camera.rotation.copy(camPositions[0].rotation);
-        camera.lookAt(0, 0, 0);
-        // console.log("cam look at ", camTarget.position);
-       // initialRotationY = camera.rotation.y;
+
         renderer.setAnimationLoop( animate );
 
 
@@ -134,16 +138,14 @@ function init() {
 
 // -------------
 // MAIN LOOP
-// Constants are create outside for a better optimization
 
 const clock = new THREE.Clock();
+let deltaTime;
 
 function animate() {
 
     // Update
-    const deltaTime = clock.getDelta();
-
-    if (!isObserved)    return; // Skip render when not observed
+    deltaTime = clock.getDelta();
 
     // Render
     renderer.render(scene, camera);
@@ -153,7 +155,16 @@ function animate() {
     } catch (e) {
         console.error(e);
     }
-
 }
 
-init();
+// ---------
+// CONDITIONAL INIT
+function isProjectPage() {
+    const params = new URLSearchParams(window.location.search);
+
+    return params.get('projectKey') === "this";
+}
+if (isProjectPage()) {
+    init();
+}
+

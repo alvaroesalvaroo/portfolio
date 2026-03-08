@@ -522,6 +522,11 @@ function getAllTags() {
 
 function createAllTags() {
     let tagContainer = document.querySelector(".tags-container-dropdown");
+
+    if (!tagContainer) {
+        console.warn("No tags will be created since .tags-container-dropdown was not found");
+        return;
+    }
     tagContainer.innerHTML = "";
 
     // Load all
