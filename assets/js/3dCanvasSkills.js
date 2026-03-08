@@ -14,7 +14,7 @@ function resizeCssRenderer (container, referenceObject) {
 
     cssRenderer.setSize(container.clientWidth - 1, container.clientHeight -1);
 
-    console.log("CSS3D Resized to:", width, height);
+    console.log("CSS3D Resized to: " + container.clientWidth - 1 + ", " + container.clientHeight -1);
 }
 
 function initCSS3D(container, referenceObject) {

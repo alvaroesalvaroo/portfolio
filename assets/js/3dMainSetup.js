@@ -1,19 +1,24 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import CustomCamera from './CustomCamera.js';
+import CustomCamera from '../../backups/CustomCamera.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
+// Scene setup
 const scene = new THREE.Scene();
 const sizes = {
   width: window.innerWidth,
   height: window.innerHeight,
 };
 
-const myCamera = new CustomCamera(sizes, 75, 0);
+const camera = new THREE.PerspectiveCamera(
+        60,
+        sizes.width / sizes.height,   // aspect
+        0.1,                          // near point
+        1000                          // far away point
+);
 
-// Create renderer in html canvas webgl element
 const canvas = document.querySelector("canvas.webgl");
 
 const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias : true});
@@ -22,7 +27,19 @@ renderer.setSize( sizes.width, sizes.height );
 
 // Bloom effect
 const composer = new EffectComposer(renderer); // Renderer must have sizes already defined
-const renderPass = new RenderPass(scene, myCamera.camera);
+const renderPass = new RenderPass(scene, camera);
+
+// Lighting
+let lightPosition;
+
+// Animation
+const rotationSceneSpeed = 0.5;
+const clock = new THREE.Clock();
+let deltaTime;
+
+let isObserved = true;
+window.isMainSceneObserved = isObserved;
+
 
 // Setup lighting
 function onScenelLoaded(model)
@@ -56,10 +73,8 @@ function onScenelLoaded(model)
     }
   })
 
-  // debugModelInfo(model);
 }
 
-let lightPosition;
 function createLights()
 {
 
@@ -80,11 +95,21 @@ function resize() {
   // Update sizes
   sizes.width = window.innerWidth;
   sizes.height = window.innerHeight;
-  myCamera.resize(sizes);
+
+  // Reallocate camera
+  camera.aspect = sizes.width / sizes.height;
+  camera.position.set(3, 1, 7);
+  if (sizes.width < 1025)
+  {
+    camera.position.set(1.5, 1, 7);
+  }
+  camera.updateProjectionMatrix();
 
   // Update renderer
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  console.log("pixel ratio is " + Math.min(window.devicePixelRatio, 2));
+
 }
 window.addEventListener("resize", () => resize());
 
@@ -118,42 +143,23 @@ function init() {
 
 // -------------
 // MAIN LOOP
-// ---------------
 
 renderer.setAnimationLoop( animate );
 
-
 function animate() {
-  if (!isObserved) return;
+
+  if (!isObserved)  return;
 
   // Update scene and camera
+  deltaTime = clock.getDelta();
   if (scene)
   {
-    scene.rotation.set(scene.rotation.x, scene.rotation.y -=0.005, scene.rotation.z);
+    scene.rotation.set(scene.rotation.x, scene.rotation.y -= rotationSceneSpeed * deltaTime, scene.rotation.z);
   }
-  myCamera.update();
 
   // Render
-  // renderer.render( scene, myCamera.camera );
-  composer.render(); // Missing delta time
+  // renderer.render( scene, camera ); // old, no bloom effect
+  composer.render(deltaTime);
 }
 
 init();
-
-// TODO: decide if remove this
-// initObservedListener(canvas);
-
-// Control if canvas is being observed
-// Not working in main canvas.
-let isObserved = true;
-
-function initObservedListener(mainContainer) {
-  const observer = new IntersectionObserver((entries) => {
-    // Como solo observamos uno, podemos acceder directamente al primer entry
-    const entry = entries[0];
-    isObserved = entry.isIntersecting;
-
-  }, { threshold: 0.1 });
-
-  observer.observe(mainContainer);
-}

@@ -23,6 +23,7 @@ const allProjects = [
         repoLink: "https://gitlab.com/aruizgarcia14/pec3-un-juego-de-accion",
         windowsLink: "https://drive.google.com/drive/folders/1StYa06P6bNei5cgcGYwyURMpUS6NNvwT?usp=sharing",
         webLink: "https://play.unity.com/es/user/98453246-b7ce-49c5-ab6b-c4f3c5546cb9",
+        numberOfImages: 3,
         relevance:75
     },
     {
@@ -167,7 +168,7 @@ const allProjects = [
         repoLink: "https://gitlab.com/aruizgarcia14/pgpec2-a-platformer-in-c-with-raylib",
         windowsLink: "https://gitlab.com/aruizgarcia14/pgpec2-a-platformer-in-c-with-raylib/-/tree/main/build/x64-Release?ref_type=heads",
         relevance: 55,
-        tags: ["C++"]
+        tags: ["C++", "OpenGL"]
     },
     {
         key: "ia-motion",
@@ -240,7 +241,7 @@ const allProjects = [
         descriptionES: "Versión extendida del clásico Breakout con soporte para multijugador local. Implementa un motor de renderizado propio (Shaders, Post-procesado) y un sistema de físicas basado en el tutorial de LearnOpenGL. Destaca el uso de herencia en el Game Controller para la lógica de dos jugadores y un motor de audio en SDL_mixer.",
         descriptionEN: "Extended Breakout-style arcade with local multiplayer support. Features a custom rendering engine (Shaders, Post-processing) and physics built on C++ and OpenGL. Key highlights include an inheritance-based architecture on the Game Controller for 2-player logic and an SDL_mixer audio engine.",
         descriptionCAT: "Versió estesa del clàssic Breakout amb suport per a multijugador local. Implementa un motor de renderització propi (Shaders, Post-processat) i un sistema de físiques basat en el tutorial de LearnOpenGL. Destaca l'ús d'herència en el Game Controller per a la lògica de dos jugadors i un motor d'àudio en SDL_mixer.",
-        tags: ["C++", "OpenGL", "SDL2"],
+        tags: ["C++", "OpenGL", "SDL2", "Multiplayer"],
         video: "LowLevelBricksDemo.mp4",
         numberOfImages: 4,
         repoLink: "https://gitlab.com/aruizgarcia14/pgpec3-a-game-in-c-with-opengl",
@@ -272,7 +273,7 @@ const allProjects = [
 
     {
         key: "ocalight",
-        title: "Ocaligh d",
+        title: "Ocaligh",
         subtitleES: "El proyecto más sencillo, simple y moderadamente divertido que verás hoy.",
         subtitleEN: "The simplest and most moderately fun project you will see today.",
         subtitleCAT: "El projecte més senzill, simple i moderadament divertit que veuràs avui.",
@@ -285,7 +286,7 @@ const allProjects = [
         descriptionCAT: `Quan juguem al clàssic joc de l'Oca, no prenem cap decisió. Això fa possible que, simplement prement un botó, un programa calculi els resultats.
         Per sort, m'he pres la molèstia de fer-ho jo mateix. Gaudeix-ne, però moderadament.
         `,
-        tags: ["Web"],
+        tags: ["Web", "Multiplayer"],
         webLink: "https://ocalight.barxetitafest.es/?i=1",
         numberOfImages: 1,
         relevance: -100, // Siempre el último
@@ -301,7 +302,7 @@ const allProjects = [
         descriptionEN: "Self-hosted on my small Raspberry Pi, a personal space to learn 3D web rendering and to share and showcase my projects.",
         descriptionCAT: "Autoallotjat en la meva petita Raspberry Pi, un espai personal on aprendre renderitzats 3D en web, i compartir i mostrar els meus projectes.",
         tags: ["Web"],
-        webLink: "/",
+        webLink: "index.html",
         repoLink: "https://github.com/alvaroesalvaroo/portfolio",
         numberOfImages: 1,
         relevance: -10,
@@ -456,7 +457,7 @@ function filterProjects(exclude = true) {
 function setActiveTag(tagToActivate, tagButton)
 {
 
-    let tagContainer = document.querySelector(".tags-container");
+    let tagContainer = document.querySelector(".tags-container-dropdown");
     let tagAllButtons = tagContainer.querySelectorAll(".btn.tag-filter");
     // Deactivate all buttons
     for (const tag of tagAllButtons) {
@@ -519,9 +520,8 @@ function getAllTags() {
     return allTags;
 }
 
-
 function createAllTags() {
-    let tagContainer = document.querySelector(".tags-container");
+    let tagContainer = document.querySelector(".tags-container-dropdown");
     tagContainer.innerHTML = "";
 
     // Load all
@@ -568,7 +568,6 @@ function createAllProjects() {
     }
     for (const project of allProjects) {
         createProjectCard(project, template, container);
-
     }
 
     createAllTags();
