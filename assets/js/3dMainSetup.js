@@ -4,6 +4,13 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
+// Experimental:
+import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js';
+
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+import { FXAAShader } from 'three/addons/shaders/FXAAShader.js';
+
+
 // Scene setup
 const scene = new THREE.Scene();
 const sizes = {
@@ -27,6 +34,11 @@ renderer.setSize( sizes.width, sizes.height );
 // Bloom effect
 const composer = new EffectComposer(renderer); // Renderer must have sizes already defined
 const renderPass = new RenderPass(scene, camera);
+
+// Experimental filters:
+const smaaPass = new SMAAPass(window.innerWidth, window.innerHeight);
+const fxaaPass = new ShaderPass(FXAAShader);
+
 
 // Lighting
 let lightPosition;
@@ -109,6 +121,7 @@ function resize() {
   // Update renderer
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   console.log("pixel ratio is " + Math.min(window.devicePixelRatio, 2));
 
 }
@@ -128,6 +141,12 @@ function init() {
   );
   composer.addPass(renderPass);
   composer.addPass(bloomPass);
+  // composer.addPass(smaaPass);
+  const pixelRatio = renderer.getPixelRatio();
+  fxaaPass.material.uniforms[ 'resolution' ].value.x = 1 / (sizes.width * pixelRatio);
+  fxaaPass.material.uniforms[ 'resolution' ].value.y = 1 / (sizes.height * pixelRatio);
+
+  // composer.addPass(fxaaPass);
 
   // Load glb model
   const loader = new GLTFLoader();

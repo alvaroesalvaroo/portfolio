@@ -8,15 +8,17 @@
 :root {
   --default-font: "Trebuchet MS",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --heading-font: "Courier New",  sans-serif;
+  --subheading-font: "Trebuchet MS",  sans-serif;
   --nav-font: "Trebuchet MS",  sans-serif;
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
 :root { 
-  --background-color: #002043; /* Background color for the entire website, including individual sections */
-  /*--background-color: #0a192f; !* Background color for the entire website, including individual sections *!*/
+  /*--background-color: #002043; /* Background color for the entire website, including individual sections */
+  --background-color: #0a192f; /* Background color for the entire website, including individual sections *!*/
   --default-color: #f8f8f8; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #ffffff; /* Color for headings, subheadings and title throughout the website */
+  --subheading-color: #ffffff; /* For h4, h5 and h6 */
   --accent-color: #61f8d5; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
   /*--accent-color: #61f8d5; !* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out *!*/
   --surface-color: #191919; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
@@ -97,17 +99,22 @@ a:hover {
 
 h1,
 h2,
-h3,
-h4,
-h5,
-h6 {
+h3
+{
   color: var(--heading-color);
   font-family: var(--heading-font);
 }
 
-/*--------------------------------------------------------------
-# Global Header
---------------------------------------------------------------*/
+h4,
+h5,
+h6 {
+  color: var(--subheading-color);
+  font-family: var(--subheading-font);
+}
+
+  /*--------------------------------------------------------------
+  # Global Header
+  --------------------------------------------------------------*/
 .header {
   --background-color: rgba(255, 255, 255, 0);
   color: var(--default-color);
