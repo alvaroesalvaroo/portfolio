@@ -66,7 +66,6 @@ function onSceneLoaded(model)
 // ---------
 // SCREEN RESIZE
 // --------
-window.addEventListener("resize", resize);
 
 function resize () {
     // Update sizes
@@ -124,6 +123,7 @@ function init() {
     renderer.domElement.style.zIndex = '1';
     renderer.domElement.style.pointerEvents = 'none';
 
+    window.addEventListener("resize", resize);
 
     console.log("Init lab (small) scene in container with sizes: " + sizes.width + ", " + sizes.height);
 

@@ -167,8 +167,9 @@
 
 .project-index-item {
     /*Compatibility with html2canvas*/
-    background: linear-gradient(135deg, var(--surface-color) 0%, rgba(128, 128, 128, 0.02) 100%);
+    /*background: linear-gradient(135deg, var(--surface-color) 0%, rgba(128, 128, 128, 0.02) 100%);*/
     /*background: linear-gradient(135deg, var(--surface-color) 0%, color-mix(in srgb, var(--surface-color), var(--accent-color) 2%) 100%);*/
+    background: var(--surface-color);
     border-radius: 20px;
     padding: 20px;
     height: 100%;
@@ -426,6 +427,12 @@
 
     border-radius: 2px;
 }
+
+@media (max-width: 770px) {}
+.line-separator-container {
+    margin-top: 20px;
+}
+
 
 
 [data-aos="grow-left"] {

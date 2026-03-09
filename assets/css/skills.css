@@ -25,7 +25,11 @@ ul .nav-tabs {
 
     border-radius: 2px;
 }
-
+@media (max-width: 700px) {
+    .line-separator-container {
+        margin-top: 10px;
+    }
+}
 
 .extra-webgl-container {
     margin-left: 1px;
