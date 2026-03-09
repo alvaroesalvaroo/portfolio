@@ -3,7 +3,7 @@ node_modules/
 
 # I like extra backups outside the repo
 backups/
-backup.html
+backups/backup.html
 .git.backup/
 
 .idea/

@@ -470,15 +470,3 @@
     color: var(--surface-color);
     transform: translateY(-3px);
 }
-
-/* FRACTAL CANVAS */
-.fractal-layer {
-    display: block;
-    max-width: 100%;
-    width: 70%;
-    max-height: 40%;
-    height: auto;
-
-
-    margin: 20px auto;
-}

@@ -390,7 +390,6 @@ function createProjectCard(project, template, container) {
     const linkContainer = clone.querySelector(".links-container");
     addLinksToCard(project, linkContainer);
 
-
     // Añadir imagenes
     let image = clone.querySelector('img');
     // En la pagina inicial, solo cargamos la primera imagen
@@ -398,7 +397,7 @@ function createProjectCard(project, template, container) {
         image.src = "assets/img/projects/" + project.key + "/" + project.gif;
     }
     else {
-        image.src = "assets/img/projects/" + project.key + "/01.png";
+        image.src = "assets/img/projects/" + project.key + "/01.webp";
     }
 
     // Inyectamos en el DOM
@@ -657,7 +656,7 @@ function createMediaCarrousel(project) {
         let image = clone.querySelector('img');
 
         image.src = "assets/img/projects/" + project.key + "/" +
-            i.toString().padStart(2, '0') + ".png";
+            i.toString().padStart(2, '0') + ".webp";
         container.appendChild(clone);
     }
 
