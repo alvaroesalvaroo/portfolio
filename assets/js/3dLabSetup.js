@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import {OrbitControls} from "three/addons/controls/OrbitControls.js";
 
 
 const modelPath = "./assets/3Dmodels/laboratorio.glb";
@@ -7,12 +8,12 @@ const modelPath = "./assets/3Dmodels/laboratorio.glb";
 const scene = new THREE.Scene();
 window.skillsScene = scene; // Open up this object
 
-// const container = window;
 const container = document.querySelector('.extra-webgl-container');
 const sizes = {
     width: container.clientWidth - 1,
     height: container.clientWidth -1 ,
 };
+
 
 
 // Create renderer in html canvas webgl element
@@ -23,8 +24,43 @@ const renderer = new THREE.WebGLRenderer({
     alpha: true // To combine other renderers
 });
 
+// CAMERA
+const fov = 50;
+const fovNarrow = 45; // For (narrow) mobile devices
+const narrowThreshold = 500; // device screen width theshold (in pixels) to change fov
+
+let camera = new THREE.PerspectiveCamera(fov, sizes.width / sizes.height, 0.01, 1000);
+
+const rotationSpeed = 1;
+const speed = 1;
+let currentTargetIndex = 0;
+let camPositions = [];
+
+const constrolsDomElement = document.createElement("div");
+constrolsDomElement.style.position = "absolute";
+constrolsDomElement.style.top = "0px";
+constrolsDomElement.style.width = "100%";
+constrolsDomElement.style.height = "100%";
+constrolsDomElement.style.zIndex = "1";
+container.appendChild(constrolsDomElement);
+const controls = new OrbitControls(camera);
+controls.connect(constrolsDomElement);
+
+let areControlsActive = false;
+let isOnTransition = true;
+controls.addEventListener('start', () => {
+    areControlsActive = true;
+    // window.onControlsStart();
+});
+
+controls.addEventListener('end', () => {
+    areControlsActive = false;
+    controls.update();
+    // window.onControlsEnd();
+});
+
 // ===== CSSRenderer stuff ========= //
-renderer.domElement.style.zIndex = '1';
+renderer.domElement.style.zIndex = '2';
 renderer.domElement.style.pointerEvents = 'none';
 
 function debugModelMatsAndTextures(model)
@@ -127,26 +163,36 @@ function resize () {
 
 
 //--------------
-// INIT SCENE AND CAMERA
+// INIT SCENE
 // ------------
 
-const fov = 50;
-const fovNarrow = 45; // For (narrow) mobile devices
-const narrowThreshold = 500;
+function updateControlsTarget() {
+    const activeTarget = camPositions[currentTargetIndex];
+    controls.enabled = false;
+    controls.enableDamping = false;
 
-let camera = new THREE.PerspectiveCamera(
-    fov,
-    sizes.width / sizes.height,   // aspect
-    0.01,                          // near point
-    1000                          // far away point
-);
-const rotationSpeed = 1;
-const speed = 1;
-let currentTargetIndex = 0;
-let camPositions = [];
-// let camTarget;
+    const forward = new THREE.Vector3(0, 0, -1);
+    forward.applyQuaternion(camera.quaternion); // Dirección a la que mira la cámara
+    // El nuevo target estará a 1 unidad de la cámara
+    const newTarget = new THREE.Vector3().copy(camera.position).add(forward.multiplyScalar(1));
+    controls.target.copy(newTarget);
 
+    // Resetear límites antes de aplicar los nuevos (Limpieza)
+    controls.minAzimuthAngle = -Infinity;
+    controls.maxAzimuthAngle = Infinity;
+    controls.minPolarAngle = 0;
+    controls.maxPolarAngle = Math.PI;
+    controls.update();
 
+    controls.minPolarAngle = 40 * Math.PI / 180;
+    controls.maxPolarAngle = 90 * Math.PI / 180;
+    controls.maxAzimuthAngle = controls.getAzimuthalAngle() + 90 * Math.PI / 180;
+    controls.minAzimuthAngle = controls.getAzimuthalAngle() - 150 * Math.PI / 180;
+
+    controls.enabled = true;
+    controls.enableDamping = true;
+    controls.update();
+}
 const buttonKeys = ["cambutton3D", "cambuttonWeb", "cambuttonPhysics", "cambuttonMusic"];
 const langKeys = ["3dartist-description", "fullstack-description", "physicist-description", "sound-description"];
 function setupButtons() {
@@ -156,6 +202,8 @@ function setupButtons() {
         if (!button) console.log("button key is missing " + buttonKeys[i]);
         button.addEventListener("click", () => {
             currentTargetIndex = i;
+            isOnTransition = true;
+            controls.enabled = false;
             changeDescription(i);
         })
     }
@@ -225,6 +273,12 @@ function lerpCameraPositionAndRotation(deltaTime) {
         camera.position.lerpVectors(camera.position, targetPos, speed * deltaTime);
     }
 
+    // Mas permisivo para habilitar los controles
+    if (distance < 0.02) {
+        isOnTransition = false;
+        updateControlsTarget();
+    }
+
     // Sustituyamos     activeTarget.getWorldQuaternion(targetQuat); por este follon:
     m1.extractRotation(activeTarget.matrixWorld);
     m1.multiply(correction);
@@ -240,7 +294,12 @@ function animate() {
 
     // Update
     const deltaTime = clock.getDelta();
-    lerpCameraPositionAndRotation(deltaTime);
+
+    if (areControlsActive && !isOnTransition) {
+        controls.update();
+    } else {
+        lerpCameraPositionAndRotation(deltaTime);
+    }
 
     if (!isObserved)    return; // Skip render when not observed
 

@@ -50,6 +50,7 @@ const controlsContainer = document.querySelector("#hero");
 controlsContainer.appendChild(controlsDomElement);
 const controls = new OrbitControls(camera, controlsDomElement);
 controls.enableZoom = false;
+controls.rotateSpeed = 0.2;
 
 // Bloom effect
 const composer = new EffectComposer(renderer); // Renderer must have sizes already defined
@@ -148,9 +149,7 @@ function resize() {
   controls.maxAzimuthAngle = controls.getAzimuthalAngle() + 90 * Math.PI / 180;
   controls.minAzimuthAngle = controls.getAzimuthalAngle() - 150 * Math.PI / 180;
   controls.target.copy(camera.position).add(cameraDir.multiplyScalar(5));
-  controls.rotateSpeed = 0.5;
 
-  controls.rotateSpeed = 0.2;
 
   controls.update();
 
