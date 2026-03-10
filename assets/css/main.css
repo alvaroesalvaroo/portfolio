@@ -636,6 +636,10 @@ section.hero
 {
   height: 100vh;
 }
+
+section.hero h1 {
+  width: auto;
+}
 section.about
 {
   padding-top: 30%;

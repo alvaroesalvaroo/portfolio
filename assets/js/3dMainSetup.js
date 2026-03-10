@@ -3,12 +3,12 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import {OrbitControls} from "three/addons/controls/OrbitControls.js";
 
 // Experimental:
-import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js';
-
-import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
-import { FXAAShader } from 'three/addons/shaders/FXAAShader.js';
+// import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js';
+// import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+// import { FXAAShader } from 'three/addons/shaders/FXAAShader.js';
 
 
 // Scene setup
@@ -25,19 +25,39 @@ const camera = new THREE.PerspectiveCamera(
         1000                          // far away point
 );
 
+
 const canvas = document.querySelector("canvas.webgl");
 
 const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias : true});
 renderer.setSize( sizes.width, sizes.height );
 
+const controlsDomElement = document.createElement("div");
+controlsDomElement.id = "controls";
+controlsDomElement.style.zIndex = "1";
+controlsDomElement.style.position = "absolute";
+controlsDomElement.style.top = "0";
+controlsDomElement.style.width = "100%";
+controlsDomElement.style.height = "50%";
+const isUsingMouse = window.matchMedia("(pointer: fine)").matches;
+if (isUsingMouse) {
+  controlsDomElement.style.height = "100%";
+
+}
+// controlsDomElement.style.pointerEvents = "auto";
+const controlsContainer = document.querySelector("#hero");
+// controlsContainer.style.pointerEvents = "none";
+// controlsContainer.style.position = "relative";
+controlsContainer.appendChild(controlsDomElement);
+const controls = new OrbitControls(camera, controlsDomElement);
+controls.enableZoom = false;
 
 // Bloom effect
 const composer = new EffectComposer(renderer); // Renderer must have sizes already defined
 const renderPass = new RenderPass(scene, camera);
 
 // Experimental filters:
-const smaaPass = new SMAAPass(window.innerWidth, window.innerHeight);
-const fxaaPass = new ShaderPass(FXAAShader);
+// const smaaPass = new SMAAPass(window.innerWidth, window.innerHeight);
+// const fxaaPass = new ShaderPass(FXAAShader);
 
 
 // Lighting
@@ -48,13 +68,12 @@ const rotationSceneSpeed = 0.5;
 const clock = new THREE.Clock();
 let deltaTime;
 let mixer;
-let animations;
 
 let isObserved = true;
 window.isMainSceneObserved = isObserved;
 
 
-// Setup lighting
+// Traverse scene to find light position and sun material
 function onScenelLoaded(model)
 {
   scene.add( model );
@@ -90,15 +109,12 @@ function onScenelLoaded(model)
 
 function createLights()
 {
-
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.3); // Luz general, suave
   scene.add(ambientLight);
 
   const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
   // directionalLight.position.set(-2, 0, -5);
   directionalLight.position.copy(lightPosition);
-
-
 
   scene.add(directionalLight);
   scene.add(directionalLight.target);
@@ -120,9 +136,28 @@ function resize() {
   }
   camera.updateProjectionMatrix();
 
+  // Controls update
+  let cameraPos = new THREE.Vector3();
+  let cameraDir = new THREE.Vector3();
+  camera.getWorldPosition(cameraPos);
+  camera.getWorldDirection(cameraDir);
+  controls.update();
+  console.log(controls.getAzimuthalAngle());
+  controls.minPolarAngle = 40 * Math.PI / 180;
+  controls.maxPolarAngle = 90 * Math.PI / 180;
+  controls.maxAzimuthAngle = controls.getAzimuthalAngle() + 90 * Math.PI / 180;
+  controls.minAzimuthAngle = controls.getAzimuthalAngle() - 150 * Math.PI / 180;
+  controls.target.copy(camera.position).add(cameraDir.multiplyScalar(5));
+  controls.rotateSpeed = 0.5;
+
+  controls.rotateSpeed = 0.2;
+
+  controls.update();
+
   // Update renderer
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  composer.setSize(sizes.width, sizes.height);
   composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   console.log("pixel ratio is " + Math.min(window.devicePixelRatio, 2));
 
@@ -134,6 +169,7 @@ window.addEventListener("resize", () => resize());
 function init() {
 
   console.log("Init Main three.js scene");
+
   // Init bloom
   const bloomPass = new UnrealBloomPass(
       new THREE.Vector2(window.innerWidth, window.innerHeight),
@@ -144,10 +180,9 @@ function init() {
   composer.addPass(renderPass);
   composer.addPass(bloomPass);
   // composer.addPass(smaaPass);
-  const pixelRatio = renderer.getPixelRatio();
-  fxaaPass.material.uniforms[ 'resolution' ].value.x = 1 / (sizes.width * pixelRatio);
-  fxaaPass.material.uniforms[ 'resolution' ].value.y = 1 / (sizes.height * pixelRatio);
-
+  // const pixelRatio = renderer.getPixelRatio();
+  // fxaaPass.material.uniforms[ 'resolution' ].value.x = 1 / (sizes.width * pixelRatio);
+  // fxaaPass.material.uniforms[ 'resolution' ].value.y = 1 / (sizes.height * pixelRatio);
   // composer.addPass(fxaaPass);
 
   // Load glb model
@@ -165,6 +200,7 @@ function init() {
     onScenelLoaded(gltf.scene);
     createLights();
     resize();
+
 
   }, undefined, function ( error ) {
     console.error( error );
@@ -188,6 +224,8 @@ function animate() {
   if (scene) {
     scene.rotation.set(scene.rotation.x, scene.rotation.y -= rotationSceneSpeed * deltaTime, scene.rotation.z);
   }
+
+  controls.update();
 
   // Render
   // renderer.render( scene, camera ); // old, no bloom effect
