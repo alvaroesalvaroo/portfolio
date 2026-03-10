@@ -98,6 +98,8 @@ function createLights()
   // directionalLight.position.set(-2, 0, -5);
   directionalLight.position.copy(lightPosition);
 
+
+
   scene.add(directionalLight);
   scene.add(directionalLight.target);
 }

@@ -14,12 +14,15 @@ const sizes = {};
 // Create renderer in html canvas webgl element
 let canvas = {};
 let renderer = {};
+let controls = {};
+let controlsDomElement = {};
 
 
 // Reference for creating other canvas inside
-let screen = {};
+let cssScreen = {};
 
-
+// La xinxeta es un secret debug
+let xinxeta;
 
 const lights = [];
 
@@ -27,10 +30,10 @@ function setupLights() {
     const ambientLight = new THREE.AmbientLight(0xffffff);
     scene.add(ambientLight);
     for (const light of lights) {
-        light.intensity = 10;
+        light.intensity = 15;
     }
 }
-let xinxeta;
+
 function onSceneLoaded(model)
 {
     scene.add( model );
@@ -51,7 +54,7 @@ function onSceneLoaded(model)
         }
 
         if (child.name === "screen") {
-            screen = child;
+            cssScreen = child;
         }
 
         if (child.name.includes("Circle.002") ) {
@@ -92,26 +95,26 @@ const fov = 50;
 const fovNarrow = 45; // For (narrow) mobile devices
 const narrowThreshold = 500;
 
-let camera = new THREE.PerspectiveCamera(
-    fov,
-    sizes.width / sizes.height,   // aspect
-    0.01,                          // near point
-    1000                          // far away point
-);
+let camera;
 
 let camPositions = [];
 
 function init() {
 
-    // Create and clearn container
+    // Select and clear container
     container = document.querySelector('#project-details-section .project-slider');
+    // Save original size
+    sizes.width = container.clientWidth - 1; sizes.height = container.clientHeight - 1;
+
     container.classList.remove('init-swiper');
     container.classList.add('extra-webgl-container');
     container.innerHTML = "";
 
-    sizes.width = container.clientWidth - 1; sizes.height = container.clientHeight - 1;
+    // Append canvas
     canvas = document.createElement("canvas");
     container.appendChild(canvas);
+    // canvas.style.zIndex = '1';
+
 
     renderer = new THREE.WebGLRenderer({
         canvas: canvas,
@@ -119,9 +122,54 @@ function init() {
         alpha: true // To combine other renderers
     });
 
-    // ===== CSSRenderer stuff ========= //
-    renderer.domElement.style.zIndex = '1';
+    // Controls related
+    renderer.domElement.style.position = 'absolute';
     renderer.domElement.style.pointerEvents = 'none';
+    // Por encima de canvas renderer  de controlsElement, pero sin recibir eventos
+    renderer.domElement.style.zIndex = '10';
+
+    camera = new THREE.PerspectiveCamera(fov,
+        sizes.width / sizes.height,   // aspect
+        0.01,                          // near point
+        1000                          // far away point
+    );
+
+    // Controls require an invisible dom element
+    const controlsDomElement = document.createElement('div');
+    controlsDomElement.classList.add('controls');
+    controlsDomElement.style.position = 'absolute';
+    controlsDomElement.style.top = '0';
+    controlsDomElement.style.width = '100%';
+    controlsDomElement.style.height = '100%';
+    controlsDomElement.style.pointerEvents = 'auto';
+    controlsDomElement.style.zIndex = '1'; // Debajo de CSS Renderer y debajo de WebGl Renderer, pero capturando pointer events
+    container.appendChild(controlsDomElement);
+    // document.body.appendChild(controlsDomElement);
+
+    controls = new OrbitControls(camera);
+    controls.connect( controlsDomElement );
+    controls.enableDamping = true; // Suaviza el movimiento (da inercia)
+    controls.dampingFactor = 0.05;
+    controls.screenSpacePanning = false; // Mantiene el eje Y estable
+
+
+    // When controls are used, css screen is not interactable
+    controls.addEventListener('start', () => {
+        window.onControlsStart();
+    });
+
+    controls.addEventListener('end', () => {
+        // controlsDomElement.style.pointerEvents = 'none';
+        window.onControlsEnd();
+    });
+
+    // container.addEventListener('mousedown', (e) => {
+    //     // Si el clic NO fue en el iframe, activamos el escudo
+    //     if (e.target === controlsDomElement) {
+    //         controlsDomElement.style.pointerEvents = 'auto';
+    //     }
+    // }, true); // Usamos 'true' para capturar el evento antes que nadie
+
 
     window.addEventListener("resize", resize);
 
@@ -129,18 +177,35 @@ function init() {
 
     // Load glb model
     const loader = new GLTFLoader();
-    // Onload
+
+    // AFTER LOAD MODEL
     loader.load( modelPath, function ( gltf ) {
         onSceneLoaded(gltf.scene);
         setupLights();
         resize();
 
-        initCSS3D(container, screen, "index.html");
+        initCSS3D(container, cssScreen, "index.html");
+
+        controls.target.copy(cssScreen.position);
+        controls.update();
+
+        const currentAzimuth = controls.getAzimuthalAngle();
+        controls.minAzimuthAngle = currentAzimuth - 45 * (Math.PI / 180);
+        controls.maxAzimuthAngle = currentAzimuth + 40 * (Math.PI / 180);
+
+        const currentPolar = controls.getPolarAngle();
+        controls.minPolarAngle = 45 * (Math.PI / 180);
+        // controls.minPolarAngle = currentPolar - 2 * (Math.PI / 180); // 45 grados hacia arriba
+        controls.maxPolarAngle = 98 * (Math.PI / 180); // Un poco hacia abajo
+        controls.update();
+
+        const initialDistance = camera.position.distanceTo(controls.target);
+        controls.minDistance = initialDistance;
+        controls.maxDistance = initialDistance + 1;
 
         camera.position.copy(camPositions[0].position);
-        camera.lookAt(screen.position);
+        // camera.lookAt(screen.position);
         renderer.setAnimationLoop( animate );
-
 
     }, undefined, function ( error ) {
         console.error( "Error loading model" + error );
@@ -155,11 +220,13 @@ let deltaTime;
 
 function animate() {
 
+    controls.update(); // Solo necesario si enableDamping = true o autoRotate = true
+
     // Render
     renderer.render(scene, camera);
 
     try {
-       renderCSS(camera);
+        renderCSS(camera);
     } catch (e) {
         console.error(e);
     }
@@ -169,9 +236,9 @@ function animate() {
 // CONDITIONAL INIT
 function isProjectPage() {
     const params = new URLSearchParams(window.location.search);
-
     return params.get('projectKey') === "this";
 }
+
 if (isProjectPage()) {
     init();
 }

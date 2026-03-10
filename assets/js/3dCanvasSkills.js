@@ -6,9 +6,22 @@ import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer
 let cssRenderer;
 let cssScene;
 let css3DObject;
+let iframe;
 
+window.onControlsStart = onControlsStart;
+window.onControlsEnd = onControlsEnd;
 window.initCSS3D = initCSS3D;
 window.renderCSS = renderCSS;
+
+function onControlsStart() {
+    console.log("Controls started");
+    iframe.style.pointerEvents = 'none';
+    // iframe.style.zIndex = '0';
+}
+function onControlsEnd() {
+    console.log("Controls end");
+    iframe.style.pointerEvents = 'auto';
+}
 
 function resizeCssRenderer (container, referenceObject) {
 
@@ -16,6 +29,8 @@ function resizeCssRenderer (container, referenceObject) {
 
     console.log("CSS3D Resized to: " + container.clientWidth - 1 + ", " + container.clientHeight -1);
 }
+
+
 
 
 function initCSS3D(container, referenceObject, relativeUrl = "project-all.html") {
@@ -26,8 +41,10 @@ function initCSS3D(container, referenceObject, relativeUrl = "project-all.html")
     cssRenderer = new CSS3DRenderer();
     cssRenderer.setSize( container.clientWidth, container.clientHeight );
     cssRenderer.domElement.style.position = 'absolute';
+    cssRenderer.domElement.classList.add("css-renderer");
+    cssRenderer.domElement.style.pointerEvents = 'none';
     cssRenderer.domElement.style.top = '0px';
-    cssRenderer.domElement.style.zIndex = '0'; // REVISAR
+    cssRenderer.domElement.style.zIndex = '20'; // Por encima de todos, pero sin pointer events
 
     container.appendChild( cssRenderer.domElement );
 
@@ -42,7 +59,7 @@ function initCSS3D(container, referenceObject, relativeUrl = "project-all.html")
     const material = new THREE.MeshBasicMaterial({
         color: 0x000000,
         opacity: 0,
-        transparent: true,
+        transparent: false,
         blending: THREE.NoBlending // Esto ayuda a "recortar" si el iframe está detrás
     });
     const meshBase = new THREE.Mesh(geometry, material);
@@ -50,12 +67,13 @@ function initCSS3D(container, referenceObject, relativeUrl = "project-all.html")
     meshBase.rotation.copy(referenceObject.rotation);
 
     skillsScene.add(meshBase);
+    referenceObject.scale.set(new THREE.Vector3(0, 0, 0));
 
 
     // Add IFRAME
     const iframeWidth = 1024;
     const iframeHeight = 768;
-    const iframe = document.createElement( 'iframe' );
+    iframe = document.createElement( 'iframe' );
     iframe.style.width = iframeWidth + "px";
     iframe.style.height = iframeHeight + "px";
     iframe.style.border = '0px';
