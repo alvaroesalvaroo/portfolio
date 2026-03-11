@@ -38,6 +38,7 @@ ul .nav-tabs {
     background-color: transparent;
     overflow: hidden;
     border-radius: 15px; /* Opcional: bordes redondeados */
+
 }
 
 /* El pseudo-elemento crea el fundido sobre el canvas */

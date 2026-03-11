@@ -50,6 +50,7 @@ const controlsContainer = document.querySelector("#hero");
 controlsContainer.appendChild(controlsDomElement);
 const controls = new OrbitControls(camera, controlsDomElement);
 controls.enableZoom = false;
+controls.enablePan = false;
 controls.rotateSpeed = 0.2;
 
 // Bloom effect
@@ -130,7 +131,7 @@ function resize() {
 
   // Reallocate camera
   camera.aspect = sizes.width / sizes.height;
-  camera.position.set(3, 1, 7);
+  camera.position.set(3, 1, 5);
   if (sizes.width < 1025)
   {
     camera.position.set(1.5, 1, 7);
@@ -144,10 +145,10 @@ function resize() {
   camera.getWorldDirection(cameraDir);
   controls.update();
   console.log(controls.getAzimuthalAngle());
-  controls.minPolarAngle = 40 * Math.PI / 180;
+  controls.minPolarAngle = 80 * Math.PI / 180;
   controls.maxPolarAngle = 90 * Math.PI / 180;
-  controls.maxAzimuthAngle = controls.getAzimuthalAngle() + 90 * Math.PI / 180;
-  controls.minAzimuthAngle = controls.getAzimuthalAngle() - 150 * Math.PI / 180;
+  controls.maxAzimuthAngle = controls.getAzimuthalAngle() + 0 * Math.PI / 180;
+  controls.minAzimuthAngle = controls.getAzimuthalAngle() + 0 * Math.PI / 180;
   controls.target.copy(camera.position).add(cameraDir.multiplyScalar(5));
 
 

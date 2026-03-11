@@ -359,6 +359,8 @@
 
 .projects .project-index-item {
     cursor: pointer;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    transition: border-color 0.4s ease;
 }
 /* Highlight border on hover*/
 
@@ -391,6 +393,10 @@
 .btn-dropdown.active i {
     transform: rotate(180deg);
     transition: transform 0.3s ease;
+}
+
+.btn-dropdown {
+    cursor: pointer;
 }
 
 .project-content {

@@ -31,7 +31,7 @@ const narrowThreshold = 500; // device screen width theshold (in pixels) to chan
 
 let camera = new THREE.PerspectiveCamera(fov, sizes.width / sizes.height, 0.01, 1000);
 
-const rotationSpeed = 1;
+const rotationSpeed = 5;
 const speed = 1;
 let currentTargetIndex = 0;
 let camPositions = [];
@@ -44,17 +44,33 @@ constrolsDomElement.style.height = "100%";
 constrolsDomElement.style.zIndex = "1";
 container.appendChild(constrolsDomElement);
 const controls = new OrbitControls(camera);
+controls.enableZoom = false;
+controls.enableRotate = false;
+controls.enablePan = true;
+controls.enableDamping = false;
+// controls.screenSpacePanning = false;
+controls.mouseButtons = {
+    LEFT: THREE.MOUSE.PAN,
+    MIDDLE: THREE.MOUSE.DOLLY, // Zoom con rueda
+    RIGHT: THREE.MOUSE.PAN
+};
+
+// 4. Mapeo para Touch (Un dedo ahora es PAN en lugar de ROTATE)
+controls.touches = {
+    ONE: THREE.TOUCH.PAN,
+    TWO: THREE.TOUCH.DOLLY_PAN // Zoom y pan con dos dedos
+};
 controls.connect(constrolsDomElement);
 
-let areControlsActive = false;
-let isOnTransition = true;
+let areControlsReceivingInputs = false;
+// let isOnTransition = true; // Legacy system
 controls.addEventListener('start', () => {
-    areControlsActive = true;
+    areControlsReceivingInputs = true;
     // window.onControlsStart();
 });
 
 controls.addEventListener('end', () => {
-    areControlsActive = false;
+    areControlsReceivingInputs = false;
     controls.update();
     // window.onControlsEnd();
 });
@@ -125,6 +141,7 @@ function onSceneLoaded(model)
 
         if (child.name.startsWith("CameraPosition")) {
             console.log("cam position found on lab scene");
+            child.updateWorldMatrix(true, false);
             camPositions.push(child);
         }
         if (child.name.includes("CameraLookAt"))
@@ -165,6 +182,7 @@ function resize () {
 //--------------
 // INIT SCENE
 // ------------
+let targetDistances = ["2", "2", "2", "2"];
 
 function updateControlsTarget() {
     const activeTarget = camPositions[currentTargetIndex];
@@ -174,7 +192,7 @@ function updateControlsTarget() {
     const forward = new THREE.Vector3(0, 0, -1);
     forward.applyQuaternion(camera.quaternion); // Dirección a la que mira la cámara
     // El nuevo target estará a 1 unidad de la cámara
-    const newTarget = new THREE.Vector3().copy(camera.position).add(forward.multiplyScalar(1));
+    const newTarget = new THREE.Vector3().copy(camera.position).add(forward.multiplyScalar(targetDistances[currentTargetIndex]));
     controls.target.copy(newTarget);
 
     // Resetear límites antes de aplicar los nuevos (Limpieza)
@@ -186,8 +204,8 @@ function updateControlsTarget() {
 
     controls.minPolarAngle = 40 * Math.PI / 180;
     controls.maxPolarAngle = 90 * Math.PI / 180;
-    controls.maxAzimuthAngle = controls.getAzimuthalAngle() + 90 * Math.PI / 180;
-    controls.minAzimuthAngle = controls.getAzimuthalAngle() - 150 * Math.PI / 180;
+    controls.maxAzimuthAngle = controls.getAzimuthalAngle() + 20 * Math.PI / 180;
+    controls.minAzimuthAngle = controls.getAzimuthalAngle() - 20 * Math.PI / 180;
 
     controls.enabled = true;
     controls.enableDamping = true;
@@ -202,7 +220,7 @@ function setupButtons() {
         if (!button) console.log("button key is missing " + buttonKeys[i]);
         button.addEventListener("click", () => {
             currentTargetIndex = i;
-            isOnTransition = true;
+            // isOnTransition = true;
             controls.enabled = false;
             changeDescription(i);
         })
@@ -258,24 +276,21 @@ const targetQuat = new THREE.Quaternion();
 const m1 = new THREE.Matrix4();
 const correction = new THREE.Matrix4().makeRotationX(-Math.PI / 2);
 
-
+let isPositionClose, isRotationClose;
 function lerpCameraPositionAndRotation(deltaTime) {
 
     if (camPositions.length === 0) console.warn("No cam targets in lab scene!");
 
     const activeTarget = camPositions[currentTargetIndex];
-    activeTarget.updateWorldMatrix(true, false);
     activeTarget.getWorldPosition(targetPos);
 
+    isRotationClose = isPositionClose = false;
     const distance = camera.position.distanceTo(targetPos);
-    if (distance > 0.005) {
+
+    if (distance > 0.05) {
         // Lerp position
         camera.position.lerpVectors(camera.position, targetPos, speed * deltaTime);
-    }
-
-    // Mas permisivo para habilitar los controles
-    if (distance < 0.02) {
-        isOnTransition = false;
+        isPositionClose = true;
         updateControlsTarget();
     }
 
@@ -285,18 +300,42 @@ function lerpCameraPositionAndRotation(deltaTime) {
     targetQuat.setFromRotationMatrix(m1);
     // Lerp rotation
     // Quaternions are a thing. when quaternion.dot gets to 1, angle is the same
-    if (1 - Math.abs(camera.quaternion.dot(targetQuat)) > 0.000001) {
+    let howCloseIAm = Math.abs(camera.quaternion.dot(targetQuat)); // Gets to 1 quickly
+    if (1 - howCloseIAm > 0.00001) {
         camera.quaternion.slerp(targetQuat, rotationSpeed * deltaTime);
+        isRotationClose = true;
+    }
+
+    if (isRotationClose && isRotationClose) {
+        updateControlsTarget();
     }
 }
 
+const maxPanDistance = 0.2;
+function isCamaraFarAwayFromItsTarget() {
+    return (camera.position.distanceTo(camPositions[currentTargetIndex].position) >= maxPanDistance);
+}
+
+const previousPos = new THREE.Vector3();
+const previousControlsTarget = new THREE.Vector3();
 function animate() {
 
     // Update
     const deltaTime = clock.getDelta();
 
-    if (areControlsActive && !isOnTransition) {
-        controls.update();
+    if (areControlsReceivingInputs) {
+        previousPos.copy(camera.position);
+        previousControlsTarget.copy(controls.target);
+        // controls.update();
+        if (isCamaraFarAwayFromItsTarget()) {
+            const anchor = new THREE.Vector3();
+            camPositions[currentTargetIndex].getWorldPosition(anchor);
+            const direction = new THREE.Vector3().subVectors(camera.position, anchor).normalize();
+            camera.position.copy(anchor).add(direction.multiplyScalar(maxPanDistance));
+
+            controls.update();
+            controls.enabled = false;
+        }
     } else {
         lerpCameraPositionAndRotation(deltaTime);
     }
