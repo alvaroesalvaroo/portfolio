@@ -127,7 +127,7 @@ function createLights()
 function resize() {
   // Update sizes
   sizes.width = window.innerWidth;
-  sizes.height = window.innerHeight;
+  sizes.height = window.screen.height;
 
   // Reallocate camera
   camera.aspect = sizes.width / sizes.height;
