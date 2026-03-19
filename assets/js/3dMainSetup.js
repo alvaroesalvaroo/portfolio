@@ -13,6 +13,9 @@ import {OrbitControls} from "three/addons/controls/OrbitControls.js";
 
 // Scene setup
 const scene = new THREE.Scene();
+console.log("AAAAAAAA");
+scene.background = new THREE.Color(0xedece9);
+// console.log(scene.background);
 const sizes = {
   width: window.innerWidth,
   height: window.innerHeight,
@@ -33,15 +36,15 @@ renderer.setSize( sizes.width, sizes.height );
 
 const controlsDomElement = document.createElement("div");
 controlsDomElement.id = "controls";
-controlsDomElement.style.zIndex = "1";
 controlsDomElement.style.position = "absolute";
 controlsDomElement.style.top = "0";
 controlsDomElement.style.width = "100%";
-controlsDomElement.style.height = "50%";
 const isUsingMouse = window.matchMedia("(pointer: fine)").matches;
 if (isUsingMouse) {
   controlsDomElement.style.height = "100%";
-
+}
+else {
+  controlsDomElement.style.height = "50%";
 }
 // controlsDomElement.style.pointerEvents = "auto";
 const controlsContainer = document.querySelector("#hero");
@@ -115,7 +118,6 @@ function createLights()
   scene.add(ambientLight);
 
   const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-  // directionalLight.position.set(-2, 0, -5);
   directionalLight.position.copy(lightPosition);
 
   scene.add(directionalLight);
@@ -139,7 +141,7 @@ function resize() {
   camera.updateProjectionMatrix();
 
   // Controls update
-  let cameraPos = new THREE.Vector3();
+/*  let cameraPos = new THREE.Vector3();
   let cameraDir = new THREE.Vector3();
   camera.getWorldPosition(cameraPos);
   camera.getWorldDirection(cameraDir);
@@ -150,9 +152,7 @@ function resize() {
   controls.maxAzimuthAngle = controls.getAzimuthalAngle() + 0 * Math.PI / 180;
   controls.minAzimuthAngle = controls.getAzimuthalAngle() + 0 * Math.PI / 180;
   controls.target.copy(camera.position).add(cameraDir.multiplyScalar(5));
-
-
-  controls.update();
+  controls.update();*/
 
   // Update renderer
   renderer.setSize(sizes.width, sizes.height);
@@ -175,7 +175,8 @@ function init() {
       new THREE.Vector2(window.innerWidth, window.innerHeight),
       1.5,  // Fuerza del brillo (0 a 3 suele estar bien)
       0.4,  // Radio (qué tanto se expande el blur)
-      0.6  // Threshold (qué tan brillante debe ser un color para que empiece a brillar)
+      1
+      // 0.6  // Threshold (qué tan brillante debe ser un color para que empiece a brillar)
   );
   composer.addPass(renderPass);
   composer.addPass(bloomPass);
@@ -225,7 +226,7 @@ function animate() {
     scene.rotation.set(scene.rotation.x, scene.rotation.y -= rotationSceneSpeed * deltaTime, scene.rotation.z);
   }
 
-  controls.update();
+  // controls.update();
 
   // Render
   // renderer.render( scene, camera ); // old, no bloom effect

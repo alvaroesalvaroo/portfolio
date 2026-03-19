@@ -4,24 +4,55 @@
 # Font & Color Variables
 # Help: https://bootstrapmade.com/color-system/
 --------------------------------------------------------------*/
+@font-face {
+  font-family: Uncut; /* set name */
+  src: url(../fonts/UncutSans-Variable.ttf); /* url of the font */
+}
+@font-face {
+  font-family: UncutBook; /* set name */
+  src: url(../fonts/UncutSans-Book.otf); /* url of the font */
+}
+@font-face {
+  font-family: UncutLightItalic; /* set name */
+  src: url(../fonts/UncutSans-LightItalic.otf); /* url of the font */
+}
+@font-face {
+  font-family: UncutSemibold; /* set name */
+  src: url(../fonts/UncutSans-Semibold.otf); /* url of the font */
+}
+
 /* Fonts */
 :root {
-  --default-font: "Trebuchet MS",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Courier New",  sans-serif;
-  --subheading-font: "Trebuchet MS",  sans-serif;
-  --nav-font: "Trebuchet MS",  sans-serif;
+  --default-font: "UncutBook",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "UncutSemibold",  sans-serif;
+  --subheading-font: "UncutLightItalic",  sans-serif;
+  --nav-font: "UncutBook",  sans-serif;
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
-:root { 
-  /*--background-color: #002043; /* Background color for the entire website, including individual sections */
-  --background-color: #0a192f; /* Background color for the entire website, including individual sections *!*/
-  --default-color: #f8f8f8; /* Default color used for the majority of the text content across the entire website */
-  --heading-color: #ffffff; /* Color for headings, subheadings and title throughout the website */
-  --subheading-color: #ffffff; /* For h4, h5 and h6 */
-  --accent-color: #61f8d5; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+
+/*BACKUP*/
+/*:root { */
+/*  !*--background-color: #002043; !* Background color for the entire website, including individual sections *!*/
+/*  !*--background-color: #0a192f; !* Background color for the entire website, including individual sections *!*!*!*/
+/*  --background-color: #dbdad6; !* Background color for the entire website, including individual sections *!*!*/
+/*  --default-color: #f8f8f8; !* Default color used for the majority of the text content across the entire website *!*/
+/*  --heading-color: #ffffff; !* Color for headings, subheadings and title throughout the website *!*/
+/*  --subheading-color: #ffffff; !* For h4, h5 and h6 *!*/
+/*  --accent-color: #61f8d5; !* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out *!*/
+/*  !*--accent-color: #61f8d5; !* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out *!*!*/
+/*  --surface-color: #191919; !* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. *!*/
+/*  --contrast-color: #ffffff; !* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. *!*/
+/*}*/
+
+:root {
+  --background-color: #edece9; /* Background color for the entire website, including individual sections *!*/
+  --default-color: #767676; /* Default color used for the majority of the text content across the entire website */
+  --heading-color: #2f2f2f; /* Color for headings, subheadings and title throughout the website */
+  --subheading-color: #767676; /* For h4, h5 and h6 */
+  --accent-color: #4e9d8f; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
   /*--accent-color: #61f8d5; !* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out *!*/
-  --surface-color: #191919; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
+  --surface-color: #cacaca; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
 
@@ -34,6 +65,7 @@
   --nav-dropdown-color: #f8f8f8; /* Used for navigation links of the dropdown items in the navigation menu. */
   --nav-dropdown-hover-color: #61f8d5; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
 }
+
 
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
 
@@ -60,7 +92,7 @@
 ---------------------------------------------*/
 .webgl
 {
-  /* background-color: red; */
+   /*background-color: red;*/
   opacity: 1;
   margin: 0;
   outline: none;
@@ -111,6 +143,7 @@ h5,
 h6 {
   color: var(--subheading-color);
   font-family: var(--subheading-font);
+  font-weight: 100;
 }
 
   /*--------------------------------------------------------------
@@ -723,7 +756,7 @@ section.about
 }
 
 .hero .hero-title {
-  font-size: 48px;
+  font-size: 80px;
   font-weight: 900;
   color: var(--heading-color);
   line-height: 1.1;
@@ -739,9 +772,11 @@ section.about
 
 @media (max-width: 575px) {
   .hero .hero-title {
-    font-size: 28px;
+    font-size: 40px;
   }
 }
+
+
 
 .hero .hero-title .typed {
   background: linear-gradient(135deg, var(--accent-color) 0%, color-mix(in srgb, var(--accent-color), #8b5cf6 50%) 100%);
@@ -753,6 +788,8 @@ section.about
 
 .hero .hero-title .typed::after {
   content: "";
+  /*font-size: 4em;*/
+
   position: absolute;
   bottom: -5px;
   left: 0;
@@ -763,7 +800,8 @@ section.about
 }
 
 .hero .hero-description {
-  font-size: 1.2rem;
+  font-family: var(--subheading-font);
+  font-size: 1.1rem;
   color: color-mix(in srgb, var(--default-color), transparent 20%);
   line-height: 1.6;
   margin-bottom: 40px;
@@ -771,6 +809,7 @@ section.about
   margin-left: auto;
   margin-right: auto;
 }
+
 
 
 .hero .hero-image-showcase .image-wrapper {
@@ -836,7 +875,10 @@ section.about
   .hero {
     min-height: auto;
   }
-
+  .hero .hero-description {
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+  }
 
 }
 
@@ -848,7 +890,7 @@ section.about
   }
 
   .hero .hero-description {
-    font-size: 1.1rem;
+    font-size: 0.7rem;
     margin-bottom: 30px;
   }
 
