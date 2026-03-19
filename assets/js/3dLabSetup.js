@@ -36,6 +36,7 @@ const speed = 1;
 let currentTargetIndex = 0;
 let camPositions = [];
 
+// ==== EXPERIMENTAL CONTROLS === //
 const constrolsDomElement = document.createElement("div");
 constrolsDomElement.style.position = "absolute";
 constrolsDomElement.style.top = "0px";
