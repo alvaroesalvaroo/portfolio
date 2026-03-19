@@ -3,7 +3,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
-import {OrbitControls} from "three/addons/controls/OrbitControls.js";
+// import {OrbitControls} from "three/addons/controls/OrbitControls.js";
 
 // Experimental:
 // import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js';
@@ -31,27 +31,28 @@ const canvas = document.querySelector("canvas.webgl");
 const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias : true});
 renderer.setSize( sizes.width, sizes.height );
 
-const controlsDomElement = document.createElement("div");
-controlsDomElement.id = "controls";
-controlsDomElement.style.zIndex = "1";
-controlsDomElement.style.position = "absolute";
-controlsDomElement.style.top = "0";
-controlsDomElement.style.width = "100%";
-controlsDomElement.style.height = "50%";
-const isUsingMouse = window.matchMedia("(pointer: fine)").matches;
-if (isUsingMouse) {
-  controlsDomElement.style.height = "100%";
-
-}
-// controlsDomElement.style.pointerEvents = "auto";
-const controlsContainer = document.querySelector("#hero");
-// controlsContainer.style.pointerEvents = "none";
-// controlsContainer.style.position = "relative";
-controlsContainer.appendChild(controlsDomElement);
-const controls = new OrbitControls(camera, controlsDomElement);
-controls.enableZoom = false;
-controls.enablePan = false;
-controls.rotateSpeed = 0.2;
+// === CONTROLS =====
+// const controlsDomElement = document.createElement("div");
+// controlsDomElement.id = "controls";
+// controlsDomElement.style.zIndex = "1";
+// controlsDomElement.style.position = "absolute";
+// controlsDomElement.style.top = "0";
+// controlsDomElement.style.width = "100%";
+// controlsDomElement.style.height = "50%";
+// const isUsingMouse = window.matchMedia("(pointer: fine)").matches;
+// if (isUsingMouse) {
+//   controlsDomElement.style.height = "100%";
+//
+// }
+// // controlsDomElement.style.pointerEvents = "auto";
+// const controlsContainer = document.querySelector("#hero");
+// // controlsContainer.style.pointerEvents = "none";
+// // controlsContainer.style.position = "relative";
+// controlsContainer.appendChild(controlsDomElement);
+// const controls = new OrbitControls(camera, controlsDomElement);
+// controls.enableZoom = false;
+// controls.enablePan = false;
+// controls.rotateSpeed = 0.2;
 
 // Bloom effect
 const composer = new EffectComposer(renderer); // Renderer must have sizes already defined
@@ -138,21 +139,21 @@ function resize() {
   }
   camera.updateProjectionMatrix();
 
-  // Controls update
-  let cameraPos = new THREE.Vector3();
-  let cameraDir = new THREE.Vector3();
-  camera.getWorldPosition(cameraPos);
-  camera.getWorldDirection(cameraDir);
-  controls.update();
-  console.log(controls.getAzimuthalAngle());
-  controls.minPolarAngle = 80 * Math.PI / 180;
-  controls.maxPolarAngle = 90 * Math.PI / 180;
-  controls.maxAzimuthAngle = controls.getAzimuthalAngle() + 0 * Math.PI / 180;
-  controls.minAzimuthAngle = controls.getAzimuthalAngle() + 0 * Math.PI / 180;
-  controls.target.copy(camera.position).add(cameraDir.multiplyScalar(5));
-
-
-  controls.update();
+  // // Controls update
+  // let cameraPos = new THREE.Vector3();
+  // let cameraDir = new THREE.Vector3();
+  // camera.getWorldPosition(cameraPos);
+  // camera.getWorldDirection(cameraDir);
+  // controls.update();
+  // console.log(controls.getAzimuthalAngle());
+  // controls.minPolarAngle = 80 * Math.PI / 180;
+  // controls.maxPolarAngle = 90 * Math.PI / 180;
+  // controls.maxAzimuthAngle = controls.getAzimuthalAngle() + 0 * Math.PI / 180;
+  // controls.minAzimuthAngle = controls.getAzimuthalAngle() + 0 * Math.PI / 180;
+  // controls.target.copy(camera.position).add(cameraDir.multiplyScalar(5));
+  //
+  //
+  // controls.update();
 
   // Update renderer
   renderer.setSize(sizes.width, sizes.height);
@@ -225,7 +226,7 @@ function animate() {
     scene.rotation.set(scene.rotation.x, scene.rotation.y -= rotationSceneSpeed * deltaTime, scene.rotation.z);
   }
 
-  controls.update();
+  // controls.update();
 
   // Render
   // renderer.render( scene, camera ); // old, no bloom effect

@@ -4,12 +4,33 @@
 # Font & Color Variables
 # Help: https://bootstrapmade.com/color-system/
 --------------------------------------------------------------*/
+@font-face {
+  font-family: Uncut; /* set name */
+  src: url(../fonts/UncutSans-Variable.ttf); /* url of the font */
+}
+@font-face {
+  font-family: UncutBook; /* set name */
+  src: url(../fonts/UncutSans-Book.otf); /* url of the font */
+}
+@font-face {
+  font-family: UncutLightItalic; /* set name */
+  src: url(../fonts/UncutSans-LightItalic.otf); /* url of the font */
+}
+@font-face {
+  font-family: UncutSemibold; /* set name */
+  src: url(../fonts/UncutSans-Semibold.otf); /* url of the font */
+}
+
+html {
+  font-size: 20px;
+}
+
 /* Fonts */
 :root {
-  --default-font: "Trebuchet MS",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Courier New",  sans-serif;
-  --subheading-font: "Trebuchet MS",  sans-serif;
-  --nav-font: "Trebuchet MS",  sans-serif;
+  --default-font: "UncutBook",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "UncutSemibold",  sans-serif;
+  --subheading-font: "UncutLightItalic",  sans-serif;
+  --nav-font: "UncutBook",  sans-serif;
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
@@ -111,6 +132,7 @@ h5,
 h6 {
   color: var(--subheading-color);
   font-family: var(--subheading-font);
+  font-weight: 100;
 }
 
   /*--------------------------------------------------------------
@@ -669,7 +691,7 @@ section.about
 }
 
 .section-title h2 {
-  font-size: 32px;
+  font-size: 0.32rem;
   font-weight: 700;
   position: relative;
 }
@@ -723,7 +745,7 @@ section.about
 }
 
 .hero .hero-title {
-  font-size: 48px;
+  font-size: 6rem;
   font-weight: 900;
   color: var(--heading-color);
   line-height: 1.1;
@@ -733,15 +755,28 @@ section.about
 
 @media (max-width: 768px) {
   .hero .hero-title {
-    font-size: 36px;
+    font-size: 4rem;
   }
 }
 
 @media (max-width: 575px) {
   .hero .hero-title {
-    font-size: 28px;
+    font-size: 3rem;
   }
 }
+
+.hero .hero-description {
+  font-family: var(--subheading-font);
+  font-size: 1.4rem;
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
+  line-height: 1.6;
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
 
 .hero .hero-title .typed {
   background: linear-gradient(135deg, var(--accent-color) 0%, color-mix(in srgb, var(--accent-color), #8b5cf6 50%) 100%);
@@ -753,6 +788,8 @@ section.about
 
 .hero .hero-title .typed::after {
   content: "";
+  /*font-size: 4em;*/
+
   position: absolute;
   bottom: -5px;
   left: 0;
@@ -762,15 +799,6 @@ section.about
   border-radius: 2px;
 }
 
-.hero .hero-description {
-  font-size: 1.2rem;
-  color: color-mix(in srgb, var(--default-color), transparent 20%);
-  line-height: 1.6;
-  margin-bottom: 40px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
 
 
 .hero .hero-image-showcase .image-wrapper {
@@ -836,7 +864,10 @@ section.about
   .hero {
     min-height: auto;
   }
-
+  .hero .hero-description {
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+  }
 
 }
 
@@ -848,7 +879,7 @@ section.about
   }
 
   .hero .hero-description {
-    font-size: 1.1rem;
+    font-size: 0.7rem;
     margin-bottom: 30px;
   }
 

@@ -294,9 +294,21 @@
 }
 
 #projects h3 {
-    font-size: 32px;
-    font-weight: 700;
+    font-family: var(--default-font);
+    font-size: 5rem;
+    font-weight: 0;
     position: relative;
+}
+
+@media (max-width: 768px) {
+    #projects h3 {
+        font-size: 65px;
+    }
+}
+
+
+.projects .project-index-item h5 {
+    font-size: 0.8rem;
 }
 
 #projects h3:after {
