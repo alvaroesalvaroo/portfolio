@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import {OrbitControls} from "three/addons/controls/OrbitControls.js";
 
 
 const modelPath = "./assets/3Dmodels/laboratorio.glb";
@@ -35,45 +34,6 @@ const rotationSpeed = 5;
 const speed = 1;
 let currentTargetIndex = 0;
 let camPositions = [];
-
-const constrolsDomElement = document.createElement("div");
-constrolsDomElement.style.position = "absolute";
-constrolsDomElement.style.top = "0px";
-constrolsDomElement.style.width = "100%";
-constrolsDomElement.style.height = "100%";
-constrolsDomElement.style.zIndex = "1";
-container.appendChild(constrolsDomElement);
-const controls = new OrbitControls(camera);
-controls.enableZoom = false;
-controls.enableRotate = false;
-controls.enablePan = true;
-controls.enableDamping = false;
-// controls.screenSpacePanning = false;
-controls.mouseButtons = {
-    LEFT: THREE.MOUSE.PAN,
-    MIDDLE: THREE.MOUSE.DOLLY, // Zoom con rueda
-    RIGHT: THREE.MOUSE.PAN
-};
-
-// 4. Mapeo para Touch (Un dedo ahora es PAN en lugar de ROTATE)
-controls.touches = {
-    ONE: THREE.TOUCH.PAN,
-    TWO: THREE.TOUCH.DOLLY_PAN // Zoom y pan con dos dedos
-};
-controls.connect(constrolsDomElement);
-
-let areControlsReceivingInputs = false;
-// let isOnTransition = true; // Legacy system
-controls.addEventListener('start', () => {
-    areControlsReceivingInputs = true;
-    // window.onControlsStart();
-});
-
-controls.addEventListener('end', () => {
-    areControlsReceivingInputs = false;
-    controls.update();
-    // window.onControlsEnd();
-});
 
 // ===== CSSRenderer stuff ========= //
 renderer.domElement.style.zIndex = '2';
@@ -184,33 +144,6 @@ function resize () {
 // ------------
 let targetDistances = ["2", "2", "2", "2"];
 
-function updateControlsTarget() {
-    const activeTarget = camPositions[currentTargetIndex];
-    controls.enabled = false;
-    controls.enableDamping = false;
-
-    const forward = new THREE.Vector3(0, 0, -1);
-    forward.applyQuaternion(camera.quaternion); // Dirección a la que mira la cámara
-    // El nuevo target estará a 1 unidad de la cámara
-    const newTarget = new THREE.Vector3().copy(camera.position).add(forward.multiplyScalar(targetDistances[currentTargetIndex]));
-    controls.target.copy(newTarget);
-
-    // Resetear límites antes de aplicar los nuevos (Limpieza)
-    controls.minAzimuthAngle = -Infinity;
-    controls.maxAzimuthAngle = Infinity;
-    controls.minPolarAngle = 0;
-    controls.maxPolarAngle = Math.PI;
-    controls.update();
-
-    controls.minPolarAngle = 40 * Math.PI / 180;
-    controls.maxPolarAngle = 90 * Math.PI / 180;
-    controls.maxAzimuthAngle = controls.getAzimuthalAngle() + 20 * Math.PI / 180;
-    controls.minAzimuthAngle = controls.getAzimuthalAngle() - 20 * Math.PI / 180;
-
-    controls.enabled = true;
-    controls.enableDamping = true;
-    controls.update();
-}
 const buttonKeys = ["cambutton3D", "cambuttonWeb", "cambuttonPhysics", "cambuttonMusic"];
 const langKeys = ["3dartist-description", "fullstack-description", "physicist-description", "sound-description"];
 function setupButtons() {
@@ -221,7 +154,6 @@ function setupButtons() {
         button.addEventListener("click", () => {
             currentTargetIndex = i;
             // isOnTransition = true;
-            controls.enabled = false;
             changeDescription(i);
         })
     }
@@ -291,7 +223,6 @@ function lerpCameraPositionAndRotation(deltaTime) {
         // Lerp position
         camera.position.lerpVectors(camera.position, targetPos, speed * deltaTime);
         isPositionClose = true;
-        updateControlsTarget();
     }
 
     // Sustituyamos     activeTarget.getWorldQuaternion(targetQuat); por este follon:
@@ -306,9 +237,6 @@ function lerpCameraPositionAndRotation(deltaTime) {
         isRotationClose = true;
     }
 
-    if (isRotationClose && isRotationClose) {
-        updateControlsTarget();
-    }
 }
 
 const maxPanDistance = 0.2;
@@ -323,22 +251,8 @@ function animate() {
     // Update
     const deltaTime = clock.getDelta();
 
-    if (areControlsReceivingInputs) {
-        previousPos.copy(camera.position);
-        previousControlsTarget.copy(controls.target);
-        // controls.update();
-        if (isCamaraFarAwayFromItsTarget()) {
-            const anchor = new THREE.Vector3();
-            camPositions[currentTargetIndex].getWorldPosition(anchor);
-            const direction = new THREE.Vector3().subVectors(camera.position, anchor).normalize();
-            camera.position.copy(anchor).add(direction.multiplyScalar(maxPanDistance));
+    lerpCameraPositionAndRotation(deltaTime);
 
-            controls.update();
-            controls.enabled = false;
-        }
-    } else {
-        lerpCameraPositionAndRotation(deltaTime);
-    }
 
     if (!isObserved)    return; // Skip render when not observed
 
