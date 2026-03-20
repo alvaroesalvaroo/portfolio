@@ -55,24 +55,32 @@ html {
 :root {
 
   /*--background-color: #002043; /* Background color for the entire website, including individual sections */
-  --background-color: #0a192f; /* Background color for the entire website, including individual sections *!*/
+  --background-color: #000a24; /* Background color for the entire website, including individual sections *!*/
   --default-color: #f8f8f8; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #ffffff; /* Color for headings, subheadings and title throughout the website */
   --subheading-color: #ffffff; /* For h4, h5 and h6 */
-  --accent-color: #61f8d5; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --accent-color: #09ebbf; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
   /*--accent-color: #61f8d5; !* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out *!*/
   --surface-color: #191919; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+  --typed-color-main: #0f98ce;
+  --typed-color-secondary: #7523b0;
 }
 
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
-  --nav-color: #f8f8f8;  /* The default color of the main navmenu links */
-  --nav-hover-color: #61f8d5; /* Applied to main navmenu links when they are hovered over or active */
+
+  /*FOR NOW, WE DONT USE IT*/
+  --nav-color: var(--default-color);  /* The default color of the main navmenu links */
+  --nav-hover-color: var(--accent-color); /* Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: #1b1a1a; /* Used as the background color for mobile navigation menu */
   --nav-dropdown-background-color: #1b1a1a; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
   --nav-dropdown-color: #f8f8f8; /* Used for navigation links of the dropdown items in the navigation menu. */
-  --nav-dropdown-hover-color: #61f8d5; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+  --nav-dropdown-hover-color: var(--accent-color); /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+
+  /*--nav-color: #f8f8f8;  !* The default color of the main navmenu links *!*/
+  /*--nav-hover-color: #61f8d5; !* Applied to main navmenu links when they are hovered over or active *!*/
+  /*--nav-dropdown-hover-color: #61f8d5; !* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. *!*/
 }
 
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
@@ -809,9 +817,8 @@ section.about
 }
 
 
-
 .hero .hero-title .typed {
-  background: linear-gradient(135deg, var(--accent-color) 0%, color-mix(in srgb, var(--accent-color), #8b5cf6 50%) 100%);
+  background: linear-gradient(135deg, var(--typed-color-main) 0%, color-mix(in srgb, var(--typed-color-main), var(--typed-color-secondary) 70%) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -827,7 +834,7 @@ section.about
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(135deg, var(--accent-color) 0%, color-mix(in srgb, var(--accent-color), #8b5cf6 50%) 100%);
+  background: linear-gradient(135deg, var(--typed-color-main) 0%, color-mix(in srgb, var(--typed-color-main), var(--typed-color-secondary) 70%) 100%);
   border-radius: 2px;
 }
 
