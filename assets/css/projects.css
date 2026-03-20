@@ -36,6 +36,18 @@
     align-items: center;
 }
 
+.filters-container {
+    display: inline-flex;  /* Solo ocupa el ancho de su contenido */
+    align-items: center;   /* Centra verticalmente flecha y texto */
+    gap: 12px;             /* El espacio exacto entre la flecha y "Filtros" */
+    cursor: pointer;       /* Para que parezca un botón todo el conjunto */
+    padding: 10px 0;       /* Espacio superior/inferior */
+}
+
+.filters-container p {
+    margin: 0;             /* Quitamos el margen por defecto de los párrafos */
+}
+
 .tags-container-dropdown {
     display: flex;         /* Alinea los hijos en fila */
     flex-wrap: wrap;       /* Si no caben en una línea, saltan a la siguiente */
