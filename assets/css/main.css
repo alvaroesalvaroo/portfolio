@@ -21,7 +21,25 @@
   src: url(../fonts/UncutSans-Semibold.otf); /* url of the font */
 }
 
+.features-tabs  h5 {
+  margin: 0 0 4px 0;
+  /*font-weight: 600;*/
+  font-size: 1rem;
+  font-family: var(--heading-font);
+  color: var(--heading-color);
+  transition: color 0.4s ease;
+}
+
+
+@media (max-width: 768px) {
+  .features-tabs  h5 {
+    font-size: 1rem;
+  }
+}
+
 html {
+  /* 125% de la preferencia del usuario */
+  /*font-size: 100%;*/
   font-size: 20px;
 }
 
@@ -34,7 +52,8 @@ html {
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
-:root { 
+:root {
+
   /*--background-color: #002043; /* Background color for the entire website, including individual sections */
   --background-color: #0a192f; /* Background color for the entire website, including individual sections *!*/
   --default-color: #f8f8f8; /* Default color used for the majority of the text content across the entire website */
@@ -691,7 +710,7 @@ section.about
 }
 
 .section-title h2 {
-  font-size: 0.32rem;
+  font-size: 3rem;
   font-weight: 700;
   position: relative;
 }
@@ -751,6 +770,19 @@ section.about
   line-height: 1.1;
   margin-bottom: 25px;
   letter-spacing: -0.02em;
+}
+
+
+#contact h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  position: relative;
+}
+
+@media (max-width: 660px) {
+  #contact h2 {
+    font-size: 1.7rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1138,19 +1170,7 @@ section.about
   flex: 1;
 }
 
-.features-tabs .nav-link .tab-content h5 {
-  margin: 0 0 4px 0;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--heading-color);
-  transition: color 0.4s ease;
-}
 
-@media (max-width: 768px) {
-  .features-tabs .nav-link .tab-content h5 {
-    font-size: 14px;
-  }
-}
 
 .features-tabs .nav-link .tab-content span {
   font-size: 13px;
