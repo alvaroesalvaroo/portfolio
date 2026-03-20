@@ -11,6 +11,12 @@ ul .nav-tabs {
     }
 }
 
+@media (max-width: 600px) {
+    #skill-tabs h5 {
+        font-size: 0.75rem;
+    }
+}
+
 ul .nav-tabs h5 {
     font-family: var(--heading-font);
 }

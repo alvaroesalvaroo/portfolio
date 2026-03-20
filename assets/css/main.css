@@ -1099,7 +1099,8 @@ section.about
   gap: 15px;
   margin-bottom: 40px;
   display: flex;
-  flex-wrap: wrap;
+  align-content: space-around;
+  /*flex-wrap: wrap;*/
 }
 
 /*REMOVE vertical alignment*/
