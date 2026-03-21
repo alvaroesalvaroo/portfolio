@@ -307,7 +307,37 @@ const allProjects = [
         numberOfImages: 1,
         relevance: -10,
 
-    }
+    },
+
+
+    {
+        key: "nebulosa",
+        title: "Gravity Ballet",
+        subtitleES: "Simulación de gravedad N-cuerpos y efectos visuales renderizados por CPU con SDL2",
+        subtitleEN: "N-body gravity simulation and CPU-rendered visual effects",
+        subtitleCAT: "Simulació de gravetat N-cossos i efectes visuals renderitzats per CPU amb SDL2",
+
+        descriptionES: `
+       Un experimento de física y gráficos "low-level" en C++. Implementa una coreografía gravitatoria donde las partículas generan una nebulosa dinámica. 
+       El desafío principal fue optimizar el renderizado manual de píxeles y el uso de buffers precalculados para funciones de seno cardinal, evitando el uso de la GPU para el blending.
+       `,
+        descriptionCAT: `
+       Un experiment de física i gràfics "low-level" en C++. Implementa una coreografia gravitatòria on les partícules generen una nebulosa dinàmica. 
+       El desfici principal va ser optimitzar el renderitzat manual de píxels i l'ús de buffers precalculats per a funcions de sinus cardinal, evitant l'ús de la GPU per al blending.
+        `,
+        descriptionEN:`
+        A low-level C++ physics and graphics experiment. It simulates a gravitational ballet where particles generate a dynamic nebula effect. 
+        The main challenge was optimizing manual pixel-buffer rendering and using precomputed sine function buffers to achieve smooth visuals entirely on the CPU without hardware blending.
+        `,
+
+        tags: ["C++", "SDL2"],
+        numberOfImages: 2,
+        video: "Nebulosa.mp4",
+        repoLink: "https://gitlab.com/aruizgarcia14/evs-cpu-rendered-particle-nebulae-effect",
+        windowsLink: "https://gitlab.com/aruizgarcia14/evs-cpu-rendered-particle-nebulae-effect/-/tree/master/build/x64-Boxed",
+        webLink: "",
+        relevance: 20
+    },
 
 
 ];
