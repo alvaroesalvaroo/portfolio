@@ -66,7 +66,7 @@ function applyTranslations() {
     document.querySelectorAll('[data-lang-key]').forEach(element => {
         const key = element.dataset.langKey;
         if (translations[key] && translations[key][currentLanguage]) {
-            element.textContent = translations[key][currentLanguage];
+            element.innerHTML = translations[key][currentLanguage];
         } else {
             console.warn(`Translation missing for key: ${key} in language: ${currentLanguage}`);
         }

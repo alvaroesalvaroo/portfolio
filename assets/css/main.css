@@ -566,6 +566,12 @@ h6 {
   font-size: 13px;
 }
 
+.footer .credits a {
+  color: var(--accent-color);
+}
+
+
+
 .footer .social-links a {
   font-size: 18px;
   display: inline-block;

@@ -37,3 +37,6 @@ github-link;Link a Github;Link to Github;Link a Github
 gitlab-link;Link a GitLab;Link to GitLab;Link a GitLab;
 similar-projects;Proyectos similares;Similar projects; Projectes similars
 
+madewith;Hecho con <a href="https://threejs.org/">Three.js</a> (y algo de <a href="https://getbootstrap.com/">Bootstrap</a>);Made with <a href="https://threejs.org/">Three.js</a> (and some <a href="https://getbootstrap.com/">Bootstrap</a>);Fet amb <a href="https://threejs.org/">Three.js</a> (i un poc de <a href="https://getbootstrap.com/">Bootstrap</a>)
+
+
