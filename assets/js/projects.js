@@ -246,7 +246,7 @@ const allProjects = [
         numberOfImages: 4,
         repoLink: "https://gitlab.com/aruizgarcia14/pgpec3-a-game-in-c-with-opengl",
         windowsLink: "https://gitlab.com/aruizgarcia14/pgpec3-a-game-in-c-with-opengl/-/tree/main/build?ref_type=heads",
-        relevance: 75
+        relevance: 45
     },
     {
         key: "tanks",
@@ -290,7 +290,6 @@ const allProjects = [
         webLink: "https://ocalight.barxetitafest.es/?i=1",
         numberOfImages: 1,
         relevance: -100, // Siempre el último
-
     },
     {
         key: "this",
@@ -298,9 +297,9 @@ const allProjects = [
         subtitleES: "Este portfolio ha sido hecho con Three.js y Bootstrap",
         subtitleEN: "This portfolio was built using Three.js and Bootstrap",
         subtitleCAT: "Aquest portfolio ha estat fet amb Three.js i Bootstrap",
-        descriptionES: "Aún en beta. En el futuro será autoalojado en mi pequeña Raspberry. Un espacio personal en el que aprender renderizados 3D en web, y compartir y mostrar mis proyectos.",
-        descriptionEN: "Still on beta. In the future will be self-hosted on my small Raspberry Pi. A personal space to learn 3D web rendering and to share and showcase my projects.",
-        descriptionCAT: "Encara en beta. En el futur serà autoallotjat en la meva petita Raspberry Pi. Un espai personal on aprendre renderitzats 3D en web, i compartir i mostrar els meus projectes.",
+        descriptionES: "Autoalojado en mi pequeña Raspberry. Un espacio personal (aún beta) en el que aprender renderizados 3D en web, y compartir y mostrar mis proyectos.",
+        descriptionEN: "Self-hosted on my small Raspberry Pi. A (still beta) personal space to learn 3D web rendering and to share and showcase my projects.",
+        descriptionCAT: "Autoallotjat en la meva petita Raspberry Pi. Un espai personal (encara en beta) on aprendre renderitzats 3D en web, i compartir i mostrar els meus projectes.",
         tags: ["Web"],
         webLink: "index.html",
         repoLink: "https://github.com/alvaroesalvaroo/portfolio",
