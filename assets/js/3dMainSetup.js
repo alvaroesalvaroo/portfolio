@@ -215,7 +215,7 @@ renderer.setAnimationLoop( animate );
 function animate() {
 
   if (!window.isMainSceneObserved)  return;
-  console.log("MAINSCENE");
+
   // Update scene and camera
   deltaTime = clock.getDelta();
   if (mixer) {

@@ -255,7 +255,7 @@ function animate() {
 
 
     if (!isObserved)    return; // Skip render when not observed
-    console.log("LABSCENE");
+
     // Render
     renderer.render(scene, camera);
 
