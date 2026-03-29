@@ -3,6 +3,11 @@ let translations = {};
 
 
 function insertAllProjectTranslations() {
+
+    // await window.translationsPromise;
+    // Algo asi seria ideal para evitar warnings en el cssRenderer
+    // Pero requiere tocar projects.js mas de lo que apetece
+
     console.log("Inserting All project translations");
 
     for(const project of allProjects) {

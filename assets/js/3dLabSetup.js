@@ -1,8 +1,12 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+// DRACOLOADER
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/');
 
-const modelPath = "./assets/3Dmodels/laboratorio.glb";
+const modelPath = "./assets/3Dmodels/laboratorioLimpieza.glb";
 
 const scene = new THREE.Scene();
 window.skillsScene = scene; // Open up this object
@@ -175,6 +179,8 @@ function init() {
 
     // Load glb model
     const loader = new GLTFLoader();
+    loader.setDRACOLoader(dracoLoader);
+
     // Onload
     loader.load( modelPath, function ( gltf ) {
         onSceneLoaded(gltf.scene);
