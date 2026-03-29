@@ -21,6 +21,12 @@
   src: url(../fonts/UncutSans-Semibold.otf); /* url of the font */
 }
 
+:root {
+  --hero-size: 6rem;
+  --hero-tablet-size: 4.8rem;
+  --hero-mobile-size: 3rem;
+}
+
 .features-tabs  h5 {
   margin: 0 0 4px 0;
   /*font-weight: 600;*/
@@ -38,7 +44,7 @@
 }
 
 html {
-  /* 125% de la preferencia del usuario */
+  /* Aqui podemos pedir un % de la preferencia del usuario o un tamaño por defecto (que suele ser 16px)*/
   /*font-size: 100%;*/
   font-size: 20px;
 }
@@ -83,7 +89,10 @@ html {
   /*--nav-dropdown-hover-color: #61f8d5; !* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. *!*/
 }
 
+
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
+
+/*Used in footer:*/
 
 .light-background {
   --background-color: #1b1a1a;
@@ -91,12 +100,17 @@ html {
 }
 
 .dark-background {
-  --background-color: #000000;
-  --default-color: #ffffff;
-  --heading-color: #ffffff;
-  --surface-color: #1b1b1b;
-  --contrast-color: #ffffff;
+  --background-color: #1b1a1a;
+  --surface-color: #282828;
 }
+
+/*.dark-background {*/
+/*  --background-color: #000000;*/
+/*  --default-color: #ffffff;*/
+/*  --heading-color: #ffffff;*/
+/*  --surface-color: #1b1b1b;*/
+/*  --contrast-color: #ffffff;*/
+/*}*/
 
 /* Smooth scroll */
 :root {
@@ -778,7 +792,7 @@ section.about
 }
 
 .hero .hero-title {
-  font-size: 6rem;
+  font-size: var(--hero-size);
   font-weight: 900;
   color: var(--heading-color);
   line-height: 1.1;
@@ -799,15 +813,15 @@ section.about
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .hero .hero-title {
-    font-size: 4rem;
+    font-size: var(--hero-tablet-size);
   }
 }
 
 @media (max-width: 575px) {
   .hero .hero-title {
-    font-size: 3rem;
+    font-size: var(--hero-mobile-size);
   }
 }
 
@@ -824,7 +838,9 @@ section.about
 
 
 .hero .hero-title .typed {
-  background: linear-gradient(135deg, var(--typed-color-main) 0%, color-mix(in srgb, var(--typed-color-main), var(--typed-color-secondary) 70%) 100%);
+  background: var(--typed-color-main);
+  background: linear-gradient(135deg, var(--typed-color-main) 0%, var(--typed-color-secondary) 100%);
+  /*background: linear-gradient(135deg, var(--typed-color-main) 0%, color-mix(in srgb, var(--typed-color-main), var(--typed-color-secondary) 70%) 100%);*/
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -876,6 +892,7 @@ section.about
 
 .hero .hero-image-showcase .floating-card .card-content .card-info p {
   margin: 5px 0 0;
+  color: var(--default-color);
   color: color-mix(in srgb, var(--default-color), transparent 40%);
   font-size: 0.85rem;
   white-space: nowrap;
@@ -966,6 +983,7 @@ section.about
 
 .about .content h5 {
   font-weight: 500;
+  color: var(--heading-color);
   color: color-mix(in srgb, var(--heading-color), transparent 20%);
 }
 
@@ -1131,8 +1149,10 @@ section.about
 }
 
 .features-tabs .nav-link {
-  background: color-mix(in srgb, var(--surface-color), var(--default-color) 3%);
-  border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
+  background: var(--surface-color);
+  border: 1px solid var(--default-color);
+  /*BREAKS BORDER OF THE TABS:*/
+  /*border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);*/
   border-radius: 15px;
   padding: 25px 20px;
   display: flex;
@@ -1153,11 +1173,42 @@ section.about
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, var(--surface-color), color-mix(in srgb, var(--surface-color), var(--heading-color) 20%));
+  background: var(--surface-color);
+  /*BREAKS BACKGROUND OF TABS: */
+  /*background: linear-gradient(135deg, var(--surface-color), color-mix(in srgb, var(--surface-color), var(--heading-color) 20%));*/
   opacity: 0;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
 }
+
+.features-tabs .nav-link:hover {
+  transform: translateY(-3px);
+  border-color: transparent;
+  box-shadow: 0 5px 20px var(--accent-color);
+
+  /*box-shadow: 0 5px 20px color-mix(in srgb, var(--accent-color), transparent 70%);*/
+}
+
+
+.features-tabs .nav-link.active {
+  border-color: var(--accent-color);
+  /*box-shadow: 0 5px 25px var(--accent-color);*/
+  /*box-shadow: 0 5px 25px color-mix(in srgb, var(--accent-color), transparent 70%);*/
+}
+
+.features-tabs .nav-link.active::before {
+  opacity: 1;
+}
+
+.features-tabs .nav-link.active .tab-icon i {
+  color: var(--accent-color);
+}
+
+.features-tabs .nav-link.active .tab-content h5,
+.features-tabs .nav-link.active .tab-content span {
+  color: var(--contrast-color);
+}
+
 
 @media (max-width: 768px) {
   .features-tabs .nav-link {
@@ -1198,11 +1249,7 @@ section.about
   }
 }
 
-.features-tabs .nav-link:hover {
-  transform: translateY(-3px);
-  border-color: transparent;
-  box-shadow: 0 5px 20px color-mix(in srgb, var(--accent-color), transparent 70%);
-}
+
 
 .features-tabs .nav-link:hover::before {
   opacity: 1;
@@ -1217,26 +1264,6 @@ section.about
   color: var(--contrast-color);
 }
 
-.features-tabs .nav-link.active {
-  border-color: var(--accent-color);
-  box-shadow: 0 5px 25px color-mix(in srgb, var(--accent-color), transparent 70%);
-}
-
-.features-tabs .nav-link.active::before {
-  opacity: 1;
-}
-
-.features-tabs .nav-link.active .tab-icon i {
-  color: var(--accent-color);
-}
-
-.features-tabs .nav-link.active .tab-content h5,
-.features-tabs .nav-link.active .tab-content span {
-  color: var(--contrast-color);
-}
-
-@media (max-width: 768px) {
-}
 
 .features-tabs .content-wrapper {
   padding-right: 40px;
@@ -1318,8 +1345,6 @@ section.about
   transform: scale(1.05);
 }
 
-@media (max-width: 576px) {
-}
 
 .features-tabs .visual-content .floating-card i {
   font-size: 28px;
@@ -1374,7 +1399,7 @@ section.about
 
 .services .hero-visual img {
   border-radius: 20px;
-  box-shadow: 0 20px 60px color-mix(in srgb, var(--default-color), transparent 85%);
+  /*box-shadow: 0 20px 60px color-mix(in srgb, var(--default-color), transparent 85%);*/
 }
 
 @media (max-width: 991px) {
@@ -2061,7 +2086,3 @@ section.about
   }
 
 }
-
-/*--------------------------------------------------------------
-# Starter Section Section
---------------------------------------------------------------*/

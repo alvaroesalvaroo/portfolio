@@ -1,6 +1,7 @@
 // Mobile navitacion management
 // Init type.js and AOS
 // "Faq" element toggle
+
 (function() {
   "use strict";
 
@@ -94,14 +95,14 @@
   /**
    * Initiate glightbox
    */
-  const glightbox = GLightbox({
-    selector: '.glightbox'
-  });
+  // const glightbox = GLightbox({
+  //   selector: '.glightbox'
+  // });
 
   /**
    * Initiate Pure Counter
    */
-  new PureCounter();
+  // new PureCounter();
 
   /**
    * Init typed.js
@@ -110,6 +111,7 @@
   if (selectTyped) {
     let typed_strings = selectTyped.getAttribute('data-typed-items');
     typed_strings = typed_strings.split(',');
+    console.log("Creating typed anim");
     new Typed('.typed', {
       strings: typed_strings,
       loop: true,
@@ -117,6 +119,7 @@
       backSpeed: 50,
       backDelay: 2000
     });
+    console.log("Created typed anim");
   }
 
   /**

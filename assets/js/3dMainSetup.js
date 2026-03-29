@@ -72,8 +72,7 @@ const clock = new THREE.Clock();
 let deltaTime;
 let mixer;
 
-let isObserved = true;
-window.isMainSceneObserved = isObserved;
+window.isMainSceneObserved = true;
 
 
 // Traverse scene to find light position and sun material
@@ -215,8 +214,8 @@ renderer.setAnimationLoop( animate );
 
 function animate() {
 
-  if (!isObserved)  return;
-
+  if (!window.isMainSceneObserved)  return;
+  console.log("MAINSCENE");
   // Update scene and camera
   deltaTime = clock.getDelta();
   if (mixer) {
