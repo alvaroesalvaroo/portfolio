@@ -5,10 +5,10 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 // import {OrbitControls} from "three/addons/controls/OrbitControls.js";
 
-// Experimental:
-// import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js';
-// import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
-// import { FXAAShader } from 'three/addons/shaders/FXAAShader.js';
+// Experimental shaders:// import { SMAAPass } // import { ShaderPass } // import { FXAAShader }
+
+// Global
+window.isMainSceneObserved = true;
 
 
 // Scene setup
@@ -72,7 +72,6 @@ const clock = new THREE.Clock();
 let deltaTime;
 let mixer;
 
-window.isMainSceneObserved = true;
 
 
 // Traverse scene to find light position and sun material
@@ -132,8 +131,11 @@ function resize() {
   // Reallocate camera
   camera.aspect = sizes.width / sizes.height;
   camera.position.set(3, 1, 5);
-  if (sizes.width < 1025)
+  if (sizes.width < 1225 && sizes.width >= 1000) // Tablet intermediate level
   {
+    camera.position.set(2, 1, 6);
+  }
+  else if (sizes.width < 1000) {
     camera.position.set(1.5, 1, 7);
   }
   camera.updateProjectionMatrix();

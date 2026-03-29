@@ -6,6 +6,46 @@
   "use strict";
 
   /**
+   * EMAIL COPY
+   */
+  window.addEventListener("load", setupEmailCopy)
+  function setupEmailCopy() {
+    let copyTimer = null;
+    const emailSpan = document.getElementById("email-copy");
+    if (!emailSpan) return;
+    const email = emailSpan.innerText;
+
+    emailSpan.addEventListener('click', function() {
+      navigator.clipboard.writeText(email).then(() => {
+        if (copyTimer) clearTimeout(copyTimer);
+
+
+        const language = localStorage.getItem('preferredLanguage');
+        if (!language || language === "en") {
+          this.innerText = "Copied!";
+        } else if (language === "es") {
+          this.innerText = "¡Copiado!";
+        } else if (language === "cat"){
+          this.innerText = "Copiat!";
+        }
+        this.style.color = "var(--accent-color)";
+        const icon = this.parentElement.querySelector("i");
+        if (icon) {
+          icon.classList.replace('bi-clipboard', 'bi-clipboard-check');
+        }
+        copyTimer = setTimeout(() => {
+          this.innerText = email;
+          this.style.color = "";
+          if (icon) {
+            icon.classList.replace('bi-clipboard-check', 'bi-clipboard');
+          }
+        }, 800);
+      }).catch(err => {
+        console.error('Error al copiar: ', err);
+      });
+    });
+  }
+  /**
    * Apply .scrolled class to the body as the page is scrolled down
    */
   function toggleScrolled() {

@@ -25,9 +25,9 @@ function onControlsEnd() {
 
 function resizeCssRenderer (container, referenceObject) {
 
-    cssRenderer.setSize(container.clientWidth - 1, container.clientHeight -1);
+    cssRenderer.setSize(container.clientWidth, container.clientHeight);
 
-    console.log("CSS3D Resized to: " + container.clientWidth - 1 + ", " + container.clientHeight -1);
+    console.log("CSS3D Resized to: " + container.clientWidth+ ", " + container.clientHeight);
 }
 
 
@@ -111,6 +111,44 @@ function initCSS3D(container, referenceObject, relativeUrl = "project-all.html")
 function renderCSS(camera) {
     cssRenderer.render(cssScene, camera);
 }
+
+// WARN USER IF NESTING LEVEL IS FRACTAL
+
+window.fractalHasBeenDetectedAtSomeLevel = false;
+checkNestingLevel();
+
+function checkNestingLevel() {
+    let level = 0;
+    let current = window;
+
+    // Vamos subiendo por los padres hasta llegar a la cima (window.top)
+    while (current !== window.top) {
+        level++;
+        current = current.parent;
+    }
+    if (level < 2) {
+        // No fractal
+        return;
+    }
+    warnFractal(level, current);
+}
+
+function warnFractal(nestingLevel, topWindow) {
+    console.warn(`🌀 FRACTAL: Nivel de profundidad ${nestingLevel}`);
+    topWindow.fractalHasBeenDetectedAtSomeLevel = true;
+
+    const isProjectDetails = topWindow.location.pathname.includes('project-details.html');
+    const warnDomElement = isProjectDetails
+        ? topWindow.document.querySelector('#project-description')
+        : topWindow.document.querySelector('#skill-description');
+
+    warnDomElement.dataset.langKey = "fractal-warn"
+    try { topWindow.applyTranslations()}
+    catch(e) { console.warn("Fractal warn translation could not be applied")}
+}
+
+
+
 
 /*
 

@@ -104,20 +104,23 @@ function onSceneLoaded(model)
         }
 
         if (child.name.startsWith("CameraPosition")) {
-            console.log("cam position found on lab scene");
+            // console.log("cam position found on lab scene");
             child.updateWorldMatrix(true, false);
             camPositions.push(child);
         }
-        if (child.name.includes("CameraLookAt"))
+        else if (child.name.startsWith("CameraTarget"))
         {
-            // camTarget = child;
+            // Camera "look at" reference
+            child.visible = false;
         }
-        if (child.name === "screen") {
+        else if (child.name === "screen") {
             screen = child;
         }
 
     })
-    initCSS3D(container, screen);
+    if (camPositions.length === 0) {console.warn("No cam positions found in lab scene");}
+
+    initCSS3D(container, screen, "index.html");
 }
 
 
@@ -165,9 +168,18 @@ function setupButtons() {
 
 const descriptionElement = document.querySelector("#skill-description");
 function changeDescription(index) {
+
     descriptionElement.dataset.langKey = langKeys[index];
+
+    // Harcoded fractal-check
+    if (langKeys[index] === "fullstack-description") {
+        if (window.fractalHasBeenDetectedAtSomeLevel) {
+            descriptionElement.dataset.langKey = "fractal-warn";
+        }
+    }
+
     try { applyTranslations()}
-    catch(e) { console.warn("Translations could not be applied")}
+    catch(e) { console.warn("Translations could not be applied to skill descriptions")}
 }
 
 
