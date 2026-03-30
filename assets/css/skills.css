@@ -99,8 +99,7 @@ ul .nav-tabs h5 {
 }
 
 #email-copy:hover {
-    border: 1.5px solid var(--accent-color);
+    /*border: 1.5px solid var(--accent-color);*/
     background-color: var(--surface-color);
-    transform: translateY(-2px);
-
+    /*transform: translateY(-2px);*/
 }

@@ -32,7 +32,9 @@ function insertAllProjectTranslations() {
  * @returns {Promise<void>} Una promesa que se resuelve cuando las traducciones están cargadas.
  */
 
-window.translationsPromise = loadTranslations();
+window.translationsPromise = loadTranslations().then(() => {
+    insertAllProjectTranslations();
+});
 
 async function loadTranslations() {
     const response = await fetch('./assets/language.csv'); // Asegúrate de que la ruta sea correcta
@@ -181,7 +183,7 @@ let currentLanguage = "en";
 
 document.addEventListener('DOMContentLoaded', async () => {
     await window.translationsPromise;
-    insertAllProjectTranslations();
+    // insertAllProjectTranslations();
     initializeAllTypedAnimations();
 
     let savedLangSource = "default";

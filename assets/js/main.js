@@ -8,42 +8,55 @@
   /**
    * EMAIL COPY
    */
-  window.addEventListener("load", setupEmailCopy)
-  function setupEmailCopy() {
-    let copyTimer = null;
-    const emailSpan = document.getElementById("email-copy");
-    if (!emailSpan) return;
-    const email = emailSpan.innerText;
 
-    emailSpan.addEventListener('click', function() {
-      navigator.clipboard.writeText(email).then(() => {
-        if (copyTimer) clearTimeout(copyTimer);
+  const emailSpan = document.getElementById("email-copy");
+  let copyTimer = null;
+  let email = null;
+  let copyIcon = null;
+  if (emailSpan) {
+    email = emailSpan.innerText;
+    copyIcon = emailSpan.parentElement.querySelector("i");
+  }
 
 
-        const language = localStorage.getItem('preferredLanguage');
-        if (!language || language === "en") {
-          this.innerText = "Copied!";
-        } else if (language === "es") {
-          this.innerText = "¡Copiado!";
-        } else if (language === "cat"){
-          this.innerText = "Copiat!";
-        }
-        this.style.color = "var(--accent-color)";
-        const icon = this.parentElement.querySelector("i");
-        if (icon) {
-          icon.classList.replace('bi-clipboard', 'bi-clipboard-check');
-        }
-        copyTimer = setTimeout(() => {
-          this.innerText = email;
-          this.style.color = "";
-          if (icon) {
-            icon.classList.replace('bi-clipboard-check', 'bi-clipboard');
-          }
-        }, 800);
-      }).catch(err => {
-        console.error('Error al copiar: ', err);
-      });
+  function copyEmail() {
+    navigator.clipboard.writeText(email).then(() => {
+      if (copyTimer) clearTimeout(copyTimer);
+
+      const language = localStorage.getItem('preferredLanguage');
+      if (!language || language === "en") {
+        emailSpan.innerText = "Copied!";
+      } else if (language === "es") {
+        emailSpan.innerText = "¡Copiado!";
+      } else if (language === "cat"){
+        emailSpan.innerText = "Copiat!";
+      }
+      // emailSpan.style.color = "var(--accent-color)";
+      if (copyIcon) {
+        copyIcon.classList.replace('bi-clipboard', 'bi-clipboard-check');
+      }
+      copyTimer = setTimeout(() => {
+        emailSpan.innerText = email;
+        emailSpan.style.color = "";
+        // if (copyIcon) {
+        //   copyIcon.classList.replace('bi-clipboard-check', 'bi-clipboard');
+        // }
+      }, 800);
+    }).catch(err => {
+      console.error('Error al copiar email: ', err);
     });
+  }
+
+  window.addEventListener("load", setupEmailCopy)
+
+  function setupEmailCopy() {
+    if (!emailSpan) return;
+    emailSpan.addEventListener('click', copyEmail);
+
+    if (copyIcon) {
+      copyIcon.style.cursor = "pointer";
+      copyIcon.addEventListener('click', copyEmail);
+    }
   }
   /**
    * Apply .scrolled class to the body as the page is scrolled down

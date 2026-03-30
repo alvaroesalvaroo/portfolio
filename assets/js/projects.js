@@ -124,7 +124,7 @@ const allProjects = [
         windowsLink: "https://drive.google.com/drive/folders/1lbniG5F2ZeoO-HrxS_lg2mOPlM_nEJCL?usp=sharing",
         webLink: "https://play.unity.com/es/user/98453246-b7ce-49c5-ab6b-c4f3c5546cb9",
 
-        relevance: 30
+        relevance: 45
     },
     {
         key:"rapbattle",
@@ -167,7 +167,7 @@ const allProjects = [
 
         repoLink: "https://gitlab.com/aruizgarcia14/pgpec2-a-platformer-in-c-with-raylib",
         windowsLink: "https://gitlab.com/aruizgarcia14/pgpec2-a-platformer-in-c-with-raylib/-/tree/main/build/x64-Release?ref_type=heads",
-        relevance: 55,
+        relevance: 50,
         tags: ["C++", "OpenGL"]
     },
     {
@@ -268,7 +268,7 @@ const allProjects = [
         repoLink: "https://gitlab.com/aruizgarcia14/jmpec1-alvaroruiz",
         repoLink2:"https://gitlab.com/aruizgarcia14/jm-practica-final",
         windowsLink: "https://drive.google.com/drive/folders/1rJ6Yp1zIPcwDtg_cJLMW28tB9vyyLLVh?usp=sharing",
-        relevance: 50,
+        relevance: 55,
     },
 
     {
@@ -458,17 +458,17 @@ function getActiveFilters() {
     return filtersString.split(",").map(tag => tag.trim());
 }
 
-function filterProjects(exclude = true) {
+function filterProjects(exclude = false) {
     const excludedTags = getActiveFilters();
     if (excludedTags.length === 0) return allProjects;
 
     // Filtramos la lista original
-    // Is the only point where we use the global variable :p
+    // Is the only point where we use the global variable allProjects :p
 
     let filteredProjects = allProjects.filter(project => {
         // This is so difficult
         if (!project.tags)
-        {a
+        {
             // If no tags, always be filtered
             console.log("No tags in " + project.key);
             return true;
@@ -498,37 +498,10 @@ function setActiveTag(tagToActivate, tagButton)
     const newFiltersParam = tagToActivate;
     const newURL = `project-all.html?filters=${encodeURIComponent(newFiltersParam)}`;
     window.history.pushState({ filters: newFiltersParam }, '', newURL);
-    // window.location.href = `project-all.html?filters=${newFiltersParam}`;
 
     filterProjects(false);
 }
 
-function toggleFilter(tagToToggle, button) {
-    let currentFilters = getActiveFilters();
-
-    // TODO: grey out button using active attribute
-
-    button.classList.toggle("active");
-
-
-    if (currentFilters.includes(tagToToggle)) {
-        // Si ya estaba, lo quitamos (lo "des-excluimos")
-        currentFilters = currentFilters.filter(t => t !== tagToToggle);
-    } else {
-        // Si no estaba, lo añadimos a la lista negra
-        currentFilters.push(tagToToggle);
-    }
-
-    // Put filters in url
-    const newFiltersParam = currentFilters.join(",");
-    const newURL = `project-all.html?filters=${encodeURIComponent(newFiltersParam)}`;
-    window.history.pushState({ filters: newFiltersParam }, '', newURL);
-    // window.location.href = `project-all.html?filters=${newFiltersParam}`;
-
-    filterProjects(true);
-
-
-}
 
 function getAllTags() {
     let allTags = [];
@@ -700,15 +673,14 @@ function createMediaCarrousel(project) {
         container.appendChild(clone);
     }
 
-
-
 }
 
 function createTags(project) {
     let tagContainer = document.querySelector(".tags-container");
     tagContainer.innerHTML = "";
     for (let i = 0, len = project.tags.length; i < len; i++) {
-        let tagHtml = `<a href="#" class="btn tag-button">${project.tags[i]}</a>`;
+        let link = "project-all.html?filters=" + encodeURIComponent(project.tags[i]);
+        let tagHtml = `<a href="${link}" class="btn tag-button">${project.tags[i]}</a>`;
         tagContainer.innerHTML += tagHtml;
     }
 }
@@ -757,25 +729,37 @@ function createProjectInDetail(projects) {
     }
 }
 
-function setupTagsDropdown() {
-    const btnDropdown = document.querySelector(".btn-dropdown");
-    const tagContainer = document.querySelector(".tags-container-dropdown");
+const btnDropdown = document.querySelector(".btn-dropdown");
+const tagContainer = document.querySelector(".tags-container-dropdown");
 
-    btnDropdown.addEventListener("click", function () {
+function toggleTagsDropdown() {
+    console.log("Toogle tag dropdwon");
+    // Mover elementos
+    btnDropdown.classList.toggle("active");
+    const isNowActive = tagContainer.classList.toggle("show");
 
-        // Mover elementos
-        this.classList.toggle("active");
-        const isNowActive = tagContainer.classList.toggle("show");
+    // Despues del transition time, recargamos proyectos
+    setTimeout(() => {
 
-        // Despues del transition time, recargamos proyectos
-        setTimeout(() => {
+        // Si se acaba de cerrar (no está activo), resetear proyectos
+        if (!isNowActive) {
+            createAllProjects();
+        }
+    }, 400);
+}
 
-            // 3. Si se acaba de cerrar (no está activo), resetear proyectos
-            if (!isNowActive) {
-                createAllProjects();
-            }
-        }, 400);
-    });
+function silentRemarkActiveTag(activeTag) {
+    console.log("Remarking " + activeTag);
+    let tagContainer = document.querySelector(".tags-container-dropdown");
+    let tagButtons = tagContainer.querySelectorAll('a');
+    tagButtons.forEach(tag => {
+        if (tag.textContent.trim() === activeTag) {
+            console.log("ACTIVE FOUND");
+            tag.classList.remove("active");
+        } else {
+            tag.classList.add("active");
+        }
+    })
 }
 
 function sortProjectsByRelevanceWithRandomness() {
@@ -802,7 +786,15 @@ window.addEventListener("load", () => {
         createProjectInDetail(allProjects); // The function will detect which project to show based on the URL parameters
     } else if (path.includes("project-all.html")) {
         createAllProjects();
-        setupTagsDropdown();
+
+        btnDropdown.addEventListener("click", toggleTagsDropdown);
+
+        const activeFilters = getActiveFilters();
+        if (activeFilters.length > 0) {
+            filterProjects(false);
+            toggleTagsDropdown();
+            silentRemarkActiveTag(activeFilters[0]);
+        }
     } else {
         console.error("I dont know which scene am I");
     }
