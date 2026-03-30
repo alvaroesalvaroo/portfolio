@@ -42,6 +42,7 @@ let camPositions = [];
 // ===== CSSRenderer stuff ========= //
 renderer.domElement.style.zIndex = '2';
 renderer.domElement.style.pointerEvents = 'none';
+let screen = {};
 
 function debugModelMatsAndTextures(model)
 {
@@ -94,7 +95,6 @@ function onSceneLoaded(model)
 {
     scene.add( model );
     let childCount = 0;
-    let screen = {};
     model.traverse( ( child ) => {
         if (child.isMesh) {
             childCount++;
@@ -133,7 +133,7 @@ function resize () {
     // Update sizes
     sizes.width = container.clientWidth - 1;
     sizes.height = container.clientHeight - 1;
-    console.log("Resized lab canvas to " + sizes.width + ", " + sizes.height);
+    // console.log("Resized lab canvas to " + sizes.width + ", " + sizes.height);
     camera.aspect = sizes.width / sizes.height;
     let isNarrowDevice = sizes.width < narrowThreshold;
     camera.setFocalLength(isNarrowDevice ? fovNarrow : fov);

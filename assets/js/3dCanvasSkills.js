@@ -7,6 +7,7 @@ let cssRenderer;
 let cssScene;
 let css3DObject;
 let iframe;
+let resizeTimeout;
 
 window.onControlsStart = onControlsStart;
 window.onControlsEnd = onControlsEnd;
@@ -27,10 +28,8 @@ function resizeCssRenderer (container, referenceObject) {
 
     cssRenderer.setSize(container.clientWidth, container.clientHeight);
 
-    console.log("CSS3D Resized to: " + container.clientWidth+ ", " + container.clientHeight);
+    // console.log("CSS3D Resized to: " + container.clientWidth+ ", " + container.clientHeight);
 }
-
-
 
 
 function initCSS3D(container, referenceObject, relativeUrl = "project-all.html") {
@@ -67,8 +66,7 @@ function initCSS3D(container, referenceObject, relativeUrl = "project-all.html")
     meshBase.rotation.copy(referenceObject.rotation);
 
     skillsScene.add(meshBase);
-    referenceObject.scale.set(new THREE.Vector3(0, 0, 0));
-
+    referenceObject.visible = false;
 
     // Add IFRAME
     const iframeWidth = 1024;
@@ -101,8 +99,12 @@ function initCSS3D(container, referenceObject, relativeUrl = "project-all.html")
 
     cssScene.add(css3DObject);
 
+    // Resize, but max 100 times/second
     window.addEventListener("resize", () => {
-        resizeCssRenderer(container, referenceObject);
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            resizeCssRenderer(container, referenceObject);
+        }, 10);
     });
 }
 
