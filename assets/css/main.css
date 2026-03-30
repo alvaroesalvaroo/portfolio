@@ -585,16 +585,15 @@ h6 {
 }
 
 
-
 .footer .social-links a {
   font-size: 18px;
   display: inline-block;
-  background: color-mix(in srgb, var(--default-color), transparent 92%);
+  background: color-mix(in srgb, var(--default-color), transparent 85%);
   color: var(--accent-color);
   line-height: 1;
   padding: 8px 0;
   margin-right: 4px;
-  border-radius: 4px;
+  border-radius: 6px;
   text-align: center;
   width: 36px;
   height: 36px;
