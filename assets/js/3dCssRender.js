@@ -7,7 +7,17 @@ let cssRenderer;
 let cssScene;
 let css3DObject;
 let iframe;
+
+let resizeTimeInMillis = 0;
+
 let resizeTimeout;
+
+window.nestingLevel = null;
+window.fractalTopWindow = {};
+getNestingLevel(); // Init both nestingLevel and fractalTopWindow
+window.getNestingLevel = getNestingLevel;
+window.fractalHasBeenDetectedAtSomeLevel = false;
+window.isMobilePlatform = isMobilePlatform;
 
 window.onControlsStart = onControlsStart;
 window.onControlsEnd = onControlsEnd;
@@ -16,16 +26,21 @@ window.renderCSS = renderCSS;
 
 function onControlsStart() {
     console.log("Controls started");
-    iframe.style.pointerEvents = 'none';
+    // iframe.style.pointerEvents = 'none';
     // iframe.style.zIndex = '0';
 }
 function onControlsEnd() {
     console.log("Controls end");
-    iframe.style.pointerEvents = 'auto';
+    // iframe.style.pointerEvents = 'auto';
 }
+
 
 function resizeCssRenderer (container, referenceObject) {
 
+    if (nestingLevel > 10) { // I dont believe it you can achieve this
+        return;
+    }
+    if (!cssRenderer) return;
     cssRenderer.setSize(container.clientWidth, container.clientHeight);
 
     // console.log("CSS3D Resized to: " + container.clientWidth+ ", " + container.clientHeight);
@@ -33,8 +48,29 @@ function resizeCssRenderer (container, referenceObject) {
 
 
 function initCSS3D(container, referenceObject, relativeUrl = "project-all.html") {
-    console.log("Init css aditional scene with sizes: " + container.clientWidth + ", " + container.clientHeight );
 
+    console.warn(`🌀 Nivel de FRACTAL ${nestingLevel}`);
+
+    if (isMobilePlatform() && isIndex(relativeUrl) && nestingLevel > 0) {
+        showFractalBlockInMainScene();
+        console.log("Fractal blocked");
+        return;
+    }
+    else if (isMobilePlatform() && !isIndex(relativeUrl) && nestingLevel > 5) {
+        showFractalBlockInMainScene();
+        console.log("Fractal blocked");
+        return;
+    }
+    // If Easter egg fractal is found, we warn
+    if (nestingLevel > 1) {
+        warnFractal(window.fractalTopWindow);
+    }
+    if (nestingLevel >= 10) {
+        // I DONT REALLY KNOW IF WE ARE MAKING INFINITE LOOP SO BETTER AVOID THEM
+        return;
+    }
+
+    console.log("Init css aditional scene with sizes: " + container.clientWidth + ", " + container.clientHeight );
     cssScene = new THREE.Scene();
 
     cssRenderer = new CSS3DRenderer();
@@ -77,11 +113,13 @@ function initCSS3D(container, referenceObject, relativeUrl = "project-all.html")
     iframe.style.border = '0px';
     iframe.style.backfaceVisibility = 'visible';
     const baseUrl = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-    const finalUrl = new URL(relativeUrl, baseUrl).href;
+    const finalUrl = new URL(relativeUrl, baseUrl);
     console.log("Creating CSS texture based on url: " + finalUrl);
+
+    finalUrl.searchParams.set('v', Date.now().toString());
+
     // "Plz do magic" line:
-    // iframe.src = urlWithNoHash;
-    iframe.src = finalUrl;
+    iframe.src = finalUrl.href;
 
     // Create CSSObject
     css3DObject = new CSS3DObject(iframe);
@@ -99,27 +137,35 @@ function initCSS3D(container, referenceObject, relativeUrl = "project-all.html")
 
     cssScene.add(css3DObject);
 
-    // Resize, but max 100 times/second
+    // Resize, but maybe with a max frequency
     window.addEventListener("resize", () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
+
+        if (resizeTimeInMillis === 0) {
             resizeCssRenderer(container, referenceObject);
-        }, 10);
+        }
+        else {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                resizeCssRenderer(container, referenceObject);
+            }, resizeTimeInMillis);
+        }
+
     });
 }
 
 
 
 function renderCSS(camera) {
+    if (!cssRenderer) return;
+
     cssRenderer.render(cssScene, camera);
 }
 
 // WARN USER IF NESTING LEVEL IS FRACTAL
 
-window.fractalHasBeenDetectedAtSomeLevel = false;
-checkNestingLevel();
 
-function checkNestingLevel() {
+function getNestingLevel() {
+
     let level = 0;
     let current = window;
 
@@ -128,27 +174,53 @@ function checkNestingLevel() {
         level++;
         current = current.parent;
     }
-    if (level < 2) {
-        // No fractal
-        return;
-    }
-    warnFractal(level, current);
+    window.fractalTopWindow = current;
+    window.nestingLevel = level;
 }
 
 function warnFractal(nestingLevel, topWindow) {
-    console.warn(`🌀 FRACTAL: Nivel de profundidad ${nestingLevel}`);
-    topWindow.fractalHasBeenDetectedAtSomeLevel = true;
 
-    const isProjectDetails = topWindow.location.pathname.includes('project-details.html');
-    const warnDomElement = isProjectDetails
-        ? topWindow.document.querySelector('#project-description')
-        : topWindow.document.querySelector('#skill-description');
+    try {
+        topWindow.fractalHasBeenDetectedAtSomeLevel = true;
 
-    warnDomElement.dataset.langKey = "fractal-warn"
-    try { topWindow.applyTranslations()}
-    catch(e) { console.warn("Fractal warn translation could not be applied")}
+        const isProjectDetails = topWindow.location.pathname.includes('project-details.html');
+        const warnDomElement = isProjectDetails
+            ? topWindow.document.querySelector('#project-description')
+            : topWindow.document.querySelector('#skill-description');
+
+        warnDomElement.dataset.langKey = "fractal-warn"
+
+        try { topWindow.applyTranslations()}
+        catch(e) { console.warn("Fractal warn translation could not be applied")}
+
+    } catch (e) {
+        console.warn("Seems like this site is embed in other. Could not warn of fractals" + e);
+    }
+
 }
 
+function isIndex(relativeUrl) {
+    return relativeUrl === "/" ||
+        relativeUrl === "" ||
+        relativeUrl.includes("index.html");
+}
+
+function isMobilePlatform() {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    // Check clásico de User Agent
+    const isBasicMobile = /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
+
+    // Check específico para iPads modernos (que fingen ser Mac)
+    const isIPadOS = (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    return isBasicMobile || isIPadOS;
+}
+
+// STOP FRACTALS IN MAIN SCENE
+function showFractalBlockInMainScene() {
+
+}
 
 
 

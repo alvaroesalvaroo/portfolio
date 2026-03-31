@@ -639,15 +639,17 @@ function createMediaCarrousel(project) {
         videos.forEach(video => {
             const clone = template.content.cloneNode(true);
             const videoTag = clone.querySelector('video');
-            const sourceTag = videoTag.querySelector('source');
-
-            sourceTag.src = `assets/img/projects/${project.key}/${video}`;
+            // const sourceTag = videoTag.querySelector('source');
+            // sourceTag.src = `assets/img/projects/${project.key}/${video}`;
+            videoTag.src = `assets/img/projects/${project.key}/${video}`;
+            videoTag.setAttribute('playsinline', '');
             videoTag.classList.remove('d-none'); // Mostrar video
+            videoTag.muted = true; // iOS bloquea casi cualquier video que no esté muteado de inicio
+            videoTag.setAttribute("preload", "auto");
+            container.appendChild(clone);
 
             // Importante: Cargar el video después de cambiar el source
             videoTag.load();
-
-            container.appendChild(clone);
         });
     }
 

@@ -14,7 +14,7 @@ window.skillsScene = scene; // Open up this object
 const container = document.querySelector('.extra-webgl-container');
 const sizes = {
     width: container.clientWidth - 1,
-    height: container.clientWidth -1 ,
+    height: container.clientHeight -1 ,
 };
 
 
@@ -130,6 +130,9 @@ function onSceneLoaded(model)
 window.addEventListener("resize", resize);
 
 function resize () {
+
+    if (!passesFractalCheck())
+        return;
     // Update sizes
     sizes.width = container.clientWidth - 1;
     sizes.height = container.clientHeight - 1;
@@ -171,7 +174,7 @@ function changeDescription(index) {
 
     descriptionElement.dataset.langKey = langKeys[index];
 
-    // Harcoded fractal-check
+    // Fractal-check
     if (langKeys[index] === "fullstack-description") {
         if (window.fractalHasBeenDetectedAtSomeLevel) {
             descriptionElement.dataset.langKey = "fractal-warn";
@@ -182,12 +185,43 @@ function changeDescription(index) {
     catch(e) { console.warn("Translations could not be applied to skill descriptions")}
 }
 
+function showFractalBlocking() {
+    container.innerHTML = "";
+    const img = document.createElement('img');
+    img.src = 'assets/img/fractal-block.webp';
+    img.style.width = '100%';
+    img.style.height = '100%';
+    // "object-fit: cover" es el truco para que no se estire feo si el container cambia forma?
+    img.style.objectFit = 'cover';
 
+    container.appendChild(img);
+}
 
+function passesFractalCheck() {
+    if (!window.nestingLevel) {console.warn("Not protected against fractals")}
+    else {
+        console.warn("Protected agains fractals");
+    }
+    if (window.nestingLevel && window.nestingLevel > 0 && window.isMobilePlatform()) {
+        return false;
+    } else if (window.nestingLevel && window.nestingLevel > 10) {
+        console.error("FRACTAL LEVEL 10 REACHED");
+        return false;
+    }
+
+    return true;
+}
 
 function init() {
-    console.log("Init lab scene in container with sizes: " + sizes.width + ", " + sizes.height);
 
+    // SECURE FRACTAL
+    if (!passesFractalCheck()) {
+        console.warn("Fractal block in lab");
+        showFractalBlocking();
+        return;
+    }
+
+    console.log("Init lab scene in container with sizes: " + sizes.width + ", " + sizes.height);
 
     // Load glb model
     const loader = new GLTFLoader();
@@ -198,7 +232,6 @@ function init() {
         onSceneLoaded(gltf.scene);
         setupLights();
         resize();
-
 
         setupButtons();
 
@@ -269,10 +302,10 @@ function animate() {
     // Update
     const deltaTime = clock.getDelta();
 
-    lerpCameraPositionAndRotation(deltaTime);
-
-
+    // Probamos si inhabilitar el camera lerp optimiza algo
     if (!isObserved)    return; // Skip render when not observed
+
+    lerpCameraPositionAndRotation(deltaTime);
 
     // Render
     renderer.render(scene, camera);

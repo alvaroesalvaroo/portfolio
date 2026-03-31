@@ -26,6 +26,33 @@ let xinxeta;
 
 const lights = [];
 
+
+function passesFractalCheck() {
+    if (!window.nestingLevel) {console.warn("Not protected against fractals")}
+    else {
+        console.warn("Protected agains fractals");
+    }
+    if (window.nestingLevel && window.nestingLevel > 4 && window.isMobilePlatform()) {
+        return false;
+    } else if (window.nestingLevel && window.nestingLevel > 10) {
+        console.error("FRACTAL LEVEL 10 REACHED");
+        return false;
+    }
+
+    return true;
+}
+
+function showFractalBlocking() {
+    container.innerHTML = "";
+    const img = document.createElement('img');
+    img.src = 'assets/img/fractal-block.webp';
+    img.style.width = '100%';
+    img.style.height = '100%';
+    // "object-fit: cover" es el truco para que no se estire feo si el container cambia forma?
+    img.style.objectFit = 'cover';
+
+    container.appendChild(img);
+}
 function setupLights() {
     const ambientLight = new THREE.AmbientLight(0xffffff);
     scene.add(ambientLight);
@@ -100,7 +127,11 @@ let camera;
 let camPositions = [];
 
 function init() {
-
+    if (!passesFractalCheck()) {
+        console.warn("Blocking fractals in this.project");
+        showFractalBlocking();
+        return;
+    }
     // Select and clear container
     container = document.querySelector('#project-details-section .project-slider');
     // Save original size
