@@ -433,7 +433,6 @@
     }
 }
 
-
 /* Girar la flecha cuando se abre */
 .btn-dropdown.active i {
     transform: rotate(180deg);

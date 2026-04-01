@@ -163,7 +163,11 @@ function setupButtons() {
         if (!button) console.log("button key is missing " + buttonKeys[i]);
         button.addEventListener("click", () => {
             currentTargetIndex = i;
-            // isOnTransition = true;
+            previousPosition.copy(camera.position);
+            previousQuaternion.copy(camera.quaternion);
+            currentTimeInTransition = 0;
+            isTransitionOver = false;
+
             changeDescription(i);
         })
     }
@@ -236,8 +240,11 @@ function init() {
         setupButtons();
 
         camera.position.copy(camPositions[0].position);
+        previousPosition.copy(camPositions[0].position);
         camera.rotation.copy(camPositions[0].rotation);
         camera.lookAt(0, 0, 0);
+        previousQuaternion.copy(camera.quaternion);
+
         // console.log("cam look at ", camTarget.position);
        // initialRotationY = camera.rotation.y;
         renderer.setAnimationLoop( animate );
@@ -259,53 +266,61 @@ const targetQuat = new THREE.Quaternion();
 const m1 = new THREE.Matrix4();
 const correction = new THREE.Matrix4().makeRotationX(-Math.PI / 2);
 
-let isPositionClose, isRotationClose;
+let isTransitionOver;
+
+let currentTimeInTransition = 0;
+const TRANSITION_DURATION = 1;
+
+const previousPosition = new THREE.Vector3();
+const previousQuaternion = new THREE.Quaternion();
+
+function easeAlpha(alpha) {
+    // Source - https://stackoverflow.com/a/25730573
+    if(alpha <= 0.5)
+        return 2 * alpha * alpha;
+
+    alpha -= 0.5;
+    return 2 * alpha * (1 - alpha) + 0.5;
+}
+
 function lerpCameraPositionAndRotation(deltaTime) {
 
-    if (camPositions.length === 0) console.warn("No cam targets in lab scene!");
+    if (isTransitionOver) return;
+    currentTimeInTransition += deltaTime;
+    if (currentTimeInTransition >= TRANSITION_DURATION) {
+        isTransitionOver = true; // Do last transition with alpha = 1
+    }
 
     const activeTarget = camPositions[currentTargetIndex];
     activeTarget.getWorldPosition(targetPos);
 
-    isRotationClose = isPositionClose = false;
-    const distance = camera.position.distanceTo(targetPos);
-
-    if (distance > 0.05) {
-        // Lerp position
-        camera.position.lerpVectors(camera.position, targetPos, speed * deltaTime);
-        isPositionClose = true;
-    }
+    let alpha = currentTimeInTransition / TRANSITION_DURATION;
+    if (alpha > 1) alpha = 1;
+    let easedAlpha = easeAlpha(alpha);
+    camera.position.lerpVectors(previousPosition, targetPos, easedAlpha);
 
     // Sustituyamos     activeTarget.getWorldQuaternion(targetQuat); por este follon:
     m1.extractRotation(activeTarget.matrixWorld);
     m1.multiply(correction);
     targetQuat.setFromRotationMatrix(m1);
     // Lerp rotation
-    // Quaternions are a thing. when quaternion.dot gets to 1, angle is the same
-    let howCloseIAm = Math.abs(camera.quaternion.dot(targetQuat)); // Gets to 1 quickly
-    if (1 - howCloseIAm > 0.00001) {
-        camera.quaternion.slerp(targetQuat, rotationSpeed * deltaTime);
-        isRotationClose = true;
+    camera.quaternion.slerpQuaternions(previousQuaternion, targetQuat, easedAlpha);
+
+    if (isTransitionOver) {
+        previousPosition.copy(camera.position);
+        previousQuaternion.copy(camera.quaternion);
+        currentTimeInTransition = 0;
     }
-
 }
 
-const maxPanDistance = 0.2;
-function isCamaraFarAwayFromItsTarget() {
-    return (camera.position.distanceTo(camPositions[currentTargetIndex].position) >= maxPanDistance);
-}
-
-const previousPos = new THREE.Vector3();
-const previousControlsTarget = new THREE.Vector3();
 function animate() {
 
     // Update
     const deltaTime = clock.getDelta();
 
-    // Probamos si inhabilitar el camera lerp optimiza algo
-    if (!isObserved)    return; // Skip render when not observed
-
     lerpCameraPositionAndRotation(deltaTime);
+
+    if (!isObserved)    return; // Skip render when not observed
 
     // Render
     renderer.render(scene, camera);
