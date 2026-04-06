@@ -4,6 +4,9 @@
 # Font & Color Variables
 # Help: https://bootstrapmade.com/color-system/
 --------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Doto:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+
 @font-face {
   font-family: Uncut; /* set name */
   src: url(../fonts/UncutSans-Variable.ttf); /* url of the font */
@@ -20,20 +23,44 @@
   font-family: UncutSemibold; /* set name */
   src: url(../fonts/UncutSans-Semibold.otf); /* url of the font */
 }
+@font-face {
+  font-family: ElectronicHighway;
+  src: url(../fonts/ElectronicHighway.TTF);
+}
+/* ESTO CANCELA LAS NEGRITAS*/
+/** {*/
+/*  font-weight: normal !important; !* Fuerza el peso normal en todo *!*/
+/*  -webkit-font-smoothing: antialiased; !* Suaviza los bordes en iPad/Safari *!*/
+/*  -moz-osx-font-smoothing: grayscale;*/
+/*}*/
 
+/* Fonts and sizes */
+:root {
+  --default-font: "Courier New", Courier, monospace;
+  --heading-font: "Doto",  sans-serif;
+  --subheading-font: "Doto",  sans-serif;
+  --nav-font: "Doto", Courier, monospace;
+  --projects-font: "Jersey 10",  sans-serif;
+  --hero-subtitle-font: "Courier New", Courier, monospace;
+  --project-title-font: "Doto",  sans-serif;
+  --project-title-when-details: "Doto",  sans-serif;
+  --skills-title-font: "Jersey 10",  sans-serif;
+}
 :root {
   --hero-size: 6rem;
   --hero-tablet-size: 4.8rem;
-  --hero-mobile-size: 3rem;
+  --hero-mobile-size: 2.5rem;
+  --skills-title-size: 1.5rem;
 }
 
-.features-tabs  h5 {
-  margin: 0 0 4px 0;
-  /*font-weight: 600;*/
-  font-size: 1rem;
-  font-family: var(--heading-font);
-  color: var(--heading-color);
-  transition: color 0.4s ease;
+
+
+.project-title {
+  font-family: var(--project-title-font);
+}
+
+#project-title {
+  font-family: var(--project-title-when-details);
 }
 
 
@@ -49,13 +76,7 @@ html {
   font-size: 20px;
 }
 
-/* Fonts */
-:root {
-  --default-font: "UncutBook",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "UncutSemibold",  sans-serif;
-  --subheading-font: "UncutLightItalic",  sans-serif;
-  --nav-font: "UncutBook",  sans-serif;
-}
+
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
 :root {
@@ -89,7 +110,14 @@ html {
   /*--nav-dropdown-hover-color: #61f8d5; !* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. *!*/
 }
 
-
+.features-tabs  h5 {
+  margin: 0 0 4px 0;
+  /*font-weight: 600;*/
+  font-size: var(--skills-title-size);
+  font-family: var(--skills-title-font);
+  color: var(--heading-color);
+  transition: color 0.4s ease;
+}
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
 
 /*Used in footer:*/
@@ -825,7 +853,7 @@ section.about
 }
 
 .hero .hero-description {
-  font-family: var(--subheading-font);
+  font-family: var(--hero-subtitle-font);
   font-size: 1.4rem;
   color: color-mix(in srgb, var(--default-color), transparent 20%);
   line-height: 1.6;
