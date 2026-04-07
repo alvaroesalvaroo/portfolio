@@ -72,7 +72,19 @@ const clock = new THREE.Clock();
 let deltaTime;
 let mixer;
 
+function actuallyDestroyLoader() {
+  const loaderElement = document.getElementById('loader');
+  loaderElement.classList.add('fade-out'); // Una transición suave
 
+  // Opcional: borrarlo del DOM tras la animación
+  setTimeout(() => loaderElement.remove(), 500);
+}
+function destroyLoader ( ) {
+
+  setTimeout(() => {
+    actuallyDestroyLoader();
+  }, 1); // Forzar espera para debugear en local
+}
 
 // Traverse scene to find light position and sun material
 function onScenelLoaded(model)
@@ -202,6 +214,7 @@ function init() {
     onScenelLoaded(gltf.scene);
     createLights();
     resize();
+    destroyLoader();
 
 
   }, undefined, function ( error ) {
