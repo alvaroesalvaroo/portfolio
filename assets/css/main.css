@@ -37,20 +37,20 @@
 /* Fonts and sizes */
 :root {
   --default-font: "Courier New", Courier, monospace;
-  --heading-font: "Doto",  sans-serif;
-  --subheading-font: "Doto",  sans-serif;
-  --nav-font: "Doto", Courier, monospace;
-  --projects-font: "Jersey 10",  sans-serif;
+  --heading-font: "UncutSemibold",  sans-serif;
+  --subheading-font: "UncutLightItalic",  sans-serif;
+  --nav-font: "Courier New", Courier, monospace;
+  --projects-font: "UncutBook",  sans-serif;
   --hero-subtitle-font: "Courier New", Courier, monospace;
-  --project-title-font: "Doto",  sans-serif;
-  --project-title-when-details: "Doto",  sans-serif;
-  --skills-title-font: "Jersey 10",  sans-serif;
+  --project-title-font: "UncutLightItalic",  sans-serif;
+  --project-title-when-details: "Courier New", Courier,  sans-serif;
+  --skills-title-font: "UncutSemibold",  sans-serif;
 }
 :root {
   --hero-size: 6rem;
   --hero-tablet-size: 4.8rem;
   --hero-mobile-size: 2.5rem;
-  --skills-title-size: 1.5rem;
+  --skills-title-size: 1rem;
 }
 
 
