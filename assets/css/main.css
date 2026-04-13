@@ -53,6 +53,11 @@
   --skills-title-size: 1rem;
 }
 
+/*Medida radical pero necesaria. La fuente consolas parece "más grande" en mobile*/
+p {
+  font-size: 0.8rem;
+}
+
 .project-title {
   font-family: var(--project-title-font);
 }
