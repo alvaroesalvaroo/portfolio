@@ -72,17 +72,17 @@ const clock = new THREE.Clock();
 let deltaTime;
 let mixer;
 
-function actuallyDestroyLoader() {
+function destroyLoader() {
   const loaderElement = document.getElementById('loader');
   loaderElement.classList.add('fade-out'); // Una transición suave
 
   // Opcional: borrarlo del DOM tras la animación
   setTimeout(() => loaderElement.remove(), 500);
 }
-function destroyLoader ( ) {
+function destroyLoaderInTime ( ) {
 
   setTimeout(() => {
-    actuallyDestroyLoader();
+    destroyLoader();
   }, 1); // Forzar espera para debugear en local
 }
 
@@ -214,7 +214,7 @@ function init() {
     onScenelLoaded(gltf.scene);
     createLights();
     resize();
-    destroyLoader();
+    destroyLoaderInTime();
 
 
   }, undefined, function ( error ) {

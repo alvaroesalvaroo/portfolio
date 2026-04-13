@@ -347,6 +347,7 @@ function initObservedListener(mainContainer) {
 
         // If this scene is observed, main scene will be considered as not observed
         window.isMainSceneObserved = !isObserved;
+        window.onLabChangeVisibility(isObserved);
 
     }, { threshold: 0.1 });
 

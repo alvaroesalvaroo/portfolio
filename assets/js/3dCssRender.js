@@ -7,6 +7,7 @@ let cssRenderer;
 let cssScene;
 let css3DObject;
 let iframe;
+let finalUrl;
 
 let resizeTimeInMillis = 0;
 
@@ -23,6 +24,16 @@ window.onControlsStart = onControlsStart;
 window.onControlsEnd = onControlsEnd;
 window.initCSS3D = initCSS3D;
 window.renderCSS = renderCSS;
+window.onLabChangeVisibility = onLabChangeVisibility;
+
+function onLabChangeVisibility(isVisible) {
+    if (isVisible && iframe && finalUrl) {
+        iframe.src = finalUrl.href;
+    }
+    else if (!isVisible && iframe && finalUrl) {
+        iframe.src = "about:blank";
+    }
+}
 
 function onControlsStart() {
     console.log("Controls started");
@@ -113,10 +124,10 @@ function initCSS3D(container, referenceObject, relativeUrl = "project-all.html")
     iframe.style.border = '0px';
     iframe.style.backfaceVisibility = 'visible';
     const baseUrl = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-    const finalUrl = new URL(relativeUrl, baseUrl);
+    finalUrl = new URL(relativeUrl, baseUrl);
     console.log("Creating CSS texture based on url: " + finalUrl);
 
-    finalUrl.searchParams.set('v', Date.now().toString());
+    finalUrl.searchParams.set('v', Date.now().toString()); // Avoid cache!
 
     // "Plz do magic" line:
     iframe.src = finalUrl.href;

@@ -36,12 +36,12 @@
 
 /* Fonts and sizes */
 :root {
-  --default-font: "Courier New", Courier, monospace;
+  --default-font: "Consolas", monospace;
   --heading-font: "UncutSemibold",  sans-serif;
   --subheading-font: "UncutLightItalic",  sans-serif;
   --nav-font: "Courier New", Courier, monospace;
   --projects-font: "UncutBook",  sans-serif;
-  --hero-subtitle-font: "Courier New", Courier, monospace;
+  --hero-subtitle-font: "Consolas", monospace;
   --project-title-font: "UncutLightItalic",  sans-serif;
   --project-title-when-details: "Courier New", Courier,  sans-serif;
   --skills-title-font: "UncutSemibold",  sans-serif;
@@ -52,8 +52,6 @@
   --hero-mobile-size: 2.5rem;
   --skills-title-size: 1rem;
 }
-
-
 
 .project-title {
   font-family: var(--project-title-font);
