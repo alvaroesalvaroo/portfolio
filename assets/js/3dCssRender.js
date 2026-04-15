@@ -58,7 +58,7 @@ function resizeCssRenderer (container, referenceObject) {
 }
 
 
-function initCSS3D(container, referenceObject, relativeUrl = "project-all.html") {
+function initCSS3D(container, referenceObject, relativeUrl = "project-all.php") {
 
     console.warn(`🌀 Nivel de FRACTAL ${nestingLevel}`);
 
@@ -194,7 +194,7 @@ function warnFractal(nestingLevel, topWindow) {
     try {
         topWindow.fractalHasBeenDetectedAtSomeLevel = true;
 
-        const isProjectDetails = topWindow.location.pathname.includes('project-details.html');
+        const isProjectDetails = topWindow.location.pathname.includes('project-details.php');
         const warnDomElement = isProjectDetails
             ? topWindow.document.querySelector('#project-description')
             : topWindow.document.querySelector('#skill-description');
@@ -213,7 +213,7 @@ function warnFractal(nestingLevel, topWindow) {
 function isIndex(relativeUrl) {
     return relativeUrl === "/" ||
         relativeUrl === "" ||
-        relativeUrl.includes("index.html");
+        relativeUrl.includes("index.php");
 }
 
 function isMobilePlatform() {

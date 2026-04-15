@@ -215,7 +215,7 @@ function init() {
         setupLights();
         resize();
 
-        initCSS3D(container, cssScreen, "index.html");
+        initCSS3D(container, cssScreen, "index.php");
 
         controls.target.copy(cssScreen.position);
         controls.update();

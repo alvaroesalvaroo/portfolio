@@ -301,7 +301,7 @@ const allProjects = [
         descriptionEN: "Self-hosted on my small Raspberry Pi. A (still beta) personal space to learn 3D web rendering and to share and showcase my projects.",
         descriptionCAT: "Autoallotjat en la meva petita Raspberry Pi. Un espai personal (encara en beta) on aprendre renderitzats 3D en web, i compartir i mostrar els meus projectes.",
         tags: ["Web"],
-        webLink: "index.html",
+        webLink: "index.php",
         repoLink: "https://github.com/alvaroesalvaroo/portfolio",
         numberOfImages: 1,
         relevance: -10,
@@ -401,7 +401,7 @@ function createProjectCard(project, template, container) {
 
     let card = clone.querySelector('.project-index-item');
     card.onclick = () => {
-        window.location.href = "project-details.html?projectKey="+project.key;
+        window.location.href = "project-details.php?projectKey="+project.key;
     };
     // Rellenar los datos dentro del clon
     let title = clone.querySelector('.project-title');
@@ -496,7 +496,7 @@ function setActiveTag(tagToActivate, tagButton)
 
     // Url has only one filter
     const newFiltersParam = tagToActivate;
-    const newURL = `project-all.html?filters=${encodeURIComponent(newFiltersParam)}`;
+    const newURL = `project-all.php?filters=${encodeURIComponent(newFiltersParam)}`;
     window.history.pushState({ filters: newFiltersParam }, '', newURL);
 
     filterProjects(false);
@@ -681,7 +681,7 @@ function createTags(project) {
     let tagContainer = document.querySelector(".tags-container");
     tagContainer.innerHTML = "";
     for (let i = 0, len = project.tags.length; i < len; i++) {
-        let link = "project-all.html?filters=" + encodeURIComponent(project.tags[i]);
+        let link = "project-all.php?filters=" + encodeURIComponent(project.tags[i]);
         let tagHtml = `<a href="${link}" class="btn tag-button">${project.tags[i]}</a>`;
         tagContainer.innerHTML += tagHtml;
     }
@@ -780,13 +780,13 @@ window.addEventListener("load", () => {
     // const fullURL = window.location.href; // La URL entera
     const path = window.location.pathname;
     // Check if we are on index
-    const isHome = path === "/" || path.endsWith("/portfolio/") || path.includes("index.html");
+    const isHome = path === "/" || path.endsWith("/portfolio/") || path.includes("index.php");
     sortProjectsByRelevanceWithRandomness();
     if (isHome) {
         createProjectsInIndex(allProjects);
-    } else if (path.includes("project-details.html")) {
+    } else if (path.includes("project-details.php")) {
         createProjectInDetail(allProjects); // The function will detect which project to show based on the URL parameters
-    } else if (path.includes("project-all.html")) {
+    } else if (path.includes("project-all.php")) {
         createAllProjects();
 
         btnDropdown.addEventListener("click", toggleTagsDropdown);

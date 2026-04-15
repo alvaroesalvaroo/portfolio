@@ -120,7 +120,7 @@ function onSceneLoaded(model)
     })
     if (camPositions.length === 0) {console.warn("No cam positions found in lab scene");}
 
-    initCSS3D(container, screen, "index.html");
+    initCSS3D(container, screen, "index.php");
 }
 
 

@@ -1,3 +1,18 @@
+
+<?php /* TRANSLATIONS SERVICE*/
+
+require_once __DIR__ . '/assets/php/translations.php'; // Carga CSV + sesión + detecta idioma
+require_once __DIR__ . '/assets/php/helpers.php';       // Función t()
+
+if (!empty($_GET['setLang'])) {
+    setLanguageCookie($_GET['setLang']);
+    // Redirigir a la misma página sin el parámetro para URLs limpias
+    header('Location: ' . strtok($_SERVER['REQUEST_URI'], '?'));
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,11 +68,11 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="." id="homemobilebutton" data-lang-key="home">Home</a></li>
-          <li><a href=".#contact" data-lang-key="contact">Contact</a></li>
-          <li><a href="project-all.html" data-lang-key="projects">Proyectos</a></li>
+          <li><a href="." id="homemobilebutton"><?= t("home") ?></a></li>
+          <li><a href=".#contact"><?= t("contact") ?></a></li>
+          <li><a href="project-all.php"><?= t("projects") ?></a></li>
 
-          <li class="dropdown"><a href="#"><span data-lang-key="language"></span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li class="dropdown"><a href="#"><span><?= t("language") ?></span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a id = "lang-es">Español</a></li>
 
@@ -169,7 +184,7 @@
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div id = "similar-projects-container" class="projects service-gallery row gy-3" data-aos="fade-up" data-aos-delay="300">
-          <h4 data-lang-key="similar-projects">Proyectos similares</h4>
+          <h4><?= t("similar-projects") ?></h4>
 
           <template id="related-project-template">
             <div class="col-md-4">
@@ -207,8 +222,7 @@
           <div>
             Alvaro Ruiz Portfolio (Beta)
           </div>
-          <div class="credits" data-lang-key="madewith">
-            Made with <a href="https://threejs.org/">Three.js</a> (and some <a href="https://getbootstrap.com/">Bootstrap</a>)
+          <div class="credits"><?= t("madewith") ?></a> (and some <a href="https://getbootstrap.com/">Bootstrap</a>)
           </div>
         </div>
 

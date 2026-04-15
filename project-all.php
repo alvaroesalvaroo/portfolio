@@ -1,3 +1,25 @@
+<?php /* TRANSLATIONS SERVICE*/
+
+require_once __DIR__ . '/assets/php/translations.php'; // Carga CSV + sesión + detecta idioma
+require_once __DIR__ . '/assets/php/helpers.php';       // Función t()
+
+// Si el usuario cambia de idioma vía GET (o POST desde un botón/form):
+// Ejemplo: miblog.com/index.php?setLang=es
+if (!empty($_GET['setLang'])) {
+    setLanguageCookie($_GET['setLang']);
+    // Redirigir a la misma página sin el parámetro para URLs limpias
+    header('Location: ' . strtok($_SERVER['REQUEST_URI'], '?'));
+    exit;
+}
+
+// echo TRANSLATIONS_CSV_PATH . '<br>';
+// echo file_exists(TRANSLATIONS_CSV_PATH) ? 'CSV encontrado' : 'CSV NO encontrado';
+// echo '</p><pre>';
+// print_r($_SESSION['translations']);
+// echo '</pre>';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,11 +66,11 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="." id="homemobilebutton" data-lang-key="home">Home</a></li>
-          <li><a href=".#contact" data-lang-key="contact">Contact</a></li>
-<!--          <li><a href="index.html" data-lang-key="projects">Proyectos</a></li>-->
+          <li><a href="." id="homemobilebutton"><?= t("home") ?></a></li>
+          <li><a href=".#contact"><?= t("contact") ?></a></li>
+<!--          <li><a href="index.php"><?= t("projects") ?></a></li>-->
 
-          <li class="dropdown"><a href="#"><span data-lang-key="language"></span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li class="dropdown"><a href="#"><span><?= t("language") ?></span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a id = "lang-es">Español</a></li>
 
@@ -69,11 +91,9 @@
     <!-- Project title -->
     <div class="project-page-title light-background">
       <div class="container">
-        <h1 id = "project-title-all" data-lang-key="all-title">All Projects</h1>
+        <h1 id = "project-title-all"><?= t("all-title") ?></h1>
 
-        <p id = "project-subtitle-all" data-lang-key="all-subtitle">
-          They're usually made fast but with love tasks of some nerdy Master's. Some of them are even fun.
-        </p>
+        <p id = "project-subtitle-all"><?= t("all-subtitle") ?></p>
       </div>
     </div><!-- End Page Title -->
 
@@ -85,7 +105,7 @@
           <div class="btn-dropdown"><i class="bi bi-chevron-down"></i>
 
           </div>
-          <p data-lang-key="filters">Filtros</p>
+          <p><?= t("filters") ?></p>
         </div>
 
         <div class="tags-container-dropdown"><a href="#"><span ></span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -133,8 +153,7 @@
           <div>
             Alvaro Ruiz Portfolio (Beta)
           </div>
-          <div class="credits" data-lang-key="madewith">
-            Made with <a href="https://threejs.org/">Three.js</a> (and some <a href="https://getbootstrap.com/">Bootstrap</a>)
+          <div class="credits"><?= t("madewith") ?></a> (and some <a href="https://getbootstrap.com/">Bootstrap</a>)
           </div>
         </div>
 
