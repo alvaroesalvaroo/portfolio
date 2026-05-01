@@ -3,14 +3,6 @@
 require_once __DIR__ . '/assets/php/translations.php'; // Carga CSV + sesión + detecta idioma
 require_once __DIR__ . '/assets/php/helpers.php';       // Función t()
 
-// Si el usuario cambia de idioma vía GET (o POST desde un botón/form):
-// Ejemplo: miblog.com/index.php?setLang=es
-if (!empty($_GET['setLang'])) {
-    setLanguageCookie($_GET['setLang']);
-    // Redirigir a la misma página sin el parámetro para URLs limpias
-    header('Location: ' . strtok($_SERVER['REQUEST_URI'], '?'));
-    exit;
-}
 
 // echo TRANSLATIONS_CSV_PATH . '<br>';
 // echo file_exists(TRANSLATIONS_CSV_PATH) ? 'CSV encontrado' : 'CSV NO encontrado';
@@ -29,7 +21,7 @@ if (!empty($_GET['setLang'])) {
   <title>Alvaro Ruiz | Videogame Programmer</title>
 
   <meta name="description" content="Portfolio of Alvaro Ruiz, programmer and game developer">
-  <meta name="keywords" content="Programmer, Game dev, 3D artist, Unity, Blender">
+  <meta name="keywords" content="Full stack dev, Programmer, Game dev, 3D artist, Unity, Blender">
 
   <!-- Favicons -->
   <link href="assets/img/icons/ar.svg" rel="icon">
