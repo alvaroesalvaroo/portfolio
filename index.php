@@ -2,14 +2,9 @@
 
 require_once __DIR__ . '/assets/php/translations.php'; // Carga CSV + sesión + detecta idioma
 require_once __DIR__ . '/assets/php/helpers.php';       // Función t()
+require_once __DIR__ . '/assets/php/projects.php';       // Función t()
 
-
-// echo TRANSLATIONS_CSV_PATH . '<br>';
-// echo file_exists(TRANSLATIONS_CSV_PATH) ? 'CSV encontrado' : 'CSV NO encontrado';
-// echo '</p><pre>';
-// print_r($_SESSION['translations']);
-// echo '</pre>';
-
+// var_dump($projects);
 ?>
 
 <!DOCTYPE html>
@@ -189,6 +184,8 @@ require_once __DIR__ . '/assets/php/helpers.php';       // Función t()
 
 
           <div class="swiper-wrapper" id ="projects-container">
+            <?php _allProjectsCarrousel("es") ?>
+
             <template id="project-index-template">
               <div class="swiper-slide">
                 <div class="project-index-item">
@@ -356,7 +353,7 @@ require_once __DIR__ . '/assets/php/helpers.php';       // Función t()
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
   <!--Translating service files. -->
-  <script src="assets/js/projects.js"></script>
+  <!--<script src="assets/js/projects.js"></script>-->
   <script src="assets/js/language-manager.js"></script>
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>

@@ -14,7 +14,9 @@ def parse_projects_js():
 
     # 1. Localizar el bloque entre 'const allProjects = [' y el '];' final
     # Usamos re.DOTALL para que el '.' capture saltos de línea
-    match = re.search(r'const allProjects\s*=\s*\[(.*?)\s*\]\s*;?', content, re.DOTALL)
+
+    # LA REGEX NO VA. AÑADIMOS "ÑÑÑ" al final del array
+    match = re.search(r'const allProjects\s*=\s*\[(.*?)\s*ÑÑÑ?', content, re.DOTALL)
     
     if not match:
         print("No se encontró la variable allProjects o el formato no es el esperado.")
@@ -35,13 +37,14 @@ def parse_projects_js():
         # Este patrón busca: nombre_campo: "valor" o nombre_campo: `valor` o nombre_campo: [lista]
         
         # Limpiamos comentarios si los hubiera
-        clean_obj = re.sub(r'//.*', '', obj_str)
-        
+        # clean_obj = re.sub(r'//.*', '', obj_str) # Esto fastidia urls (https://)
+
         # Extraer pares clave-valor
         # Captura la clave y el valor (ya sea entre "", '', `` o [])
-        pairs = re.findall(r'(\w+)\s*:\s*("(.*?)"|\'(.*?)\'|`(.*?)`|\[(.*?)\]|(\d+))', clean_obj, re.DOTALL)
+        pairs = re.findall(r'(\w+)\s*:\s*("(.*?)"|\'(.*?)\'|`(.*?)`|\[(.*?)\]|(\d+))', obj_str, re.DOTALL)
 
         for p in pairs:
+            print(p)
             key = p[0]
             # El valor puede estar en diferentes grupos de captura según el delimitador
             value = p[2] or p[3] or p[4] or p[5] or p[6]

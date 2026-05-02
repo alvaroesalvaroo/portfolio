@@ -1,0 +1,266 @@
+[
+    {
+        "key": "bxa",
+        "title": "Bar Xet Auto VI",
+        "subtitleES": "Un survival en Unity 3D con mecánicas muy diversas de conducción y combate",
+        "subtitleEN": "A survival game with driving and combat diverse mechanics in Unity 3D",
+        "subtitleCAT": "Un survival en Unity 3D amb mecàniques molt diverses de conducció i combat",
+        "descriptionES": "El juego combina ataques cuerpo a cuerpo, disparos, granadas y conducción en un entorno plagado de enemigos (personajes de Mortadelo y Filemón) que aparecen cada vez más rápido. \n        Cabe destacar el sistema de (no) apuntado con un arma, una solución interesante para sistemas de disparo sencillos",
+        "descriptionCAT": "El joc combina atacs cos a cos, trets, granades i conducció en un entorn plagat d'enemics (personatges de Mortadelo i Filemón) que apareixen progressivament més ràpid.\n        Cap destacar el sistema de (no) apuntat amb un arma, una solució interessant per sistemes senzills d'apuntat",
+        "descriptionEN": "The game combines melee attacks, throws, grenades, and driving in an environment plagued with enemies (characters from Mortadelo and Filemón) that appear progressively faster.\n        The (non-)aim system with a weapon is a notable feature, an interesting solution for simple shooting systems.",
+        "tags": [
+            "C#",
+            "Unity 3D"
+        ],
+        "repoLink": "https://gitlab.com/aruizgarcia14/pec3-un-juego-de-accion",
+        "windowsLink": "https://drive.google.com/drive/folders/1StYa06P6bNei5cgcGYwyURMpUS6NNvwT?usp=sharing",
+        "webLink": "https://play.unity.com/es/user/98453246-b7ce-49c5-ab6b-c4f3c5546cb9",
+        "numberOfImages": "3",
+        "relevance": 75
+    },
+    {
+        "key": "fps",
+        "title": "Barxetita Shooting",
+        "subtitleES": "Un shooter desarrollado en Unity HDRP",
+        "subtitleEN": "A shooter developed in Unity HDRP",
+        "subtitleCAT": "Un shooter desenvolupat a Unity HDRP",
+        "descriptionES": "Un shooter básico con 2 armas, escudo y sistema de munición, enemigos controlados por IA y máquina de estados,\n        en un entorno muy atractivo (pero exigente en cuanto a hardware).",
+        "descriptionCAT": "Un shooter bàsic amb 2 armes, escut i sistema de munició, enemics amb IA de màquina d'estats,\n        en un entorn molt atractiu (però exigent en maquinari).",
+        "descriptionEN": "A basic shooter with 2 weapons, shield and ammo system, state-machine enemies AI,\n        in a very good looking (but hardware-demanding) environment",
+        "tags": [
+            "C#",
+            "Unity 3D"
+        ],
+        "repoLink": "https://gitlab.com/aruizgarcia14/pec2-un-juego-de-disparos",
+        "windowsLink": "https://drive.google.com/drive/folders/1StYa06P6bNei5cgcGYwyURMpUS6NNvwT?usp=sharing",
+        "numberOfImages": "6",
+        "relevance": 70
+    },
+    {
+        "key": "ssp",
+        "title": "Super Standard Platformer",
+        "subtitleES": "Un plataformas en Unity 2D. Disponible en Android y WebGL",
+        "subtitleEN": "A 2D Unity platform. Available on Android and WebGL",
+        "subtitleCAT": "Un plataformes a Unity 2D. Disponible en Android i WebGL",
+        "descriptionES": "Pese a tener unas mecánicas genéricas, intenté darle personalidad con un boss final y me sirvió para aprender cómo es el proceso de subir una app a Google Play\n           (un cambio en las condiciones me dejó fuera del proceso, aunque estuvimos cerca).",
+        "descriptionCAT": "Tot i tenir unes mecàniques genèriques, vaig intentar donar-li personalitat amb un boss final i em va servir per aprendre com és el procés de pujar una app a Google Play\n           (un canvi en les condicions em va deixar fora del procés, encara que vam estar a prop).",
+        "descriptionEN": "A basic shooter with 2 weapons, shield and ammo system, state-machine enemies AI,\n        in a very good looking (but hardware-demanding) environment",
+        "tags": [
+            "C#",
+            "Unity 2D",
+            "Web"
+        ],
+        "numberOfImages": "3",
+        "gif": "ssp-menu.gif",
+        "repoLink": "https://gitlab.com/aruizgarcia14/pec2_platformergame_alvaroruiz",
+        "windowsLink": "https://drive.google.com/drive/folders/1lbniG5F2ZeoO-HrxS_lg2mOPlM_nEJCL?usp=sharing",
+        "webLink": "https://play.unity.com/es/user/98453246-b7ce-49c5-ab6b-c4f3c5546cb9",
+        "relevance": 40
+    },
+    {
+        "key": "racing",
+        "title": "Barxetita Racing",
+        "subtitleES": "Un juego de carreras, en el que competimos contra nuestra mejor marca.",
+        "subtitleEN": "A racing game where we compete against our own personal best.",
+        "subtitleCAT": "Un joc de curses on competim contra la nostra millor marca.",
+        "descriptionES": "Un ejercicio interesante para aprender herramientas claves de Unity como los Scriptable Objects, los Wheel Colliders, telas, shaders...\n             En él, implementamos un sistema de guardado de nuestras mejores vueltas. Competimos contra un ghost car que replica nuestra mejor marca. También experimentamos con los Terrain Assets de Unity.",
+        "descriptionEN": "An interesting exercise to learn key Unity tools such as Scriptable Objects, Wheel Colliders, cloths, and shaders.\n            In this project, we implemented a save system for our fastest laps, allowing us to compete against a ghost car that replicates our best time. We also experimented with Unity's Terrain Assets.",
+        "descriptionCAT": "Un exercici interessant per aprendre eines clau d'Unity com els Scriptable Objects, els Wheel Colliders, teles, shaders...\n            En ell, implementem un sistema de desat de les nostres millors voltes. Competim contra un ghost car que replica la nostra millor marca. També experimentem amb els Terrain Assets d'Unity.",
+        "tags": [
+            "C#",
+            "Unity 3D"
+        ],
+        "numberOfImages": "5",
+        "repoLink": "https://gitlab.com/aruizgarcia14/pec1-unjuegodecarreras",
+        "windowsLink": "https://drive.google.com/drive/folders/1StYa06P6bNei5cgcGYwyURMpUS6NNvwT?usp=sharing",
+        "relevance": 10
+    },
+    {
+        "key": "stickman",
+        "title": "Stickman Brawl",
+        "subtitleES": "Un juego de luchas estilo stickman, con diferentes armas y enemigos. Hecho en Unity 2D",
+        "subtitleEN": "A stickman fighting game with different weapons and enemies. Made in Unity 2D",
+        "subtitleCAT": "Un joc de lluites estilo stickman, amb diferents armes i enemics. Fet a Unity 2D",
+        "descriptionES": "Usa funcionalidades como animation layers, es completamente compatible con mando y tiene un selector de dificultad entre tres posibles niveles. \n            Es un juego sencillo inspirado en otros títulos como  One Finger Death Punch o Stick Fight: The Game. Pero estoy satisfecho con el acabado y (moderadamente) con la jugabilidad.",
+        "descriptionCAT": "Usa funcionalitats com animation layers, és completament compatible amb mando i té un selector de dificultat entre tres possibles nivells.\n            És un joc senzill inspirat en altres títols com One Finger Death Punch o Stick Fight: The Game. Però estic satisfet amb l'acabat i (moderadament) amb la jugabilitat.",
+        "descriptionEN": "It uses features like animation layers, is fully compatible with controllers, and has a difficulty selector with three possible levels.\n            It's a simple game inspired by other titles like One Finger Death Punch or Stick Fight: The Game. But I'm satisfied with the finish and (moderately) with the gameplay.",
+        "numberOfImages": "0",
+        "video": "stickman.mp4",
+        "tags": [
+            "C#",
+            "Unity 2D",
+            "Web"
+        ],
+        "repoLink": "https://gitlab.com/aruizgarcia14/stickman-brawl",
+        "windowsLink": "https://drive.google.com/drive/folders/1lbniG5F2ZeoO-HrxS_lg2mOPlM_nEJCL?usp=sharing",
+        "webLink": "https://play.unity.com/es/user/98453246-b7ce-49c5-ab6b-c4f3c5546cb9",
+        "relevance": 45
+    },
+    {
+        "key": "rapbattle",
+        "title": "Rap Battle Game",
+        "subtitleES": "Un test de mecánicas sobre eleccion de diálogos durante una batalla de rap, incluyendo sincronización con música.",
+        "subtitleEN": "A mechanics test for dialogue choices during a rap battle, featuring music synchronization.",
+        "subtitleCAT": "Un test de mecàniques sobre elecció de diàlegs durant una batalla de rap, incloent sincronització amb la música.",
+        "descriptionES": "Una idea en la que el reto consiste en elegir la mejor frase posible durante un patrón breve de espera. El beat musical marca el ritmo del gameloop en 4 fases: frase del rival, elegir respuesta, rapear la respuesta, escuchar la reacción del público. Cada respuesta posible tiene una puntuación asociada (+1, -1 o 0).\n        El mayor reto técnico es triggear eventos cuando la muestra de sonido alcanza un sample concreto. La implementación de audio de Unity para WebGL es una cosa.",
+        "descriptionCAT": "Una idea on el repte consisteix a triar la millor frase possible durant un patró breu d'espera. El beat musical marca el ritme del gameloop en 4 fases: frase del rival, triar resposta, rapejar la resposta, escoltar la reacció del públic. Cada resposta possible té una puntuació associada (+1, –1 o 0).\n        El repte tècnic més gran és triggear esdeveniments quan la mostra de so arriba a un sample concret. La implementació d'àudio d'Unity per a WebGL és una cosa.",
+        "descriptionEN": "An idea where the challenge is to choose the best possible phrase during a short holding pattern. The musical beat sets the rhythm of the gameloop in 4 phases: rival's phrase, choose an answer, rap the answer, listen to the audience's reaction. Each possible answer has an associated score (+1, -1 or 0).\n        The biggest technical challenge is triggering events when the sound sample reaches a specific sample. Unity's audio implementation for WebGL is one thing.",
+        "numberOfImages": "2",
+        "repoLink": "https://gitlab.com/aruizgarcia14/juego-de-aventuras-alvaro-ruiz",
+        "windowsLink": "https://drive.google.com/drive/folders/1lbniG5F2ZeoO-HrxS_lg2mOPlM_nEJCL?usp=sharing",
+        "relevance": 25,
+        "tags": [
+            "C#",
+            "Unity 2D"
+        ]
+    },
+    {
+        "key": "mariont",
+        "title": "Super Marion't",
+        "subtitleES": "Un juego en C++/Raylib, con físicas hechas desde cero",
+        "subtitleEN": "a C++/Raylib Platformer Game, with handmade physics",
+        "subtitleCAT": "Un joc a C++/Raylib, amb físiques fetes des de zero",
+        "descriptionEN": "I liked how code result was pretty boilerplate and organized. The project includes basic managers every engine need (Textures, Resources, Animation, Sound, TileMap)\n        and also as a basic Physics Engine, and a 2D Camera with parallax effect.",
+        "descriptionES": "Me gustó cómo el código final resultó ser bastante boilerplate y organizado. El proyecto incluye gestores básicos que cada motor necesita (Texturas, Recursos, Animación, Sonido, TileMap)\n        y también un motor de física básico, una cámara 2D con efecto de paralaje.",
+        "descriptionCAT": "Em va agradar com el codi va resultar molt boilerplate i organitzat. El projecte inclou gestors bàsics que cada motor necessita (Textures, Recursos, Animació, So, TileMap)\n        i també un motor físic bàsic, és a dir, una càmera 2D amb efecte de paral·laxi.",
+        "numberOfImages": "2",
+        "repoLink": "https://gitlab.com/aruizgarcia14/pgpec2-a-platformer-in-c-with-raylib",
+        "windowsLink": "https://gitlab.com/aruizgarcia14/pgpec2-a-platformer-in-c-with-raylib/-/tree/main/build/x64-Release?ref_type=heads",
+        "relevance": 50,
+        "tags": [
+            "C++",
+            "OpenGL"
+        ]
+    },
+    {
+        "key": "ia-motion",
+        "title": "Flocking and Formation Motion",
+        "subtitleES": "Simulación de comportamientos de grupo y formaciones dinámicas en Unity 3D",
+        "subtitleEN": "Flocking and formation motion group behaviors simulation in Unity 3D",
+        "subtitleCAT": "Simulació de comportaments de grup i formacions dinàmiques a Unity 3D",
+        "descriptionES": "Este proyecto implementa sistemas de movimiento de grupo basados en los algoritmos de Millington y Reynolds. \n        Por un lado, una formación en flecha (arrowhead) donde cada guardia mantiene su posición relativa respecto al siguiente. \n        Por otro, un sistema de 'boids' para un enjambre de abejas que utiliza componentes de cohesión, alineación y separación para lograr un movimiento orgánico.\n        Cabe destacar el uso de Árboles de Comportamiento (Behaviour Trees) para coordinar la lógica: el enjambre persigue a los guardias pero regresa al nido si se aleja demasiado.",
+        "descriptionEN": "This project implements group motion systems based on Millington and Reynolds algorithms. \n        It features an emergent arrowhead formation where guards maintain relative positions, and a 'boids' system for a bee swarm using cohesion, alignment, and separation. \n        A notable feature is the integration of Behaviour Trees to coordinate logic: the swarm pursues the guards but returns to its nest if it strays too far.",
+        "descriptionCAT": "Aquest projecte implementa sistemes de moviment de grup basats en els algoritmes de Millington i Reynolds. \n        D'una banda, una formació en fletxa (arrowhead) on cada guàrdia manté la seva posició relativa respecte del següent. \n        De l'altra, un sistema de boids per a un eixam d'abelles que utilitza components de cohesió, alineació i separació per aconseguir un moviment orgànic.\n        Cal destacar l'ús d'Arbres de Comportament (Behaviour Trees) per coordinar la lògica: l'eixam persegueix els guàrdies, però torna al niu si s'allunya massa.",
+        "tags": [
+            "C#",
+            ""
+        ],
+        "video": "flocking1.mp4",
+        "numberOfImages": "2",
+        "repoLink": "https://gitlab.com/aruizgarcia14/iapec2-formation-and-flocking-motion-colective-behaviours",
+        "relevance": 35
+    },
+    {
+        "key": "ia-ml",
+        "title": "Cooperative ML-Agents: Rob the Nest",
+        "subtitleES": "Entrenamiento de agentes inteligentes mediante aprendizaje por refuerzo cooperativo en Unity",
+        "subtitleEN": "Cooperative Reinforcement Learning for intelligent agents in Unity",
+        "subtitleCAT": "Entrenament d'agents intel·ligents mitjançant aprenentatge per reforç cooperatiu a Unity",
+        "descriptionES": "En este proyecto utilicé Unity ML-Agents para entrenar a un grupo de tres \"ladrones\" que deben cooperar para alcanzar un nido custodiado por una IA enemiga. \n        Lo más interesante fue el proceso de refinamiento de la función de recompensa; inicialmente, los agentes aprendieron a ser \"cobardes\" para evitar penalizaciones por muerte, lo que me obligó a ajustar los pesos y añadir recompensas por proximidad al objetivo.\n        La clave del éxito fue introducir una observación específica para cada agente (amIBeingAggroed), esto logró una victoria de más de un 90%.",
+        "descriptionEN": "In this project, I used Unity ML-Agents to train a group of three \"robbers\" to cooperate and reach a nest guarded by an AI bee. \n        The most interesting part was the reward function refinement; agents initially learned \"coward\" behaviors to avoid death penalties, leading me to implement proximity-based rewards. \n        The breakthrough came from adding a specific observation for each agent (amIBeingAggroed), resulting in a 90% win rate.",
+        "descriptionCAT": "En aquest projecte vaig utilitzar Unity ML-Agents per entrenar un grup de tres \"lladres\" que han de cooperar per assolir un niu custodiat per una IA enemiga. \n        El més interessant va ser el procés de refinament de la funció de recompensa; inicialment, els agents van aprendre a ser \"covards\" per evitar penalitzacions per mort, cosa que em va obligar a ajustar els pesos i afegir recompenses per proximitat a l'objectiu.\n        La clau de lèxit va ser introduir una observació específica a cada agent (amIBeingAggroed), això va aconseguir una victòria de més dun 90%.",
+        "tags": [
+            "C#",
+            "ML-Agents",
+            ""
+        ],
+        "video": "final-demo.mp4",
+        "numberOfImages": "1",
+        "repoLink": "https://gitlab.com/aruizgarcia14/iapec3-machine-learning-with-unity-ml-agents",
+        "relevance": 80
+    },
+    {
+        "key": "low-level-bricks",
+        "title": "Low-Level Bricks",
+        "subtitleES": "Arcade multiplayer de alto rendimiento desarrollado en C++ y OpenGL",
+        "subtitleEN": "High-performance multiplayer arcade game built with C++ and OpenGL",
+        "subtitleCAT": "Arcade multiplayer d'alt rendiment desenvolupat en C++ i OpenGL",
+        "descriptionES": "Versión extendida del clásico Breakout con soporte para multijugador local. Implementa un motor de renderizado propio (Shaders, Post-procesado) y un sistema de físicas basado en el tutorial de LearnOpenGL. Destaca el uso de herencia en el Game Controller para la lógica de dos jugadores y un motor de audio en SDL_mixer.",
+        "descriptionEN": "Extended Breakout-style arcade with local multiplayer support. Features a custom rendering engine (Shaders, Post-processing) and physics built on C++ and OpenGL. Key highlights include an inheritance-based architecture on the Game Controller for 2-player logic and an SDL_mixer audio engine.",
+        "descriptionCAT": "Versió estesa del clàssic Breakout amb suport per a multijugador local. Implementa un motor de renderització propi (Shaders, Post-processat) i un sistema de físiques basat en el tutorial de LearnOpenGL. Destaca l'ús d'herència en el Game Controller per a la lògica de dos jugadors i un motor d'àudio en SDL_mixer.",
+        "tags": [
+            "C++",
+            "OpenGL",
+            "SDL2",
+            "Multiplayer"
+        ],
+        "video": "LowLevelBricksDemo.mp4",
+        "numberOfImages": "4",
+        "repoLink": "https://gitlab.com/aruizgarcia14/pgpec3-a-game-in-c-with-opengl",
+        "windowsLink": "https://gitlab.com/aruizgarcia14/pgpec3-a-game-in-c-with-opengl/-/tree/main/build?ref_type=heads",
+        "relevance": 45
+    },
+    {
+        "key": "tanks",
+        "title": "Tanks! You're Welcome",
+        "subtitleES": "Un juego multijugador, tanto en local como online",
+        "subtitleEN": "A multiplayer game, both local and online",
+        "subtitleCAT": "Un joc multijugador, tant en local com online",
+        "descriptionES": "En este juego, bombardearemos a los tanques de nuestros amigos durante una serie de rondas. En local, dividiremos la pantalla y añadiremos un minimapa. En el modo online, usaremos la librería de Mirror y sincronización con leaderboards en Playfab.\n            El sistema de colisión de la cámara y el código son altamente reciclables.",
+        "descriptionEN": "In this game, we bomb our friends' tanks over a series of rounds. The local mode features split-screen and a minimap, while the online mode uses the Mirror library and leaderboard synchronization via Playfab. Both the camera collision system and the code are highly reusable.",
+        "descriptionCAT": "En aquest joc, bombardejarem els tancs dels nostres amics durant una sèrie de rondes. En local, dividirem la pantalla i afegirem un minimapa. En el mode online, utilitzarem la llibreria de Mirror i sincronització amb leaderboards a Playfab. El sistema de col·lisió de la càmera i el codi són altament reciclables.",
+        "tags": [
+            "C#",
+            "Unity 3D",
+            "Multiplayer"
+        ],
+        "gif": "CamCollisions.gif",
+        "numberOfImages": "2",
+        "repoLink": "https://gitlab.com/aruizgarcia14/jmpec1-alvaroruiz",
+        "repoLink2": "https://gitlab.com/aruizgarcia14/jm-practica-final",
+        "windowsLink": "https://drive.google.com/drive/folders/1rJ6Yp1zIPcwDtg_cJLMW28tB9vyyLLVh?usp=sharing",
+        "relevance": 55
+    },
+    {
+        "key": "ocalight",
+        "title": "Ocaligh",
+        "subtitleES": "El proyecto más sencillo, simple y moderadamente divertido que verás hoy.",
+        "subtitleEN": "The simplest and most moderately fun project you will see today.",
+        "subtitleCAT": "El projecte més senzill, simple i moderadament divertit que veuràs avui.",
+        "descriptionES": "Cuando jugamos al clásico juego de la Oca, no tomamos ninguna decisión. Esto hace posible que simplemente pulsando un botón, un programa calcule los resultados.\n        Por suerte, me tomé yo mismo la molestia en hacerlo. Disfruta, pero moderadamente.",
+        "descriptionEN": "When we play the classic Game of the Goose, we don't make any decisions. This makes it possible for a program to calculate the results with just the press of a button.\n        Luckily, I took the trouble to do it myself. Enjoy, but moderately.",
+        "descriptionCAT": "Quan juguem al clàssic joc de l'Oca, no prenem cap decisió. Això fa possible que, simplement prement un botó, un programa calculi els resultats.\n        Per sort, m'he pres la molèstia de fer-ho jo mateix. Gaudeix-ne, però moderadament.",
+        "tags": [
+            "Web",
+            "Multiplayer"
+        ],
+        "webLink": "https://ocalight.barxetitafest.es/?i=1",
+        "numberOfImages": "1"
+    },
+    {
+        "key": "this",
+        "title": "this.project",
+        "subtitleES": "Este portfolio ha sido hecho con Three.js y Bootstrap",
+        "subtitleEN": "This portfolio was built using Three.js and Bootstrap",
+        "subtitleCAT": "Aquest portfolio ha estat fet amb Three.js i Bootstrap",
+        "descriptionES": "Autoalojado en mi pequeña Raspberry. Un espacio personal (aún beta) en el que aprender renderizados 3D en web, y compartir y mostrar mis proyectos.",
+        "descriptionEN": "Self-hosted on my small Raspberry Pi. A (still beta) personal space to learn 3D web rendering and to share and showcase my projects.",
+        "descriptionCAT": "Autoallotjat en la meva petita Raspberry Pi. Un espai personal (encara en beta) on aprendre renderitzats 3D en web, i compartir i mostrar els meus projectes.",
+        "tags": [
+            "Web"
+        ],
+        "webLink": "index.php",
+        "repoLink": "https://github.com/alvaroesalvaroo/portfolio",
+        "numberOfImages": "1"
+    },
+    {
+        "key": "nebulosa",
+        "title": "Gravity Ballet",
+        "subtitleES": "Simulación de gravedad N-cuerpos y efectos visuales renderizados por CPU con SDL2",
+        "subtitleEN": "N-body gravity simulation and CPU-rendered visual effects",
+        "subtitleCAT": "Simulació de gravetat N-cossos i efectes visuals renderitzats per CPU amb SDL2",
+        "descriptionES": "Un experimento de física y gráficos \"low-level\" en C++. Implementa una coreografía gravitatoria donde las partículas generan una nebulosa dinámica. \n       El desafío principal fue optimizar el renderizado manual de píxeles y el uso de buffers precalculados para funciones de seno cardinal, evitando el uso de la GPU para el blending.",
+        "descriptionCAT": "Un experiment de física i gràfics \"low-level\" en C++. Implementa una coreografia gravitatòria on les partícules generen una nebulosa dinàmica. \n       El desfici principal va ser optimitzar el renderitzat manual de píxels i l'ús de buffers precalculats per a funcions de sinus cardinal, evitant l'ús de la GPU per al blending.",
+        "descriptionEN": "A low-level C++ physics and graphics experiment. It simulates a gravitational ballet where particles generate a dynamic nebula effect. \n        The main challenge was optimizing manual pixel-buffer rendering and using precomputed sine function buffers to achieve smooth visuals entirely on the CPU without hardware blending.",
+        "tags": [
+            "C++",
+            "SDL2"
+        ],
+        "numberOfImages": "2",
+        "video": "Nebulosa.mp4",
+        "repoLink": "https://gitlab.com/aruizgarcia14/evs-cpu-rendered-particle-nebulae-effect",
+        "windowsLink": "https://gitlab.com/aruizgarcia14/evs-cpu-rendered-particle-nebulae-effect/-/tree/master/build/x64-Boxed",
+        "webLink": "",
+        "relevance": 20
+    }
+]
