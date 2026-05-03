@@ -3,15 +3,14 @@
 
 define('PROJECTS_JSON_PATH', __DIR__ . '/../projects.json');
 
-// Alias para los projects
-$projects = &$_SESSION['projects'];
+
 
 //if (empty($_SESSION['projects'])) {
     $_SESSION['projects'] = _loadProjectsFromJSON(PROJECTS_JSON_PATH);
-
-    // TODO: considerar si reordenar el array de objects con atributo "key" en un map.
-    $allKeys = [];
 //}
+
+// Alias para los projects
+$sessionProjects = &$_SESSION['projects'];
 
 
 
@@ -66,26 +65,27 @@ function _projectCard($project, string $lang) {
     return;
 }
 
-function _singleProjectCard(string $key, string $lang) {
+function _sortProjectsByRelevanceWithRandomness(&$allProjects) {
 
-    $project = _getProjectByKey($key);
-    _projectCard($project, $lang);
-}
-
-function _allProjectsCarrousel(string $lang) {
-    foreach ($_SESSION['projects'] as $p) {
-        _projectCard($p, $lang);
-    }
-}
-
-function _getProjectByKey(string $key) {
-    foreach ($_SESSION['projects'] as $p) {
-        if ($p->key === $key) {
-            return $p;
+    foreach ($allProjects as $project) {
+        // sumamos entero aleatorio entre 0 y 30
+        if (isset($project->relevance)) {
+            $project->relevance += mt_rand(0, 30);
         }
     }
-    return null;
+
+    usort($allProjects, function($a, $b) {
+
+        $scoreA = $a->relevance ?? 0;
+        $scoreB = $b->relevance ?? 0;
+
+        // Orden descendente usando el operador nave espacial
+        return $scoreB <=> $scoreA;
+    });
 }
+
+
+
 
 function _loadProjectsFromJSON(string $jsonPath) {
 
@@ -96,15 +96,104 @@ function _loadProjectsFromJSON(string $jsonPath) {
 
     $fileContent =  file_get_contents($jsonPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
-
+    // All projects, key is just another filed of the object
     $allProjects = json_decode($fileContent, false);
 
+    _sortProjectsByRelevanceWithRandomness($allProjects);
+
+    $remappedProjects = [];
+
+
+
+    // All projects, key field is also the key of the arraymap
     foreach ($allProjects as $project) {
-        $allKeys[] = $project->key;
+        if (isset($project->key)) {
+            $remappedProjects[$project->key] = $project;
+        }
+    }
+    return $remappedProjects;
+
+}
+// PUBLIC methods
+
+// INDEX PAGE
+function showAllProjectsCarrousel() {
+    global $currentLanguage;
+    foreach ($_SESSION['projects'] as $p) {
+        _projectCard($p, $currentLanguage);
+    }
+}
+
+// Project details page
+function showTitle() {
+    $key = '';
+    if (isset($_GET['projectKey'])) {
+        $key = htmlspecialchars($_GET['projectKey']);
+    }
+    else {
+        $key = 'this';
     }
 
-    return $allProjects;
+    echo $_SESSION['projects'][$key]->title;
 
+}
+
+function showSubtitle() {
+    global $currentLanguage;
+    $key = '';
+    if (isset($_GET['projectKey'])) {
+        $key = htmlspecialchars($_GET['projectKey']);
+    }
+    else {
+        $key = 'this';
+    }
+
+    $subtitle = "";
+    if ($currentLanguage == "es") {
+        $subtitle = $_SESSION['projects'][$key]->subtitleES;
+    }
+    else if ($currentLanguage == "en") {
+        $subtitle = $_SESSION['projects'][$key]->subtitleEN;
+    }
+    else if ($currentLanguage == "cat") {
+        $subtitle = $_SESSION['projects'][$key]->subtitleCAT;
+    }
+
+    echo $subtitle;
+
+}
+function showDescription() {
+
+    global $currentLanguage;
+    $key = '';
+    if (isset($_GET['projectKey'])) {
+        $key = htmlspecialchars($_GET['projectKey']);
+    }
+    else {
+        $key = 'this';
+    }
+
+    $description = "";
+    if ($currentLanguage == "es") {
+        $description = $_SESSION['projects'][$key]->descriptionES;
+    }
+    else if ($currentLanguage == "en") {
+        $description = $_SESSION['projects'][$key]->descriptionEN;
+    }
+    else if ($currentLanguage == "cat") {
+        $description = $_SESSION['projects'][$key]->descriptionCAT;
+    }
+
+    echo $description;
+
+}
+
+
+function showProjectMediaCarrousel() {
+    echo 'this is the media caroousel';
+}
+
+function showTags() {
 }
 
 ?>

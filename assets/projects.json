@@ -225,7 +225,8 @@
             "Multiplayer"
         ],
         "webLink": "https://ocalight.barxetitafest.es/?i=1",
-        "numberOfImages": "1"
+        "numberOfImages": "1",
+        "relevance": -100
     },
     {
         "key": "this",
@@ -241,7 +242,8 @@
         ],
         "webLink": "index.php",
         "repoLink": "https://github.com/alvaroesalvaroo/portfolio",
-        "numberOfImages": "1"
+        "numberOfImages": "1",
+        "relevance": 0
     },
     {
         "key": "nebulosa",

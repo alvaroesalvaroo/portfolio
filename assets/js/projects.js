@@ -273,7 +273,7 @@ const allProjects = [
 
     {
         key: "ocalight",
-        title: "Ocaligh",
+        title: "Ocalight",
         subtitleES: "El proyecto más sencillo, simple y moderadamente divertido que verás hoy.",
         subtitleEN: "The simplest and most moderately fun project you will see today.",
         subtitleCAT: "El projecte més senzill, simple i moderadament divertit que veuràs avui.",

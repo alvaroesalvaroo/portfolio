@@ -4,7 +4,7 @@ require_once __DIR__ . '/assets/php/translations.php'; // Carga CSV + sesión + 
 require_once __DIR__ . '/assets/php/helpers.php';       // Función t()
 require_once __DIR__ . '/assets/php/projects.php';       // Función t()
 
-// var_dump($projects);
+// var_dump($sessionProjects);
 ?>
 
 <!DOCTYPE html>
@@ -184,7 +184,7 @@ require_once __DIR__ . '/assets/php/projects.php';       // Función t()
 
 
           <div class="swiper-wrapper" id ="projects-container">
-            <?php _allProjectsCarrousel("es") ?>
+            <?php showAllProjectsCarrousel() ?>
 
             <template id="project-index-template">
               <div class="swiper-slide">

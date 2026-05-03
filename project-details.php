@@ -3,13 +3,14 @@
 
 require_once __DIR__ . '/assets/php/translations.php'; // Carga CSV + sesión + detecta idioma
 require_once __DIR__ . '/assets/php/helpers.php';       // Función t()
-
-if (!empty($_GET['setLang'])) {
-    setLanguageCookie($_GET['setLang']);
-    // Redirigir a la misma página sin el parámetro para URLs limpias
-    header('Location: ' . strtok($_SERVER['REQUEST_URI'], '?'));
-    exit;
-}
+require_once __DIR__ . '/assets/php/projects.php';
+//
+// if (!empty($_GET['setLang'])) {
+//     setLanguageCookie($_GET['setLang']);
+//     // Redirigir a la misma página sin el parámetro para URLs limpias
+//     header('Location: ' . strtok($_SERVER['REQUEST_URI'], '?'));
+//     exit;
+// }
 
 ?>
 
@@ -93,10 +94,10 @@ if (!empty($_GET['setLang'])) {
     <!-- Project title -->
     <div class="project-page-title light-background">
       <div class="container">
-        <h1 id = "project-title">Project Title</h1>
+        <h1 id = "project-title"><?php showTitle() ?></h1>
 
         <p id = "project-subtitle">
-
+            <?php showSubtitle() ?>
         </p>
       </div>
     </div><!-- End Page Title -->
@@ -131,6 +132,7 @@ if (!empty($_GET['setLang'])) {
               }
             }
           </script>
+            <?php showProjectMediaCarrousel() ?>
           <div class="swiper-wrapper" id ="projects-images-container">
             <template id="project-details-template">
               <div class="swiper-slide">
@@ -163,7 +165,7 @@ if (!empty($_GET['setLang'])) {
         <div class="project-content d-flex flex-wrap align-items-center justify-content-center gap-4" >
 
           <div class="project-description-container col-md-4 flex-grow-1 border-end-md pe-md-5">
-            <p id = "project-description" class="service-intro">Descripcion proyecto bla bla blah</p>
+            <p id = "project-description" class="service-intro"><?php showDescription() ?>></p>
           </div>
 
           <div class = "links-container-detail">
@@ -255,8 +257,8 @@ if (!empty($_GET['setLang'])) {
   </script>
   <!-- My JS Files -->
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/projects.js"></script>
-  <script src="assets/js/language-manager.js"></script>
+  <!-- <script src="assets/js/projects.js"></script> -->
+  <!-- <script src="assets/js/language-manager.js"></script>-->
 
   <script type="module" src="assets/js/3dCssRender.js"></script>
   <script type="module" src="assets/js/3dLabSmallSetup.js"></script>
