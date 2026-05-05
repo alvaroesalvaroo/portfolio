@@ -179,7 +179,7 @@ require_once __DIR__ . '/assets/php/projects.php';
         <div class="project-content d-flex flex-wrap align-items-center justify-content-center gap-4" >
 
           <div class="project-description-container col-md-4 flex-grow-1 border-end-md pe-md-5">
-            <p id = "project-description" class="service-intro"><?php showDescription($key) ?>></p>
+            <p id = "project-description" class="service-intro"><?php showDescription($key) ?></p>
           </div>
 
           <div class = "links-container-detail">

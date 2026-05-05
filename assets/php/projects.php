@@ -5,9 +5,9 @@ define('PROJECTS_JSON_PATH', __DIR__ . '/../projects.json');
 
 
 
-//if (empty($_SESSION['projects'])) {
+if (empty($_SESSION['projects'])) {
     $_SESSION['projects'] = _loadProjectsFromJSON(PROJECTS_JSON_PATH);
-//}
+}
 
 // Alias para los projects
 $sessionProjects = &$_SESSION['projects'];
