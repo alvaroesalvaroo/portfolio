@@ -4,13 +4,6 @@
 require_once __DIR__ . '/assets/php/translations.php'; // Carga CSV + sesión + detecta idioma
 require_once __DIR__ . '/assets/php/helpers.php';       // Función t()
 require_once __DIR__ . '/assets/php/projects.php';
-//
-// if (!empty($_GET['setLang'])) {
-//     setLanguageCookie($_GET['setLang']);
-//     // Redirigir a la misma página sin el parámetro para URLs limpias
-//     header('Location: ' . strtok($_SERVER['REQUEST_URI'], '?'));
-//     exit;
-// }
 
 ?>
 

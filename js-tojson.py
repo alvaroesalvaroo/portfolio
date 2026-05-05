@@ -3,7 +3,7 @@ import json
 import os
 
 def parse_projects_js():
-    file_path = 'assets/js/projects.js'
+    file_path = 'assets/js/projects.js.backup'
     
     if not os.path.exists(file_path):
         print(f"Error: No se encuentra el archivo {file_path}")

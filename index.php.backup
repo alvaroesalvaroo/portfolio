@@ -367,8 +367,8 @@ if (!empty($_GET['setLang'])) {
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
   <!--Translating service files. -->
-  <script src="assets/js/projects.js"></script>
-  <script src="assets/js/language-manager.js"></script>
+  <script src="assets/js/projects.js.backup"></script>
+  <script src="assets/js/language-manager.js.backup"></script>
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 

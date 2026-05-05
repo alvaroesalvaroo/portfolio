@@ -198,6 +198,10 @@
     display: block;
 }
 
+.project-hidden {
+    display: none;
+}
+
 .project-index-item {
     /*Compatibility with html2canvas*/
     /*background: linear-gradient(135deg, var(--surface-color) 0%, rgba(128, 128, 128, 0.02) 100%);*/

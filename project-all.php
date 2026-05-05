@@ -2,21 +2,7 @@
 
 require_once __DIR__ . '/assets/php/translations.php'; // Carga CSV + sesión + detecta idioma
 require_once __DIR__ . '/assets/php/helpers.php';       // Función t()
-
-// Si el usuario cambia de idioma vía GET (o POST desde un botón/form):
-// Ejemplo: miblog.com/index.php?setLang=es
-if (!empty($_GET['setLang'])) {
-    setLanguageCookie($_GET['setLang']);
-    // Redirigir a la misma página sin el parámetro para URLs limpias
-    header('Location: ' . strtok($_SERVER['REQUEST_URI'], '?'));
-    exit;
-}
-
-// echo TRANSLATIONS_CSV_PATH . '<br>';
-// echo file_exists(TRANSLATIONS_CSV_PATH) ? 'CSV encontrado' : 'CSV NO encontrado';
-// echo '</p><pre>';
-// print_r($_SESSION['translations']);
-// echo '</pre>';
+require_once __DIR__ . '/assets/php/projects.php';
 
 ?>
 
@@ -108,7 +94,10 @@ if (!empty($_GET['setLang'])) {
           <p><?= t("filters") ?></p>
         </div>
 
-        <div class="tags-container-dropdown"><a href="#"><span ></span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+        <div class="tags-container-dropdown">
+<!--            <a href="#"><span ></span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>-->
+
+        <?php showAllTags(); ?>
         </div>
 
 
@@ -135,6 +124,17 @@ if (!empty($_GET['setLang'])) {
 
       <div id = "projects-all-container" class="service-gallery row gy-3" data-aos="fade-up" data-aos-delay="300">
 
+        <?php showAllProjectsPage(); ?>
+
+          <script>
+              // Pass data to js, asociando las keys de cada projecto con sus tags
+              const projectTags = <?= json_encode(
+                      array_map(
+                              fn($p) => $p->tags ?? [],
+                              (array)$_SESSION['projects']
+                      )
+              ) ?>;
+          </script>
       </div>
 
       </div>
@@ -184,8 +184,9 @@ if (!empty($_GET['setLang'])) {
 
 
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/projects.js"></script>
-  <script src="assets/js/language-manager.js"></script>
+<!--  <script src="assets/js/projects.js"></script>-->
+  <script src="assets/js/projects-helpers.js"></script>
+<!--  <script src="backups/language-manager.js.backup"></script>-->
 
 </body>
 

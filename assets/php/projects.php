@@ -16,7 +16,7 @@ $sessionProjects = &$_SESSION['projects'];
 // De momento, para la pagina de inicio
 
 
-function _showProjectCard($project, string $lang, bool $wrapInSwiper): void
+function _showProjectCard($project, string $lang, bool $showLinks): void
 {
     $title = $project->title;
     $subtitle = "";
@@ -50,37 +50,34 @@ function _showProjectCard($project, string $lang, bool $wrapInSwiper): void
 
     $card = "";
 
-    if ($wrapInSwiper) {
-        $card .= '<div class="swiper-slide">';
-    } else {
-        $card .= '<div class="col-md-4">';
-    }
-    $card .= '<div class="project-index-item" onclick="window.location.href=\'' . $cardLink . '\'">'; // Triples comillas por mezclar HTML, JS y PHP. Golaso
+    $card .= '<div class="project-index-item" data-project-key="'. $project->key .'" onclick="window.location.href=\'' . $cardLink . '\'">'; // Triples comillas por mezclar HTML, JS y PHP. Golaso
     $card .= '<h5 class="project-title">' .$title. '</h5>';
     $card .= '<img class ="img-fluid" src="'. $imgLink .'" alt="">';
     $card .= '<p class="service-description p-description">' . $subtitle . '</p>';
 
     $card .= '<div class="links-container">';
 
-    if (isset($project->repoLink)) {
+    if ($showLinks) {
+        // Github/Gitlab link
+        if (isset($project->repoLink)) {
+            $iconType = "bi bi-link-45deg";
+            if (str_contains(strtolower($project->repoLink), "gitlab")) $iconType = "bi bi-gitlab";
+            if (str_contains(strtolower($project->repoLink), "github")) $iconType = "bi bi-github";
 
-        $iconType = "bi bi-link-45deg";
-        if (str_contains(strtolower($project->repoLink), "gitlab")) $iconType = "bi bi-gitlab";
-        if (str_contains(strtolower($project->repoLink), "github")) $iconType = "bi bi-github";
-
-        $card .= _linkIconHTML($iconType, $project->repoLink);
-    }
-    if (isset($project->windowsLink)) {
-        $card .= _linkIconHTML("bi bi-windows", $project->windowsLink);
-    }
-    if (isset($project->webLink)) {
-        $card .= _linkIconHTML("bi bi-globe", $project->webLink);
+            $card .= _linkIconHTML($iconType, $project->repoLink);
+        }
+        // Windows link
+        if (isset($project->windowsLink)) {
+            $card .= _linkIconHTML("bi bi-windows", $project->windowsLink);
+        }
+        if (isset($project->webLink)) {
+            $card .= _linkIconHTML("bi bi-globe", $project->webLink);
+        }
     }
 
-        $card .= '</div> </div></div>';
-//    if ($wrapInSwiper) {
-//        $card .= '</div>';
-//    }
+
+    $card .= '</div> </div>';
+
     echo $card;
 }
 
@@ -144,14 +141,46 @@ function _loadProjectsFromJSON(string $jsonPath) : array {
     return $remappedProjects;
 
 }
-// PUBLIC methods
+// ------ PUBLIC (called from HTML) -------- //
 
 // INDEX PAGE
 function showAllProjectsCarrousel(): void
 {
     global $currentLanguage;
     foreach ($_SESSION['projects'] as $p) {
+        echo '<div class="swiper-slide">';
         _showProjectCard($p, $currentLanguage, true);
+        echo '</div>';
+    }
+}
+
+// All PROJECTS PAGE
+function showAllProjectsPage(): void
+{
+    global $currentLanguage;
+    foreach ($_SESSION['projects'] as $p) {
+        echo '<div class="col-md-4">';
+        _showProjectCard($p, $currentLanguage, true);
+        echo '</div>';
+    }
+}
+
+function showAllTags(): void {
+    $projects = $_SESSION['projects'] ?? [];
+
+    // Recopilar tags únicas
+    $allTags = [];
+    foreach ($projects as $project) {
+        foreach ($project->tags ?? [] as $tag) {
+            if (!in_array($tag, $allTags)) {
+                $allTags[] = $tag;
+            }
+        }
+    }
+
+    foreach ($allTags as $tag) {
+        $id = 'tag-' . htmlspecialchars($tag);
+        echo '<a href="#" class="btn tag-filter" id="' . $id . '">' . htmlspecialchars($tag) . '</a>';
     }
 }
 
@@ -200,7 +229,7 @@ function showDescription($key): void
 
 }
 
-// TODO: DEBUG THIS
+
 function showLinks($key) : void {
     $project = $_SESSION['projects'][$key];
 
@@ -219,9 +248,7 @@ function showLinks($key) : void {
         echo _linkIconHTML("bi bi-globe", $project->webLink);
     }
 
-
 }
-
 
 function showProjectMediaCarrousel($key): void
 {
@@ -309,11 +336,14 @@ function showRelatedProjects($key): void
     global $currentLanguage;
     foreach ($topThree as $scored) {
 
+        echo '<div class="col-md-4">';
         _showProjectCard($scored['project'], $currentLanguage, false);
-
+        echo '</div>';
 
     }
 }
+
+
 
 // handly debug
 // echo '<script>alert("A")</script>';

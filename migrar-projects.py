@@ -1,7 +1,7 @@
 import re
 import json
 
-with open('assets/js/projects.js', 'r', encoding='utf-8') as f:
+with open('assets/js/projects.js.backup', 'r', encoding='utf-8') as f:
     content = f.read()
 
 # Extraer el array entre el primer '[' y su cierre correspondiente
