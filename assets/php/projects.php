@@ -16,7 +16,7 @@ $sessionProjects = &$_SESSION['projects'];
 // De momento, para la pagina de inicio
 
 
-function _showProjectCard($project, string $lang): void
+function _showProjectCard($project, string $lang, bool $wrapInSwiper): void
 {
     $title = $project->title;
     $subtitle = "";
@@ -48,7 +48,13 @@ function _showProjectCard($project, string $lang): void
 
     $cardLink = "project-details.php?projectKey=" . $project->key;
 
-    $card = '<div class="swiper-slide">';
+    $card = "";
+
+    if ($wrapInSwiper) {
+        $card .= '<div class="swiper-slide">';
+    } else {
+        $card .= '<div class="col-md-4">';
+    }
     $card .= '<div class="project-index-item" onclick="window.location.href=\'' . $cardLink . '\'">'; // Triples comillas por mezclar HTML, JS y PHP. Golaso
     $card .= '<h5 class="project-title">' .$title. '</h5>';
     $card .= '<img class ="img-fluid" src="'. $imgLink .'" alt="">';
@@ -56,7 +62,6 @@ function _showProjectCard($project, string $lang): void
 
     $card .= '<div class="links-container">';
 
-    // TODO: considerar mas links, cambiar iconos.
     if (isset($project->repoLink)) {
 
         $iconType = "bi bi-link-45deg";
@@ -69,8 +74,10 @@ function _showProjectCard($project, string $lang): void
         $iconType = "bi bi-windows";
     }
 
-        $card .= '</div> </div> </div>';
-
+        $card .= '</div> </div></div>';
+//    if ($wrapInSwiper) {
+//        $card .= '</div>';
+//    }
     echo $card;
 }
 
@@ -141,7 +148,7 @@ function showAllProjectsCarrousel(): void
 {
     global $currentLanguage;
     foreach ($_SESSION['projects'] as $p) {
-        _showProjectCard($p, $currentLanguage);
+        _showProjectCard($p, $currentLanguage, true);
     }
 }
 
@@ -192,6 +199,8 @@ function showDescription($key): void
 
 function showLinks($key) : void {
     $project = $_SESSION['projects'][$key];
+
+    if (!isset($project->repoLink)) return;
 
     $iconType = "bi bi-link-45deg";
     if (str_contains(strtolower($project->repoLink), "gitlab")) $iconType = "bi bi-gitlab";
@@ -287,7 +296,7 @@ function showRelatedProjects($key): void
     global $currentLanguage;
     foreach ($topThree as $scored) {
 
-        _showProjectCard($scored['project'], $currentLanguage);
+        _showProjectCard($scored['project'], $currentLanguage, false);
 
 
     }

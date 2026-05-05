@@ -75,10 +75,10 @@ require_once __DIR__ . '/assets/php/projects.php';
 
           <li class="dropdown"><a href="#"><span><?= t("language") ?></span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a id = "lang-es">Español</a></li>
+                <li><a href="./assets/php/set_lang.php?lang=es" id = "lang-es">Español</a></li>
 
-              <li><a id = "lang-en">English</a></li>
-              <li><a id = "lang-cat">Català</a></li>
+                <li><a href="./assets/php/set_lang.php?lang=en" id = "lang-en">English</a></li>
+                <li><a href="./assets/php/set_lang.php?lang=cat" id = "lang-cat">Català</a></li>
 
             </ul>
           </li>
@@ -202,28 +202,28 @@ require_once __DIR__ . '/assets/php/projects.php';
         <div id = "similar-projects-container" class="projects service-gallery row gy-3" data-aos="fade-up" data-aos-delay="300">
           <h4><?= t("similar-projects") ?></h4>
 
-            <div class="col-md-4" id="project-index-template">
+
 
             <?php showRelatedProjects($key) ?>
 
-          <template id="related-project-template">
-              <div class="project-index-item">
-                <h5 class="project-title"> </h5>
-                <img class ="img-fluid" src="#" alt="">
+<!--          <template id="related-project-template">-->
+<!--              <div class="project-index-item">-->
+<!--                <h5 class="project-title"> </h5>-->
+<!--                <img class ="img-fluid" src="#" alt="">-->
+<!---->
+<!---->
+<!--                <p class="service-description p-description">Descripción corta/subtitulo del proyecto.</p>-->
+<!--                <div class="project-tags mt-3" style="font-size: 0.8rem; opacity: 0.7;">-->
+<!--                </div>-->
+<!--                <div class="links-container">-->
+<!--                  <a class="project-link" href="#" >-->
+<!--                    <i class="bi bi-gitlab"></i>-->
+<!--                  </a>-->
+<!--                </div>-->
+<!---->
+<!--              </div>-->
+<!--          </template>-->
 
-
-                <p class="service-description p-description">Descripción corta/subtitulo del proyecto.</p>
-                <div class="project-tags mt-3" style="font-size: 0.8rem; opacity: 0.7;">
-                </div>
-                <div class="links-container">
-                  <a class="project-link" href="#" >
-                    <i class="bi bi-gitlab"></i>
-                  </a>
-                </div>
-
-              </div>
-          </template>
-            </div>
 
         </div>
       </div>

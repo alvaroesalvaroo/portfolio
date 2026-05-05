@@ -72,10 +72,10 @@ if (!empty($_GET['setLang'])) {
 
           <li class="dropdown"><a href="#"><span><?= t("language") ?></span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a id = "lang-es">Español</a></li>
+                <li><a href="./assets/php/set_lang.php?lang=es" id = "lang-es">Español</a></li>
 
-              <li><a id = "lang-en">English</a></li>
-              <li><a id = "lang-cat">Català</a></li>
+                <li><a href="./assets/php/set_lang.php?lang=en" id = "lang-en">English</a></li>
+                <li><a href="./assets/php/set_lang.php?lang=cat" id = "lang-cat">Català</a></li>
 
             </ul>
           </li>
