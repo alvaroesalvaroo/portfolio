@@ -354,7 +354,8 @@ require_once __DIR__ . '/assets/php/projects.php';       // Función t()
 
   <!--Translating service files. -->
   <!--<script src="assets/js/projects.js"></script>-->
-  <script src="assets/js/language-manager.js"></script>
+  <script src="assets/js/projects-helpers.js"></script>
+<!--  <script src="assets/js/language-manager.js"></script>-->
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 

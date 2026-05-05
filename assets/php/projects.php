@@ -13,10 +13,11 @@ define('PROJECTS_JSON_PATH', __DIR__ . '/../projects.json');
 $sessionProjects = &$_SESSION['projects'];
 
 
-
-
 // De momento, para la pagina de inicio
-function _projectCard($project, string $lang) {
+
+
+function _showProjectCard($project, string $lang): void
+{
     $title = $project->title;
     $subtitle = "";
     if ($lang == "es") {
@@ -39,11 +40,16 @@ function _projectCard($project, string $lang) {
         $description = $project->descriptionCAT;
     }
 
-    // TODO: considerar gifs
     $imgLink = "assets/img/projects/" . $project->key . "/01.webp";
 
+    if (isset($project->gif) && isset($project->gifIsFirst) && $project->gifIsFirst) {
+        $imgLink = "assets/img/projects/" . $project->key . "/" . $project->gif;
+    }
+
+    $cardLink = "project-details.php?projectKey=" . $project->key;
+
     $card = '<div class="swiper-slide">';
-    $card .= '<div class="project-index-item">';
+    $card .= '<div class="project-index-item" onclick="window.location.href=\'' . $cardLink . '\'">'; // Triples comillas por mezclar HTML, JS y PHP. Golaso
     $card .= '<h5 class="project-title">' .$title. '</h5>';
     $card .= '<img class ="img-fluid" src="'. $imgLink .'" alt="">';
     $card .= '<p class="service-description p-description">' . $subtitle . '</p>';
@@ -52,17 +58,30 @@ function _projectCard($project, string $lang) {
 
     // TODO: considerar mas links, cambiar iconos.
     if (isset($project->repoLink)) {
-        $card .= '<a class="project-link" href="' . $project->repoLink . '" >';
-        $card .= '<i class="bi bi-gitlab"></i>';
-        $card .= '</a>';
+
+        $iconType = "bi bi-link-45deg";
+        if (str_contains(strtolower($project->repoLink), "gitlab")) $iconType = "bi bi-gitlab";
+        if (str_contains(strtolower($project->repoLink), "github")) $iconType = "bi bi-github";
+
+        $card .= _linkIconHTML($iconType, $project->repoLink);
+    }
+    if (isset($project->windowsLink)) {
+        $iconType = "bi bi-windows";
     }
 
-
-    $card .= '</div> </div> </div>';
+        $card .= '</div> </div> </div>';
 
     echo $card;
+}
 
-    return;
+
+function _linkIconHTML($iconType, $link): string
+{
+    $linkHtml = "";
+    $linkHtml .= '<a class="project-link" href="' . $link . '" target="_blank">';
+    $linkHtml .= '<i class="' . $iconType . '"></i>';
+    $linkHtml .= '</a>';
+    return $linkHtml;
 }
 
 function _sortProjectsByRelevanceWithRandomness(&$allProjects) {
@@ -87,11 +106,13 @@ function _sortProjectsByRelevanceWithRandomness(&$allProjects) {
 
 
 
-function _loadProjectsFromJSON(string $jsonPath) {
+function _loadProjectsFromJSON(string $jsonPath) : array {
+
+    $remappedProjects = [];
 
     if (!file_exists($jsonPath)) {
         error_log("Project csv not found: $jsonPath");
-        return $result;
+        return $remappedProjects;
     }
 
     $fileContent =  file_get_contents($jsonPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -101,7 +122,6 @@ function _loadProjectsFromJSON(string $jsonPath) {
 
     _sortProjectsByRelevanceWithRandomness($allProjects);
 
-    $remappedProjects = [];
 
 
 
@@ -117,36 +137,24 @@ function _loadProjectsFromJSON(string $jsonPath) {
 // PUBLIC methods
 
 // INDEX PAGE
-function showAllProjectsCarrousel() {
+function showAllProjectsCarrousel(): void
+{
     global $currentLanguage;
     foreach ($_SESSION['projects'] as $p) {
-        _projectCard($p, $currentLanguage);
+        _showProjectCard($p, $currentLanguage);
     }
 }
 
 // Project details page
-function showTitle() {
-    $key = '';
-    if (isset($_GET['projectKey'])) {
-        $key = htmlspecialchars($_GET['projectKey']);
-    }
-    else {
-        $key = 'this';
-    }
-
+function showTitle($key): void
+{
     echo $_SESSION['projects'][$key]->title;
-
 }
 
-function showSubtitle() {
+function showSubtitle($key): void
+{
     global $currentLanguage;
-    $key = '';
-    if (isset($_GET['projectKey'])) {
-        $key = htmlspecialchars($_GET['projectKey']);
-    }
-    else {
-        $key = 'this';
-    }
+
 
     $subtitle = "";
     if ($currentLanguage == "es") {
@@ -162,16 +170,10 @@ function showSubtitle() {
     echo $subtitle;
 
 }
-function showDescription() {
+function showDescription($key): void
+{
 
     global $currentLanguage;
-    $key = '';
-    if (isset($_GET['projectKey'])) {
-        $key = htmlspecialchars($_GET['projectKey']);
-    }
-    else {
-        $key = 'this';
-    }
 
     $description = "";
     if ($currentLanguage == "es") {
@@ -188,12 +190,112 @@ function showDescription() {
 
 }
 
+function showLinks($key) : void {
+    $project = $_SESSION['projects'][$key];
 
-function showProjectMediaCarrousel() {
-    echo 'this is the media caroousel';
+    $iconType = "bi bi-link-45deg";
+    if (str_contains(strtolower($project->repoLink), "gitlab")) $iconType = "bi bi-gitlab";
+    if (str_contains(strtolower($project->repoLink), "github")) $iconType = "bi bi-github";
+
+    echo _linkIconHTML($iconType, $project->repoLink);
 }
 
-function showTags() {
+
+function showProjectMediaCarrousel($key): void
+{
+
+    // Añadir imagenes, a no ser que...
+    if ($key == "this") return;
+
+    $project = $_SESSION['projects'][$key];
+
+    $numberOfImages = $project->numberOfImages ?? 0;
+
+    // Videos (van primero)
+    if (!empty($project->video)) {
+        $videos = is_array($project->video) ? $project->video : [$project->video];
+        foreach ($videos as $video) {
+            $src = "assets/img/projects/$key/$video";
+            echo '<div class="swiper-slide">';
+            echo '<video class="img-fluid" src="' . htmlspecialchars($src) . '" playsinline muted preload="auto"></video>';
+            echo '</div>';
+        }
+    }
+
+    // Imágenes numeradas
+    for ($i = 1; $i <= $numberOfImages; $i++) {
+        $filename = str_pad($i, 2, '0', STR_PAD_LEFT);
+        $src = "assets/img/projects/$key/{$filename}.webp";
+        echo '<div class="swiper-slide">';
+        echo   '<div class="project-details-item">';
+        echo     '<img class="img-fluid" src="' . htmlspecialchars($src) . '" alt="' . htmlspecialchars($key) . ' screenshot">';
+        echo   '</div>';
+        echo '</div>';
+    }
+
+    // Gif
+    if (!empty($project->gif)) {
+        $src = "assets/img/projects/$key/{$project->gif}";
+        echo '<div class="swiper-slide">';
+        echo   '<div class="project-details-item">';
+        echo     '<img class="img-fluid" src="' . htmlspecialchars($src) . '" alt="' . htmlspecialchars($key) . ' gif">';
+        echo   '</div>';
+        echo '</div>';
+    }
 }
+
+function showTags($key): void
+{
+    $project = $_SESSION['projects'][$key];
+    $tags = $project->tags ?? [];
+
+    foreach ($tags as $tag) {
+        $link = "project-all.php?filters=" . urlencode($tag);
+        echo '<a href="' . htmlspecialchars($link) . '" class="btn tag-button">' . htmlspecialchars($tag) . '</a>';
+    }
+}
+
+function showRelatedProjects($key): void
+{
+    $project = $_SESSION['projects'][$key];
+    $allProjects = $_SESSION['projects'];
+
+    // Puntuar candidatos
+    $scoredProjects = [];
+    foreach ($allProjects as $candidate) {
+        if ($candidate->key === $key) continue;
+
+        $score = $candidate->relevance ?? 0;
+
+        // +1000 por cada tag en común
+        $candidateTags = $candidate->tags ?? [];
+        $projectTags   = $project->tags   ?? [];
+        foreach ($candidateTags as $tag) {
+            if (in_array($tag, $projectTags)) {
+                $score += 1000;
+            }
+        }
+
+        $scoredProjects[] = ['project' => $candidate, 'score' => $score];
+    }
+
+    // Ordenar descendente y coger los 3 primeros
+    usort($scoredProjects, fn($a, $b) => $b['score'] <=> $a['score']);
+    $topThree = array_slice($scoredProjects, 0, 3);
+
+    // Renderizar — sin subtitle, igual que el JS ponía undefined
+    global $currentLanguage;
+    foreach ($topThree as $scored) {
+
+        _showProjectCard($scored['project'], $currentLanguage);
+
+
+    }
+}
+
+// handly debug
+// echo '<script>alert("A")</script>';
 
 ?>
+
+

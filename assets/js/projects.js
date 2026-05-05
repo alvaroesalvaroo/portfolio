@@ -289,7 +289,7 @@ const allProjects = [
         tags: ["Web", "Multiplayer"],
         webLink: "https://ocalight.barxetitafest.es/?i=1",
         numberOfImages: 1,
-        relevance: -100, // Siempre el último
+        relevance: -100,
     },
     {
         key: "this",
@@ -341,6 +341,7 @@ const allProjects = [
 
 ];
 
+// END-PROJECTS
 
 function addLinksToCard(project, linkContainer) {
     // const linkContainer = templateClone.querySelector(".links-container");

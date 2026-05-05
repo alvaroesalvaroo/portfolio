@@ -94,10 +94,22 @@ require_once __DIR__ . '/assets/php/projects.php';
     <!-- Project title -->
     <div class="project-page-title light-background">
       <div class="container">
-        <h1 id = "project-title"><?php showTitle() ?></h1>
+          <?php
+          function getProjectKey() {
+              if (isset($_GET['projectKey'])) {
+                  return htmlspecialchars($_GET['projectKey']);
+              }
+              else {
+                  return 'this'; // Fallback
+              }
+          }
+          $key = getProjectKey();
+
+          ?>
+        <h1 id = "project-title"><?php showTitle($key) ?></h1>
 
         <p id = "project-subtitle">
-            <?php showSubtitle() ?>
+            <?php showSubtitle($key) ?>
         </p>
       </div>
     </div><!-- End Page Title -->
@@ -132,9 +144,10 @@ require_once __DIR__ . '/assets/php/projects.php';
               }
             }
           </script>
-            <?php showProjectMediaCarrousel() ?>
           <div class="swiper-wrapper" id ="projects-images-container">
-            <template id="project-details-template">
+              <?php showProjectMediaCarrousel($key) ?>
+
+              <template id="project-details-template">
               <div class="swiper-slide">
                 <div class="project-details-item">
                   <img class ="img-fluid" src="#" alt="">
@@ -155,21 +168,22 @@ require_once __DIR__ . '/assets/php/projects.php';
         </div>
 <!--            </div>-->
         <div class = "tags-container">
+            <?php showTags($key) ?>
 
-          <a href="#" class="btn tag-button">Tag 1</a>
-          <a href="#" class="btn tag-button">Tag 2</a>
-          <a href="#" class="btn tag-button">Tag 3sssssssssssasd</a>
+<!--          <a href="#" class="btn tag-button">Tag 1</a>-->
+<!--          <a href="#" class="btn tag-button">Tag 2</a>-->
+<!--          <a href="#" class="btn tag-button">Tag 3sssssssssssasd</a>-->
 
         </div>
 
         <div class="project-content d-flex flex-wrap align-items-center justify-content-center gap-4" >
 
           <div class="project-description-container col-md-4 flex-grow-1 border-end-md pe-md-5">
-            <p id = "project-description" class="service-intro"><?php showDescription() ?>></p>
+            <p id = "project-description" class="service-intro"><?php showDescription($key) ?>></p>
           </div>
 
           <div class = "links-container-detail">
-            <a id = "project-link"  href="#"></a>
+            <?php showLinks($key) ?>
           </div>
         </div>
 
@@ -188,8 +202,11 @@ require_once __DIR__ . '/assets/php/projects.php';
         <div id = "similar-projects-container" class="projects service-gallery row gy-3" data-aos="fade-up" data-aos-delay="300">
           <h4><?= t("similar-projects") ?></h4>
 
+            <div class="col-md-4" id="project-index-template">
+
+            <?php showRelatedProjects($key) ?>
+
           <template id="related-project-template">
-            <div class="col-md-4">
               <div class="project-index-item">
                 <h5 class="project-title"> </h5>
                 <img class ="img-fluid" src="#" alt="">
@@ -205,8 +222,9 @@ require_once __DIR__ . '/assets/php/projects.php';
                 </div>
 
               </div>
-            </div>
           </template>
+            </div>
+
         </div>
       </div>
 
@@ -258,6 +276,7 @@ require_once __DIR__ . '/assets/php/projects.php';
   <!-- My JS Files -->
   <script src="assets/js/main.js"></script>
   <!-- <script src="assets/js/projects.js"></script> -->
+   <script src="assets/js/projects-helpers.js"></script>
   <!-- <script src="assets/js/language-manager.js"></script>-->
 
   <script type="module" src="assets/js/3dCssRender.js"></script>
