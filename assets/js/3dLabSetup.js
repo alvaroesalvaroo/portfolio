@@ -155,7 +155,12 @@ function resize () {
 let targetDistances = ["2", "2", "2", "2"];
 
 const buttonKeys = ["cambutton3D", "cambuttonWeb", "cambuttonPhysics", "cambuttonMusic"];
-const langKeys = ["3dartist-description", "fullstack-description", "physicist-description", "sound-description"];
+const langKeys = ["artist3d-description", "fullstack-description", "physicist-description", "sound-description", "fractal-warn"];
+const descriptionElements = {};
+for (const key of langKeys) {
+    descriptionElements[key] = document.querySelector("#" + key);
+}
+
 function setupButtons() {
     for (let i = 0; i < buttonKeys.length; i++) {
         let button = document.querySelector("#" + buttonKeys[i]);
@@ -171,22 +176,28 @@ function setupButtons() {
             changeDescription(i);
         })
     }
+    changeDescription(0);
 }
 
-const descriptionElement = document.querySelector("#skill-description");
 function changeDescription(index) {
-
-    descriptionElement.dataset.langKey = langKeys[index];
 
     // Fractal-check
     if (langKeys[index] === "fullstack-description") {
         if (window.fractalHasBeenDetectedAtSomeLevel) {
-            descriptionElement.dataset.langKey = "fractal-warn";
+            index = 4; // Fractal-warn
+        }
+    }
+    for (let i = 0; i < langKeys.length; i++) {
+
+        if (index === i) {
+            descriptionElements[langKeys[i]].classList.remove('project-hidden');
+        }
+        else {
+            descriptionElements[langKeys[i]].classList.add('project-hidden');
         }
     }
 
-    try { applyTranslations()}
-    catch(e) { console.warn("Translations could not be applied to skill descriptions")}
+
 }
 
 function showFractalBlocking() {

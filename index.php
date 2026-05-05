@@ -237,7 +237,7 @@ require_once __DIR__ . '/assets/php/projects.php';       // Función t()
               <a class="nav-link active show" data-bs-toggle="tab" id = "cambutton3D">
 
                 <div class="tab-content">
-                  <h5><?= t("3dartist") ?></h5>
+                  <h5><?= t("artist3d") ?></h5>
                 </div>
               </a>
             </li><!-- End tab nav item -->
@@ -247,7 +247,6 @@ require_once __DIR__ . '/assets/php/projects.php';       // Función t()
 
                 <div class="tab-content">
                   <h5><?= t("sound") ?></h5>
-                  <!--                  <span><?= t("soundmore") ?></span>-->
                 </div>
               </a>
             </li><!-- End tab nav item -->
@@ -260,13 +259,11 @@ require_once __DIR__ . '/assets/php/projects.php';       // Función t()
               </a>
             </li><!-- End tab nav item -->
 
-
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="tab" id = "cambuttonPhysics">
 
                 <div class="tab-content">
                   <h5><?= t("physicist") ?></h5>
-<!--                  <span><?= t("physicistmore") ?></span>-->
                 </div>
               </a>
             </li><!-- End tab nav item -->
@@ -286,7 +283,12 @@ require_once __DIR__ . '/assets/php/projects.php';       // Función t()
 
                 <div class="col-lg-5">
                   <div class="content-wrapper">
-                    <p id="skill-description"><?= t("3dartist-description") ?></p>
+                    <p id="artist3d-description" class="project-hidden"><?= t("artist3d-description") ?></p>
+                    <p id="fullstack-description" class="project-hidden"><?= t("fullstack-description") ?></p>
+                    <p id="physicist-description" class="project-hidden"><?= t("physicist-description") ?></p>
+                    <p id="sound-description" class="project-hidden"><?= t("sound-description") ?></p>
+                    <p id="fractal-warn" class="project-hidden"><?= t("fractal-warn") ?></p>
+
                   </div>
                 </div>
 
