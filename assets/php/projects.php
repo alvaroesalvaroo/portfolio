@@ -71,7 +71,10 @@ function _showProjectCard($project, string $lang, bool $wrapInSwiper): void
         $card .= _linkIconHTML($iconType, $project->repoLink);
     }
     if (isset($project->windowsLink)) {
-        $iconType = "bi bi-windows";
+        $card .= _linkIconHTML("bi bi-windows", $project->windowsLink);
+    }
+    if (isset($project->webLink)) {
+        $card .= _linkIconHTML("bi bi-globe", $project->webLink);
     }
 
         $card .= '</div> </div></div>';
@@ -197,16 +200,26 @@ function showDescription($key): void
 
 }
 
+// TODO: DEBUG THIS
 function showLinks($key) : void {
     $project = $_SESSION['projects'][$key];
 
-    if (!isset($project->repoLink)) return;
+    if (isset($project->repoLink)) {
+        $iconType = "bi bi-link-45deg";
+        if (str_contains(strtolower($project->repoLink), "gitlab")) $iconType = "bi bi-gitlab";
+        if (str_contains(strtolower($project->repoLink), "github")) $iconType = "bi bi-github";
 
-    $iconType = "bi bi-link-45deg";
-    if (str_contains(strtolower($project->repoLink), "gitlab")) $iconType = "bi bi-gitlab";
-    if (str_contains(strtolower($project->repoLink), "github")) $iconType = "bi bi-github";
+        echo _linkIconHTML($iconType, $project->repoLink);
+    }
 
-    echo _linkIconHTML($iconType, $project->repoLink);
+    if (isset($project->windowsLink)) {
+        echo _linkIconHTML("bi bi-windows", $project->windowsLink);
+    }
+    if (isset($project->webLink)) {
+        echo _linkIconHTML("bi bi-globe", $project->webLink);
+    }
+
+
 }
 
 
