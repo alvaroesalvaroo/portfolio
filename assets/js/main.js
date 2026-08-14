@@ -10,6 +10,7 @@
    */
 
   const emailSpan = document.getElementById("email-copy");
+  const emailText = document.getElementById("copied-text");
   let copyTimer = null;
   let email = null;
   let copyIcon = null;
@@ -23,14 +24,11 @@
     navigator.clipboard.writeText(email).then(() => {
       if (copyTimer) clearTimeout(copyTimer);
 
-      const language = localStorage.getItem('preferredLanguage');
-      if (!language || language === "en") {
-        emailSpan.innerText = "Copied!";
-      } else if (language === "es") {
-        emailSpan.innerText = "¡Copiado!";
-      } else if (language === "cat"){
-        emailSpan.innerText = "Copiat!";
+      const copiedText = emailText.innerText; // "Copiado" or "Copied"
+      if (copiedText && copiedText.trim() !== "") {
+        emailSpan.innerText = copiedText;
       }
+
       // emailSpan.style.color = "var(--accent-color)";
       if (copyIcon) {
         copyIcon.classList.replace('bi-clipboard', 'bi-clipboard-check');

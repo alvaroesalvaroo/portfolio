@@ -186,6 +186,7 @@ require_once __DIR__ . '/assets/php/projects.php';       // Función t()
           <div class="swiper-wrapper" id ="projects-container">
             <?php showAllProjectsCarrousel() ?>
 
+              <!--TODO: remove template !-->
             <template id="project-index-template">
               <div class="swiper-slide">
                 <div class="project-index-item">
@@ -307,6 +308,7 @@ require_once __DIR__ . '/assets/php/projects.php';       // Función t()
       <div class="container section-title" data-aos="fade-up">
         <h2><?= t("contact") ?></h2>
         <p><?= t("send-me-email") ?></p><span id="email-copy"> info@alvaro-ruiz.dev</span> <i class="bi bi-clipboard"></i>
+        <p id="copied-text" style="display:none"><?=  t("copied") ?></p>
       </div><!-- End Section Title -->
 
     </section><!-- /Contact Section -->
