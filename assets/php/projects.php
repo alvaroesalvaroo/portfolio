@@ -51,7 +51,7 @@ function _showProjectCard($project, string $lang, bool $showLinks): void
     $card = "";
 
     $card .= '<div class="project-index-item" data-project-key="'. $project->key .'" onclick="window.location.href=\'' . $cardLink . '\'">'; // Triples comillas por mezclar HTML, JS y PHP. Golaso
-    $card .= '<h5 class="project-title">' .$title. '</h5>';
+    $card .= '<h5 class="' . $project->key .'-title">' .$title. '</h5>';
     $card .= '<img class ="img-fluid" src="'. $imgLink .'" alt="">';
     $card .= '<p class="service-description p-description">' . $subtitle . '</p>';
 
@@ -187,7 +187,8 @@ function showAllTags(): void {
 // Project details page
 function showTitle($key): void
 {
-    echo $_SESSION['projects'][$key]->title;
+    $title = $_SESSION['projects'][$key]->title;
+    echo '<h1 id = "project-title" class="'.$key.'-title">' . $title . '</h1>';
 }
 
 function showSubtitle($key): void

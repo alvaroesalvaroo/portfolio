@@ -99,7 +99,7 @@ require_once __DIR__ . '/assets/php/projects.php';
           $key = getProjectKey();
 
           ?>
-        <h1 id = "project-title"><?php showTitle($key) ?></h1>
+        <?php showTitle($key) ?>
 
         <p id = "project-subtitle">
             <?php showSubtitle($key) ?>
